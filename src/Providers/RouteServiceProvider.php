@@ -1,4 +1,4 @@
-<?php namespace App\Providers;
+<?php namespace Kraken\Providers;
 
 use App, URL;
 use Illuminate\Routing\RouteServiceProvider as ServiceProvider;

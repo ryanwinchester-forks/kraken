@@ -13,7 +13,7 @@ return [
 	|
 	*/
 
-	'root' => 'App\\',
+	'root' => 'Kraken\\',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -26,14 +26,14 @@ return [
 	|
 	*/
 
-	'console' => 'App\Console\\',
+	'console' => 'Kraken\Console\\',
 
-	'controllers' => 'App\Http\Controllers\\',
+	'controllers' => 'Kraken\Http\Controllers\\',
 
-	'filters' => 'App\Http\Filters\\',
+	'filters' => 'Kraken\Http\Filters\\',
 
-	'providers' => 'App\Providers\\',
+	'providers' => 'Kraken\Providers\\',
 
-	'requests' => 'App\Http\Requests\\',
+	'requests' => 'Kraken\Http\Requests\\',
 
 ];

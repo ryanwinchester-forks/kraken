@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace Kraken;
 
 use Illuminate\Auth\UserTrait;
 use Illuminate\Database\Eloquent\Model;

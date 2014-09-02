@@ -1,4 +1,4 @@
-<?php namespace App\Http\Filters;
+<?php namespace Kraken\Http\Filters;
 
 use Session;
 use Illuminate\Http\Request;
