@@ -4,6 +4,10 @@
 	"keywords": ["crm", "kraken"],
 	"license": "MIT",
 	"type": "project",
+	"author": {
+		"name": "Ryan Winchester",
+		"email": "fungku@gmail.com"
+	},
 	"require": {
 		"laravel/framework": "4.3.*",
         	"laracasts/commander": "~1.0",
