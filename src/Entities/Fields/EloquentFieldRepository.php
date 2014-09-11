@@ -1,4 +1,4 @@
-<?php namespace Kraken\Contacts\Fields;
+<?php namespace Kraken\Entities\Fields;
 
 class EloquentFieldRepository implements FieldRepository {
 

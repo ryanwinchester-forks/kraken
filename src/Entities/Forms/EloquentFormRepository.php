@@ -1,7 +1,8 @@
 <?php namespace Kraken\Entities\Forms;
 
+use Kraken\Entities\BaseRepository;
 
-class EloquentFormRepository implements FormRepository {
+class EloquentFormRepository extends BaseRepository implements FormRepository {
 
     /**
      * Form
@@ -15,19 +16,11 @@ class EloquentFormRepository implements FormRepository {
      *
      * @param Form $form
      */
-    public function __construct(Form $form)
+    function __construct(Form $form)
     {
-        $this->form = $form;
-    }
+        parent::__construct('form');
 
-    /**
-     * Get all Forms
-     *
-     * @return Collection
-     */
-    public function all()
-    {
-        return $this->form->all();
+        $this->form = $form;
     }
 
     /**
@@ -36,68 +29,10 @@ class EloquentFormRepository implements FormRepository {
      * @param  int $id    Form id
      * @return Model
      */
-    public function find($id)
+    public function findBySlug($slug)
     {
-        // If is numeric, assume id
-        if (is_numeric($id))
-        {
-            return $this->form->find($id);
-        }
-
         // Otherwise, assume slug
-        return $this->form->where('slug', $id)->first();
-    }
-
-    /**
-     * Create form
-     *
-     * @param  [type] $input [description]
-     * @return Model
-     */
-    public function create($input)
-    {
-        return $this->form->create($input);
-    }
-
-    /**
-     * Update existing form
-     *
-     * @param  [type] $input [description]
-     * @return Model
-     */
-    public function update($input)
-    {
-        return $this->form->update($input);
-    }
-
-    /**
-     * Save form
-     *
-     * @return Model
-     */
-    public function save()
-    {
-        return $this->form->save();
-    }
-
-    /**
-     * Get related fields
-     *
-     * @return Collection
-     */
-    public function fields()
-    {
-        return $this->form->belongsToMany('Field');
-    }
-
-    /**
-     * Get related contacts
-     *
-     * @return Collection
-     */
-    public function contacts()
-    {
-        return $this->form->belongsToMany('Contact');
+        return $this->form->where('slug', $slug)->first();
     }
 
     /**

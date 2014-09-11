@@ -14,11 +14,11 @@ class CreateFieldsTable extends Migration {
 	{
 		Schema::create('fields', function(Blueprint $table) {
 			$table->increments('id');
+            $table->string('title')->nullable();
             $table->string('name'); //->primary()->unique()->index();
-            $table->string('title');
-            $table->string('type');
-            $table->boolean('can_delete');
-            $table->string('added_by');
+            $table->string('description')->nullable();
+            $table->string('type')->nullable();
+            $table->string('user_id'); // created_by
 			$table->timestamps();
 		});
 	}

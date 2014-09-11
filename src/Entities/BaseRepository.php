@@ -1,4 +1,4 @@
-<?php namespace Kraken\Repositories;
+<?php namespace Kraken\Entities;
 
 abstract class BaseRepository {
 
@@ -8,13 +8,24 @@ abstract class BaseRepository {
     protected $type;
 
     /**
+     * @param $type
+     */
+    function __construct($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
      * Get all.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function all()
     {
-        return $this->{$type}->all();
+        return call_user_func_array(
+            [$this->{$this->type}, 'all'],
+            []
+        );
     }
 
     /**
@@ -25,7 +36,10 @@ abstract class BaseRepository {
      */
     public function make(array $with = array())
     {
-        return $this->{$type}->with($with);
+        return call_user_func_array(
+            [$this->{$this->type}, 'with'],
+            [$with]
+        );
     }
 
     /**
@@ -45,7 +59,10 @@ abstract class BaseRepository {
      */
     public function latest()
     {
-        return $this->{$type}->latest();
+        return call_user_func_array(
+            [$this->{$this->type}, 'latest'],
+            []
+        );
     }
 
 } 

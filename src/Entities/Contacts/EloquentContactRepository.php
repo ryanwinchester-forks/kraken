@@ -1,15 +1,14 @@
-<?php namespace Kraken\Contacts;
+<?php namespace Kraken\Entities\Contacts;
 
-use Kraken\Core\Eventing\EventGenerator;
+use Kraken\Entities\BaseRepository;
+use Laracasts\Commander\Events\EventGenerator;
 
 class EloquentContactRepository extends BaseRepository implements ContactRepository {
 
     use EventGenerator;
 
     /**
-     * [$contact description]
-     *
-     * @var [type]
+     * @var Contact
      */
     protected $contact;
 
@@ -56,6 +55,15 @@ class EloquentContactRepository extends BaseRepository implements ContactReposit
         return $this->contact->where('email', $id)->with('fields')->first();
     }
 
+    /**
+     * @param $email
+     * @return mixed
+     */
+    public function findByEmail($email)
+    {
+        return $this->contact->where('email', $email)->first();
+    }
+
 
     /**
      * Create a new Contact
@@ -63,7 +71,7 @@ class EloquentContactRepository extends BaseRepository implements ContactReposit
      * @param  array $input
      * @return Contact
      */
-    public function create($input)
+    public function create(array $input)
     {
         return $this->contact->create($input);
     }
@@ -74,7 +82,7 @@ class EloquentContactRepository extends BaseRepository implements ContactReposit
      * @param  array $input
      * @return Contact
      */
-    public function add($input)
+    public function add(array $input)
     {
         $input['ip'] = isset($input['_ip']) ? ip2long( $input['_ip'] ) : null;
         $input['token'] = md5($input['email']);
@@ -92,7 +100,7 @@ class EloquentContactRepository extends BaseRepository implements ContactReposit
      * @param  array $input
      * @return Contact
      */
-    public function update($input)
+    public function update(array $input)
     {
         return $this->contact->update($input);
     }
@@ -107,29 +115,6 @@ class EloquentContactRepository extends BaseRepository implements ContactReposit
     {
         return $this->contact->save();
     }
-
-
-    /**
-     * Get the related Fields
-     *
-     * @return Contact
-     */
-    public function fields()
-    {
-        return $this->contact->fields();
-    }
-
-
-    /**
-     * Get the related forms
-     *
-     * @return Contact
-     */
-    public function forms()
-    {
-        return $this->contact->forms();
-    }
-
 
     /**
      * Adds a field to a contact.

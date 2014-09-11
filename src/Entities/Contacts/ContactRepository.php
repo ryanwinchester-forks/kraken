@@ -1,20 +1,18 @@
-<?php namespace Kraken\Contacts;
+<?php namespace Kraken\Entities\Contacts;
 
 interface ContactRepository {
 
     public function all();
 
-    public function find($id);
+    public function findById($id);
 
-    public function create($input);
+    public function findByEmail($email);
 
-    public function update($input);
+    public function create(array $input);
+
+    public function update(array $input);
 
     public function save();
-
-    public function fields();
-
-    public function forms();
 
     public function addField($field, $value);
 

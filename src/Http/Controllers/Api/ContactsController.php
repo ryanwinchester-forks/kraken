@@ -1,8 +1,22 @@
 <?php namespace Kraken\Http\Controllers\Api;
 
 use Kraken\Http\Controllers\BaseController;
+use Kraken\Entities\Contacts\ContactRepository;
 
 class ContactsController extends BaseController {
+
+    /**
+     * @var ContactRepository
+     */
+    protected $contact;
+
+    /**
+     * @param ContactRepository $contact
+     */
+    function __construct(ContactRepository $contact)
+    {
+        $this->contact = $contact;
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -11,7 +25,7 @@ class ContactsController extends BaseController {
 	 */
 	public function index()
 	{
-		return "Show contacts";
+		return $this->contact->all();
 	}
 
 	/**

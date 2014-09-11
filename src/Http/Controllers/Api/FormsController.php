@@ -1,8 +1,22 @@
 <?php namespace Kraken\Http\Controllers\Api;
 
+use Kraken\Entities\Forms\FormRepository;
 use Kraken\Http\Controllers\BaseController;
 
 class FormsController extends BaseController {
+
+    /**
+     * @var FormRepository
+     */
+    protected $form;
+
+    /**
+     * @param FormRepository $form
+     */
+    function __construct(FormRepository $form)
+    {
+        $this->form = $form;
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -11,7 +25,7 @@ class FormsController extends BaseController {
 	 */
 	public function index()
 	{
-		return "Show forms";
+		return $this->form->all();
 	}
 
 	/**

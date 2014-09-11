@@ -1,8 +1,22 @@
 <?php namespace Kraken\Http\Controllers\Api;
 
+use Kraken\Entities\Fields\FieldRepository;
 use Kraken\Http\Controllers\BaseController;
 
 class FieldsController extends BaseController {
+
+    /**
+     * @var FieldRepository
+     */
+    protected $field;
+
+    /**
+     * @param FieldRepository $field
+     */
+    function __construct(FieldRepository $field)
+    {
+        $this->field = $field;
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -11,7 +25,7 @@ class FieldsController extends BaseController {
 	 */
 	public function index()
 	{
-		return "Show fields";
+		return $this->field->all();
 	}
 
 	/**

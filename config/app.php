@@ -104,6 +104,7 @@ return [
 		'Kraken\Providers\FilterServiceProvider',
 		'Kraken\Providers\LogServiceProvider',
 		'Kraken\Providers\RouteServiceProvider',
+        'Kraken\Providers\RepositoryServiceProvider',
 
 		/*
 		 * Laravel Framework Service Providers...
@@ -129,8 +130,11 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 
-        // PACKAGES
+        /*
+		 * Package Service Providers
+		 */
         'Laracasts\Commander\CommanderServiceProvider',
+        'Way\Generators\GeneratorsServiceProvider',
 
 	],
 

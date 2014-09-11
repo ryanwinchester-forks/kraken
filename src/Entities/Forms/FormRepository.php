@@ -4,17 +4,12 @@ interface FormRepository {
 
     public function all();
 
-    public function find($id);
+    public function findById($id, array $with);
 
-    public function create($input);
-
-    public function update($input);
-
-    public function save();
-
-    public function fields();
-
-    public function contacts();
+    public function findBySlug($slug);
 
     public function submit(array $input);
+
+    public function latest();
+
 }
