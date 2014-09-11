@@ -1,16 +1,16 @@
-<?php namespace Kraken\Contacts;
+<?php namespace Kraken\Entities\Contacts;
 
-use Kraken\Core\Presenting\PresentableTrait;
-use Kraken\Core\Presenting\Contracts\PresentableInterface;
+use Kraken\Entities\BaseModel;
+use Laracasts\Presenter\PresentableTrait;
 
-class Contact extends \Eloquent implements PresentableInterface {
+class Contact extends BaseModel {
 
     use PresentableTrait;
 
     /**
      * @var string
      */
-    protected $presenter = 'Kraken\Contacts\ContactPresenter';
+    protected $presenter = 'Kraken\Entities\Contacts\ContactPresenter';
 
     /**
      * The rows that can't be assigned by mass-assignment.
@@ -19,28 +19,25 @@ class Contact extends \Eloquent implements PresentableInterface {
      */
     protected $guarded = array('id');
 
-
     /**
      * Get related fields with their value.
      *
-     * @return Collection
+     * @return
      */
     public function fields()
     {
-        return $this->belongsToMany('Kraken\Contacts\Fields\Field')->withPivot('value')->withTimeStamps();
+        return $this->belongsToMany('Kraken\Entities\Fields\Field')->withPivot('value')->withTimeStamps();
     }
-
 
     /**
      * Get related forms.
      *
-     * @return Collection
+     * @return
      */
     public function forms()
     {
-        return $this->belongsToMany('Kraken\Contacts\Forms\Form')->withTimeStamps();
+        return $this->belongsToMany('Kraken\Entities\Forms\Form')->withTimeStamps();
     }
-
 
     /**
      * Add a field and its value.
@@ -62,7 +59,6 @@ class Contact extends \Eloquent implements PresentableInterface {
         return $this;
     }
 
-
     /**
      * Add an associative array of fields and their values.
      * In the format $name => $value.
@@ -80,7 +76,6 @@ class Contact extends \Eloquent implements PresentableInterface {
         return $this;
     }
 
-
     /**
      * Delete a field.
      *
@@ -91,7 +86,6 @@ class Contact extends \Eloquent implements PresentableInterface {
     {
         return $this->fields()->detach($name);
     }
-
 
     /**
      * Check if this already has this field.

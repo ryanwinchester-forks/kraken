@@ -1,6 +1,6 @@
 <?php namespace Kraken\Contacts;
 
-use Kraken\Core\Presenting\Presenter;
+use Laracasts\Presenting\Presenter;
 
 class ContactPresenter extends Presenter {
 

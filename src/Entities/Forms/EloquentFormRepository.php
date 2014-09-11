@@ -1,35 +1,23 @@
-<?php namespace Kraken\Contacts\Forms;
+<?php namespace Kraken\Entities\Forms;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
-use Kraken\Core\Eventing\EventGenerator;
-use Kraken\Contacts\Fields\Field;
 
 class EloquentFormRepository implements FormRepository {
-
-    use EventGenerator;
 
     /**
      * Form
      *
-     * @var [type]
+     * @var Form
      */
     protected $form;
 
     /**
-     * @var Field
-     */
-    protected $field;
-
-    /**
      * Constructor
      *
-     * @param Form $form [description]
+     * @param Form $form
      */
-    public function __construct(Form $form, Field $field)
+    public function __construct(Form $form)
     {
         $this->form = $form;
-        $this->field = $field;
     }
 
     /**

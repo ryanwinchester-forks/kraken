@@ -1,4 +1,4 @@
-<?php namespace Kraken\Contacts;
+<?php namespace Kraken\Events;
 
 class ContactWasCreated {
 

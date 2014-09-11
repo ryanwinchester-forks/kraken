@@ -1,7 +1,10 @@
 <?php namespace Kraken\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Laracasts\Commander\CommanderTrait;
 
-class BaseController extends Controller {
+abstract class BaseController extends Controller {
+
+    use CommanderTrait;
 
 }

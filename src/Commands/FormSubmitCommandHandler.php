@@ -1,25 +1,21 @@
-<?php namespace Kraken\Contacts\Forms;
+<?php namespace Kraken\Commands;
 
-use Kraken\Core\Commanding\CommandHandler;
-use Kraken\Contacts\Forms\FormRepository;
-use Kraken\Core\Eventing\EventDispatcher;
+use Kraken\Entities\Forms\FormRepository;
+use Laracasts\Commander\CommandHandler;
+use Laracasts\Commander\Events\DispatchableTrait;
 
 class FormSubmitCommandHandler implements CommandHandler {
+
+    use DispatchableTrait;
 
     /**
      * @var FormRepository
      */
     protected $form;
 
-    /**
-     * @var EventDispatcher
-     */
-    protected $dispatcher;
-
-    function __construct(FormRepository $form, EventDispatcher $dispatcher)
+    function __construct(FormRepository $form)
     {
         $this->form = $form;
-        $this->dispatcher = $dispatcher;
     }
 
     /**

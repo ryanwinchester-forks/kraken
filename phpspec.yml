@@ -1,0 +1,6 @@
+suites:
+  kraken_suite:
+    namespace: Kraken
+    src_path: src
+    spec_path: tests/phpspec
+    spec_prefix: spec

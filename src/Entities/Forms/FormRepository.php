@@ -1,4 +1,4 @@
-<?php namespace Kraken\Contacts\Forms;
+<?php namespace Kraken\Entities\Forms;
 
 interface FormRepository {
 

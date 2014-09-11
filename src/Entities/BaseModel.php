@@ -1,4 +1,4 @@
-<?php namespace Kraken\Models;
+<?php namespace Kraken\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 

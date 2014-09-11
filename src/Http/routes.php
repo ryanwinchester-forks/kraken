@@ -1,6 +1,13 @@
 <?php
 
-Route::get('/', function()
+get('/', 'HomeController@home');
+
+// -------------------------------------------------------------------------------------
+// API
+// -------------------------------------------------------------------------------------
+Route::group(['prefix' => 'api', 'namespace' => 'Api'], function()
 {
-    return "Home page";
+    Route::resource('contacts', 'ContactsController');
+    Route::resource('fields', 'FieldsController');
+    Route::resource('forms', 'FormsController');
 });

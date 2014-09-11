@@ -129,6 +129,9 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 
+        // PACKAGES
+        'Laracasts\Commander\CommanderServiceProvider',
+
 	],
 
 	/*
