@@ -1,20 +1,16 @@
 <?php namespace Kraken\Entities;
 
-use Kraken\Contracts\Field;
+use Kraken\Contracts\Field as FieldInterface;
+use Kraken\Models\Field;
 
-class EloquentFieldRepository implements Field {
-
-    /**
-     * @var Field
-     */
-    protected $field;
+class EloquentFieldRepository implements FieldInterface {
 
     /**
      * @param Field $field
      */
     public function __construct(Field $field)
     {
-        $this->field = $field;
+        $this->model = $field;
     }
 
     /**
@@ -24,7 +20,7 @@ class EloquentFieldRepository implements Field {
      */
     public function all()
     {
-        return $this->field->all();
+        return $this->model->all();
     }
 
     /**
@@ -38,11 +34,11 @@ class EloquentFieldRepository implements Field {
         // If is numeric, assume id
         if (is_numeric($id))
         {
-            return $this->field->find($id);
+            return $this->model->find($id);
         }
 
         // Otherwise, assume slug
-        return $this->field->where('name', $id)->first();
+        return $this->model->where('name', $id)->first();
     }
 
     /**
@@ -53,7 +49,7 @@ class EloquentFieldRepository implements Field {
      */
     public function create($input)
     {
-        return $this->field->create($input);
+        return $this->model->create($input);
     }
 
     /**
@@ -64,7 +60,7 @@ class EloquentFieldRepository implements Field {
      */
     public function update($input)
     {
-        return $this->field->update($input);
+        return $this->model->update($input);
     }
 
     /**
@@ -74,7 +70,7 @@ class EloquentFieldRepository implements Field {
      */
     public function save()
     {
-        return $this->field->save();
+        return $this->model->save();
     }
 
     /**
@@ -84,7 +80,7 @@ class EloquentFieldRepository implements Field {
      */
     public function forms()
     {
-        return $this->field->contacts();
+        return $this->model->contacts();
     }
 
     /**
@@ -94,7 +90,7 @@ class EloquentFieldRepository implements Field {
      */
     public function contacts()
     {
-        return $this->field->contacts();
+        return $this->model->contacts();
     }
 
 }

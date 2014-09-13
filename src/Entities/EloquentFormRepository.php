@@ -1,15 +1,9 @@
 <?php namespace Kraken\Entities;
 
-use Kraken\Contracts\Form;
+use Kraken\Contracts\Form as FormInterface;
+use Kraken\Models\Form;
 
-class EloquentFormRepository extends BaseRepository implements Form {
-
-    /**
-     * Form
-     *
-     * @var Form
-     */
-    protected $form;
+class EloquentFormRepository extends BaseRepository implements FormInterface {
 
     /**
      * Constructor
@@ -20,7 +14,7 @@ class EloquentFormRepository extends BaseRepository implements Form {
     {
         parent::__construct('form');
 
-        $this->form = $form;
+        $this->model = $form;
     }
 
     /**
@@ -32,7 +26,7 @@ class EloquentFormRepository extends BaseRepository implements Form {
     public function findBySlug($slug)
     {
         // Otherwise, assume slug
-        return $this->form->where('slug', $slug)->first();
+        return $this->model->where('slug', $slug)->first();
     }
 
     /**
@@ -46,7 +40,7 @@ class EloquentFormRepository extends BaseRepository implements Form {
     {
         $field = $this->field->where('name', $field)->first();
 
-        return $this->form->fields()->sync($field->id, false);
+        return $this->model->fields()->sync($field->id, false);
 
         // TODO: Add pivot data $label and $is_required
     }
@@ -61,7 +55,7 @@ class EloquentFormRepository extends BaseRepository implements Form {
     {
         $field = $this->field->where('name', $field)->first();
 
-        return $this->form->fields()->detach($field->id);
+        return $this->model->fields()->detach($field->id);
     }
 
     public function submit(array $input)
