@@ -1,4 +1,7 @@
 /.idea
+/node_modules
+/resources/bower_components
+/tests/_output/*
 /vendor
 composer.phar
 composer.lock

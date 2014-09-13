@@ -2,6 +2,7 @@
 
 use Kraken\Contracts\Form as FormInterface;
 use Kraken\Models\Form;
+use Kraken\Events\FormWasAdded;
 
 class EloquentFormRepository extends BaseRepository implements FormInterface {
 
@@ -25,6 +26,15 @@ class EloquentFormRepository extends BaseRepository implements FormInterface {
     {
         // Otherwise, assume slug
         return $this->model->where('slug', $slug)->first();
+    }
+
+    public function add(array $formData)
+    {
+        $form = $this->model->create($formData);
+
+        $form->raise(new FormWasAdded($form->id, $form->name));
+
+        return $form;
     }
 
     /**

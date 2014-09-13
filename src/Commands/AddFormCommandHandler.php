@@ -1,6 +1,6 @@
 <?php namespace Kraken\Commands;
 
-use Kraken\Entities\Forms\FormRepository;
+use Kraken\Contracts\Form;
 use Laracasts\Commander\CommandHandler;
 use Laracasts\Commander\Events\DispatchableTrait;
 
@@ -9,14 +9,14 @@ class AddFormCommandHandler implements CommandHandler {
     use DispatchableTrait;
 
     /**
-     * @var FormRepository
+     * @var Form
      */
     protected $form;
 
     /**
-     * @param FormRepository $form
+     * @param Form $form
      */
-    function __construct(FormRepository $form)
+    function __construct(Form $form)
     {
         $this->form = $form;
     }
@@ -29,9 +29,15 @@ class AddFormCommandHandler implements CommandHandler {
      */
     public function handle($command)
     {
-        $form = $this->form->create($command->input);
+        $form = $this->form->add([
+            'name'        => $command->name,
+            'slug'        => $command->slug,
+            'description' => $command->description
+        ]);
 
-        $this->dispatcher->dispatch($form->releaseEvents());
+        $this->dispatchEventsFor($form);
+
+        return $form;
     }
 
 }
