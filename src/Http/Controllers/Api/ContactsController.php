@@ -1,19 +1,19 @@
 <?php namespace Kraken\Http\Controllers\Api;
 
 use Kraken\Http\Controllers\BaseController;
-use Kraken\Entities\Contacts\ContactRepository;
+use Kraken\Contracts\Contact;
 
 class ContactsController extends BaseController {
 
     /**
-     * @var ContactRepository
+     * @var Contact
      */
     protected $contact;
 
     /**
-     * @param ContactRepository $contact
+     * @param Contact $contact
      */
-    function __construct(ContactRepository $contact)
+    function __construct(Contact $contact)
     {
         $this->contact = $contact;
     }

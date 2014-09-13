@@ -1,6 +1,6 @@
-<?php namespace Kraken\Entities\Contacts;
+<?php namespace Kraken\Contracts;
 
-interface ContactRepository {
+interface Contact {
 
     public function all();
 

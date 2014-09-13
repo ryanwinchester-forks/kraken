@@ -1,6 +1,6 @@
-<?php namespace Kraken\Entities\Forms;
+<?php namespace Kraken\Contracts;
 
-interface FormRepository {
+interface Form {
 
     public function all();
 

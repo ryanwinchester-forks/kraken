@@ -1,6 +1,8 @@
-<?php namespace Kraken\Entities\Fields;
+<?php namespace Kraken\Entities;
 
-class EloquentFieldRepository implements FieldRepository {
+use Kraken\Contracts\Field;
+
+class EloquentFieldRepository implements Field {
 
     /**
      * @var Field

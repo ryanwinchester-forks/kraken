@@ -1,8 +1,6 @@
-<?php namespace Kraken\Entities\Fields;
+<?php namespace Kraken\Contracts;
 
-use Contact;
-
-interface FieldRepository {
+interface Field {
 
     public function all();
 

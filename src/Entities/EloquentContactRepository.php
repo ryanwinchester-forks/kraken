@@ -1,11 +1,9 @@
-<?php namespace Kraken\Entities\Contacts;
+<?php namespace Kraken\Entities;
 
-use Kraken\Entities\BaseRepository;
-use Laracasts\Commander\Events\EventGenerator;
+use Kraken\Contracts\Contact as ContactInterface;
+use Kraken\Models\Contact;
 
-class EloquentContactRepository extends BaseRepository implements ContactRepository {
-
-    use EventGenerator;
+class EloquentContactRepository extends BaseRepository implements ContactInterface {
 
     /**
      * @var Contact
@@ -24,6 +22,8 @@ class EloquentContactRepository extends BaseRepository implements ContactReposit
      */
     public function __construct(Contact $contact)
     {
+        parent::_construct('contact');
+
         $this->contact = $contact;
     }
 
@@ -38,32 +38,22 @@ class EloquentContactRepository extends BaseRepository implements ContactReposit
     }
 
     /**
-     * Find a contact by ID or email
-     *
-     * @param  int $id    Contact id
-     * @return Illuminate\Database\Eloquent\Model
-     */
-    public function find($id)
-    {
-        // If it is numeric assume that it is the id
-        if (is_numeric($id))
-        {
-            return $this->contact->with('fields')->find($id);
-        }
-
-        // Otherwise, assume that it is the email
-        return $this->contact->where('email', $id)->with('fields')->first();
-    }
-
-    /**
      * @param $email
      * @return mixed
      */
     public function findByEmail($email)
     {
-        return $this->contact->where('email', $email)->first();
+        return $this->contact->with('fields')->where('email', $email)->first();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function findById($id, array $with = null)
+    {
+        return $this->contact->with('fields')->find($id);
+    }
 
     /**
      * Create a new Contact
@@ -79,17 +69,17 @@ class EloquentContactRepository extends BaseRepository implements ContactReposit
     /**
      * Create a new Contact
      *
-     * @param  array $input
+     * @param  array $contactData
      * @return Contact
      */
-    public function add(array $input)
+    public function add(array $contactData)
     {
-        $input['ip'] = isset($input['_ip']) ? ip2long( $input['_ip'] ) : null;
-        $input['token'] = md5($input['email']);
+        $contactData['ip'] = isset($contactData['_ip']) ? ip2long( $contactData['_ip'] ) : null;
+        $contactData['token'] = md5($contactData['email']);
 
-        $contact = $this->contact->create($input);
+        $contact = $this->contact->create($contactData);
 
-        $this->raise(new ContactWasCreated($contact));
+        $contact->raise(new ContactWasCreated($contact));
 
         return $this;
     }
@@ -104,7 +94,6 @@ class EloquentContactRepository extends BaseRepository implements ContactReposit
     {
         return $this->contact->update($input);
     }
-
 
     /**
      * Save the Contact to the database
@@ -128,7 +117,6 @@ class EloquentContactRepository extends BaseRepository implements ContactReposit
         return $this->contact->addField($name, $value);
     }
 
-
     /**
      * Adds an array of fields to a contact.
      *
@@ -139,7 +127,6 @@ class EloquentContactRepository extends BaseRepository implements ContactReposit
     {
         return $this->contact->addFields($fields);
     }
-
 
     /**
      * Removes a field from a contact.

@@ -1,8 +1,8 @@
-<?php namespace Kraken\Entities\Forms;
+<?php namespace Kraken\Entities;
 
-use Kraken\Entities\BaseRepository;
+use Kraken\Contracts\Form;
 
-class EloquentFormRepository extends BaseRepository implements FormRepository {
+class EloquentFormRepository extends BaseRepository implements Form {
 
     /**
      * Form

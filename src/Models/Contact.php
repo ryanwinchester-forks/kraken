@@ -1,6 +1,5 @@
-<?php namespace Kraken\Entities\Contacts;
+<?php namespace Kraken\Models;
 
-use Kraken\Entities\BaseModel;
 use Laracasts\Presenter\PresentableTrait;
 
 class Contact extends BaseModel {
