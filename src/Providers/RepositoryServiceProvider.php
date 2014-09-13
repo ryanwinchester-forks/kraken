@@ -14,25 +14,25 @@ class RepositoryServiceProvider extends ServiceProvider {
         // CONTACTS
         $this->app->bind(
             'Kraken\Contracts\Contact',
-            'Kraken\Entities\EloquentContactRepository'
+            'Kraken\Repositories\EloquentContactRepository'
         );
 
         // FORMS
         $this->app->bind(
             'Kraken\Contracts\Form',
-            'Kraken\Entities\EloquentFormRepository'
+            'Kraken\Repositories\EloquentFormRepository'
         );
 
         // FIELDS
         $this->app->bind(
             'Kraken\Contracts\Field',
-            'Kraken\Entities\EloquentFieldRepository'
+            'Kraken\Repositories\EloquentFieldRepository'
         );
 
         // USERS
         $this->app->bind(
             'Kraken\Contracts\User',
-            'Kraken\Entities\EloquentUserRepository'
+            'Kraken\Repositories\EloquentUserRepository'
         );
 	}
 

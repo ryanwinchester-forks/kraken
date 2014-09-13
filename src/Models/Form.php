@@ -1,6 +1,4 @@
-<?php namespace Kraken\Entities\Forms;
-
-use Kraken\Entities\BaseModel;
+<?php namespace Kraken\Models;
 
 class Form extends BaseModel {
 

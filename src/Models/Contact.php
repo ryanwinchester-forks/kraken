@@ -21,7 +21,7 @@ class Contact extends BaseModel {
     /**
      * Get related fields with their value.
      *
-     * @return
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function fields()
     {
@@ -31,7 +31,7 @@ class Contact extends BaseModel {
     /**
      * Get related forms.
      *
-     * @return
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function forms()
     {

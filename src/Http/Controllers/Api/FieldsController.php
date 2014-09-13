@@ -1,19 +1,19 @@
 <?php namespace Kraken\Http\Controllers\Api;
 
-use Kraken\Entities\Fields\FieldRepository;
+use Kraken\Contracts\Field;
 use Kraken\Http\Controllers\BaseController;
 
 class FieldsController extends BaseController {
 
     /**
-     * @var FieldRepository
+     * @var Field
      */
     protected $field;
 
     /**
-     * @param FieldRepository $field
+     * @param Field $field
      */
-    function __construct(FieldRepository $field)
+    function __construct(Field $field)
     {
         $this->field = $field;
     }

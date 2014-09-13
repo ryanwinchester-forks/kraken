@@ -1,4 +1,4 @@
-<?php namespace Kraken\Entities;
+<?php namespace Kraken\Repositories;
 
 abstract class BaseRepository {
 

@@ -1,4 +1,4 @@
-<?php namespace Kraken;
+<?php namespace Kraken\Models;
 
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\Reminders\RemindableTrait;

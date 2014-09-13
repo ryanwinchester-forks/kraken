@@ -15,5 +15,5 @@ But nothing to see here. Go away unless you want to help!
 
 Currently under development. Don't bother trying to use this.
 
-I would very much appreciate any sort of feedback, code contributions, whatever.
+I would very much appreciate any sort of feedback, whatever.
 

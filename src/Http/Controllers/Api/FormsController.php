@@ -1,19 +1,19 @@
 <?php namespace Kraken\Http\Controllers\Api;
 
-use Kraken\Entities\Forms\FormRepository;
+use Kraken\Contracts\Form;
 use Kraken\Http\Controllers\BaseController;
 
 class FormsController extends BaseController {
 
     /**
-     * @var FormRepository
+     * @var Form
      */
     protected $form;
 
     /**
-     * @param FormRepository $form
+     * @param Form $form
      */
-    function __construct(FormRepository $form)
+    function __construct(Form $form)
     {
         $this->form = $form;
     }

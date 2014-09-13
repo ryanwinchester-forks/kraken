@@ -1,4 +1,4 @@
-<?php namespace Kraken\Entities;
+<?php namespace Kraken\Repositories;
 
 use Kraken\Contracts\Form as FormInterface;
 use Kraken\Models\Form;
@@ -12,8 +12,6 @@ class EloquentFormRepository extends BaseRepository implements FormInterface {
      */
     function __construct(Form $form)
     {
-        parent::__construct('form');
-
         $this->model = $form;
     }
 

@@ -1,4 +1,4 @@
-<?php namespace Kraken\Entities;
+<?php namespace Kraken\Repositories;
 
 use Kraken\Contracts\Contact as ContactInterface;
 use Kraken\Models\Contact;

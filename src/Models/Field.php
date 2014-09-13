@@ -1,6 +1,6 @@
-<?php namespace Kraken\Entities\Fields;
+<?php namespace Kraken\Models;
 
-class Field extends \Eloquent {
+class Field extends BaseModel {
 
     /**
      * The rows that can be assigned by mass-assignment.
