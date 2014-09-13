@@ -6,9 +6,9 @@
 
 ## Simple contact tracking and management
 
-The goal is to be simple, lightweight, and powerful.
+The goal is to be saweet.
 
-A simple core easily extendable with packages.
+But nothing to see here. Go away unless you want to help!
 
 
 ## Status
