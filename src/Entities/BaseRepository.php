@@ -3,30 +3,9 @@
 abstract class BaseRepository {
 
     /**
-     * @var string
+     * @var Model
      */
-    protected $type;
-
-    /**
-     * @param $type
-     */
-    function __construct($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * Get all.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public function all()
-    {
-        return call_user_func_array(
-            [$this->{$this->type}, 'all'],
-            []
-        );
-    }
+    protected $model;
 
     /**
      * Make a new instance of entity to query
@@ -36,10 +15,17 @@ abstract class BaseRepository {
      */
     public function make(array $with = array())
     {
-        return call_user_func_array(
-            [$this->{$this->type}, 'with'],
-            [$with]
-        );
+        return $this->model->with($with);
+    }
+
+    /**
+     * Get all.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function all()
+    {
+        return $this->model->all();
     }
 
     /**
@@ -59,10 +45,7 @@ abstract class BaseRepository {
      */
     public function latest()
     {
-        return call_user_func_array(
-            [$this->{$this->type}, 'latest'],
-            []
-        );
+        return $this->model->latest();
     }
 
 } 

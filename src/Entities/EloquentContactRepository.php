@@ -6,25 +6,13 @@ use Kraken\Models\Contact;
 class EloquentContactRepository extends BaseRepository implements ContactInterface {
 
     /**
-     * @var Contact
-     */
-    protected $contact;
-
-    /**
-     * @var string
-     */
-    protected $type = 'contact';
-
-    /**
      * Constructor
      *
      * @param Contact $contact [description]
      */
     public function __construct(Contact $contact)
     {
-        parent::_construct('contact');
-
-        $this->contact = $contact;
+        $this->model = $contact;
     }
 
     /**
@@ -34,7 +22,7 @@ class EloquentContactRepository extends BaseRepository implements ContactInterfa
      */
     public function all()
     {
-        return $this->contact->with('fields')->get();
+        return $this->model->with('fields')->get();
     }
 
     /**
@@ -43,7 +31,7 @@ class EloquentContactRepository extends BaseRepository implements ContactInterfa
      */
     public function findByEmail($email)
     {
-        return $this->contact->with('fields')->where('email', $email)->first();
+        return $this->model->with('fields')->where('email', $email)->first();
     }
 
     /**
@@ -52,7 +40,7 @@ class EloquentContactRepository extends BaseRepository implements ContactInterfa
      */
     public function findById($id, array $with = null)
     {
-        return $this->contact->with('fields')->find($id);
+        return $this->model->with('fields')->find($id);
     }
 
     /**
@@ -63,7 +51,7 @@ class EloquentContactRepository extends BaseRepository implements ContactInterfa
      */
     public function create(array $input)
     {
-        return $this->contact->create($input);
+        return $this->model->create($input);
     }
 
     /**
@@ -77,7 +65,7 @@ class EloquentContactRepository extends BaseRepository implements ContactInterfa
         $contactData['ip'] = isset($contactData['_ip']) ? ip2long( $contactData['_ip'] ) : null;
         $contactData['token'] = md5($contactData['email']);
 
-        $contact = $this->contact->create($contactData);
+        $contact = $this->model->create($contactData);
 
         $contact->raise(new ContactWasCreated($contact));
 
@@ -92,7 +80,7 @@ class EloquentContactRepository extends BaseRepository implements ContactInterfa
      */
     public function update(array $input)
     {
-        return $this->contact->update($input);
+        return $this->model->update($input);
     }
 
     /**
@@ -102,7 +90,7 @@ class EloquentContactRepository extends BaseRepository implements ContactInterfa
      */
     public function save()
     {
-        return $this->contact->save();
+        return $this->model->save();
     }
 
     /**
@@ -114,7 +102,7 @@ class EloquentContactRepository extends BaseRepository implements ContactInterfa
      */
     public function addField($name, $value)
     {
-        return $this->contact->addField($name, $value);
+        return $this->model->addField($name, $value);
     }
 
     /**
@@ -125,7 +113,7 @@ class EloquentContactRepository extends BaseRepository implements ContactInterfa
      */
     public function addFields($fields)
     {
-        return $this->contact->addFields($fields);
+        return $this->model->addFields($fields);
     }
 
     /**
@@ -136,7 +124,7 @@ class EloquentContactRepository extends BaseRepository implements ContactInterfa
      */
     public function deleteField($field)
     {
-        return $this->contact->deleteField($field);
+        return $this->model->deleteField($field);
     }
 
 }
