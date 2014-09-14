@@ -1,4 +1,5 @@
 /.idea
+/.sass-cache
 /node_modules
 /resources/bower_components
 /tests/_output/*
