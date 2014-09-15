@@ -2,7 +2,7 @@
 
 get('/', 'HomeController@home');
 
-get('forms', 'FormsController@index');
+Route::resource('forms', 'FormsController');
 
 // -------------------------------------------------------------------------------------
 // API

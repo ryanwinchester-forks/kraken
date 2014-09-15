@@ -1,6 +1,7 @@
 <?php namespace Kraken\Http\Controllers;
 
 use Kraken\Contracts\Form;
+use Input, Redirect;
 
 class FormsController extends BaseController {
 
@@ -24,7 +25,9 @@ class FormsController extends BaseController {
 	 */
 	public function index()
 	{
-		return view('forms.index');
+		$forms = $this->form->all();
+
+        return view('forms.index', compact('forms'));
 	}
 
 	/**
@@ -48,6 +51,13 @@ class FormsController extends BaseController {
 		return "Show form with id {$id}";
 	}
 
+    public function edit($id)
+    {
+        $form = $this->form->findById($id);
+
+        return view('forms.edit', compact('form'));
+    }
+
 	/**
 	 * Update the specified resource in storage.
 	 *
@@ -56,7 +66,11 @@ class FormsController extends BaseController {
 	 */
 	public function update($id)
 	{
-		return "Update form";
+		$form = $this->form->findById($id);
+
+        $form->update(Input::all());
+
+        return Redirect::route('forms.index');
 	}
 
 	/**

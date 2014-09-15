@@ -19,6 +19,8 @@ class CreateFormsTable extends Migration {
             $table->text('description');
             $table->integer('formable_id');
             $table->string('formable_type');
+            $table->integer('views');
+            $table->integer('submissions');
 			$table->timestamps();
 		});
 	}

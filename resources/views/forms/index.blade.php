@@ -2,23 +2,48 @@
 
 @section('content')
     <section class="container">
-        <p>Cool</p>
 
-        <div ng-controller="RatingDemoCtrl">
-            <h4>Default</h4>
-            <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
-            <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">@{{percent}}%</span>
+        <h1>Forms</h1>
 
-            <pre style="margin:15px 0;">Rate: <b>@{{rate}}</b> - Readonly is: <i>@{{isReadonly}}</i> - Hovering over: <b>@{{overStar || "none"}}</b></pre>
+        @if ($forms->count())
 
-            <button class="btn btn-sm btn-danger" ng-click="rate = 0" ng-disabled="isReadonly">Clear</button>
-            <button class="btn btn-sm btn-default" ng-click="isReadonly = ! isReadonly">Toggle Readonly</button>
-            <hr />
+            <input type="search" class="form-control" placeholder="filter" ng-model="search">
 
-            <h4>Custom icons</h4>
-            <div ng-init="x = 5"><rating ng-model="x" max="15" state-on="'glyphicon-ok-sign'" state-off="'glyphicon-ok-circle'"></rating> <b>(<i>Rate:</i> @{{x}})</b></div>
-            <div ng-init="y = 2"><rating ng-model="y" rating-states="ratingStates"></rating> <b>(<i>Rate:</i> @{{y}})</b></div>
-        </div>
+            <table class="forms-table table table-striped" ng-controller="formsTableController">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Views</th>
+                        <th>Submissions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="form in forms | filter:search">
+                        <td><a href="/forms/@{{ form.id }}/edit">@{{ form.name }}</a></td>
+                        <td>@{{ form.description }}</td>
+                        <td>@{{ form.views }}</td>
+                        <td>@{{ form.submissions }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        @else
+            <h3>There are no forms.</h3>
+        @endif
 
     </section>
+@stop
+
+@section('scripts')
+    <script defer="true">
+        angular.
+            module('Kraken', ['ui.bootstrap']).
+            controller("formsTableController", function formsTableController($scope, $http) {
+
+                $http.get('/api/forms').success(function(forms) {
+                    $scope.forms = forms;
+                });
+
+            });
+    </script>
 @stop
