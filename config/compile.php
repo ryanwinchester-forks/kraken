@@ -15,12 +15,12 @@ return [
 
 	'files' => [
 
-		__DIR__.'/../app/Providers/AppServiceProvider.php',
-		__DIR__.'/../app/Providers/ArtisanServiceProvider.php',
-		__DIR__.'/../app/Providers/ErrorServiceProvider.php',
-		__DIR__.'/../app/Providers/FilterServiceProvider.php',
-		__DIR__.'/../app/Providers/LogServiceProvider.php',
-		__DIR__.'/../app/Providers/RouteServiceProvider.php',
+		__DIR__.'/../src/Providers/AppServiceProvider.php',
+		__DIR__.'/../src/Providers/ArtisanServiceProvider.php',
+		__DIR__.'/../src/Providers/ErrorServiceProvider.php',
+		__DIR__.'/../src/Providers/FilterServiceProvider.php',
+		__DIR__.'/../src/Providers/LogServiceProvider.php',
+		__DIR__.'/../src/Providers/RouteServiceProvider.php',
 
 	],
 
