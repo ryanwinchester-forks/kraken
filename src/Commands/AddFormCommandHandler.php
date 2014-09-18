@@ -2,23 +2,27 @@
 
 use Kraken\Contracts\Form;
 use Laracasts\Commander\CommandHandler;
-use Laracasts\Commander\Events\DispatchableTrait;
+use Laracasts\Commander\Events\EventDispatcher;
 
 class AddFormCommandHandler implements CommandHandler {
-
-    use DispatchableTrait;
 
     /**
      * @var Form
      */
     protected $form;
+    /**
+     * @var EventDispatcher
+     */
+    private $dispatcher;
 
     /**
      * @param Form $form
+     * @param EventDispatcher $dispatcher
      */
-    function __construct(Form $form)
+    function __construct(Form $form, EventDispatcher $dispatcher)
     {
         $this->form = $form;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -35,7 +39,7 @@ class AddFormCommandHandler implements CommandHandler {
             'description' => $command->description
         ]);
 
-        $this->dispatchEventsFor($form);
+        $this->dispatcher->dispatch($form->releaseEvents());
 
         return $form;
     }

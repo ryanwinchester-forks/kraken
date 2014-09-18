@@ -8,7 +8,8 @@
 
     <form role="form" method="POST" action="{{ route('forms.update', $form->id) }}">
 
-        <input type="hidden" name="_method" value="PATCH">
+        <input type="hidden" name="_method" value="PUT">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
         <div class="form-group">
             <label for="name">Name:</label>
