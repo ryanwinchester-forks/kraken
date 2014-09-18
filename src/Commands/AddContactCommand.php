@@ -1,6 +1,6 @@
-<?php namespace Kraken\Contacts;
+<?php namespace Kraken\Commands;
 
-class ContactCreationCommand {
+class AddContactCommand {
 
     /**
      * @var array

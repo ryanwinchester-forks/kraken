@@ -1,9 +1,10 @@
-<?php namespace Kraken\Contacts;
+<?php namespace Kraken\Commands;
 
-use Kraken\Core\Commanding\CommandHandler;
-use Kraken\Core\Eventing\EventDispatcher;
+use Kraken\Contracts\Contact;
+use Laracasts\Commander\CommandHandler;
+use Laracasts\Commander\Events\EventDispatcher;
 
-class ContactCreationCommandHandler implements CommandHandler {
+class AddContactCommandHandler implements CommandHandler {
 
     /**
      * @var ContactRepository
@@ -16,10 +17,10 @@ class ContactCreationCommandHandler implements CommandHandler {
     protected $dispatcher;
 
     /**
-     * @param ContactRepository $contact
+     * @param Contact $contact
      * @param EventDispatcher   $dispatcher
      */
-    function __construct(ContactRepository $contact, EventDispatcher $dispatcher)
+    function __construct(Contact $contact, EventDispatcher $dispatcher)
     {
         $this->contact = $contact;
         $this->dispatcher = $dispatcher;
@@ -27,15 +28,15 @@ class ContactCreationCommandHandler implements CommandHandler {
 
     /**
      * @param $command
-     * @return Response
+     * @return Contact
      */
     public function handle($command)
     {
-        $input = $command->input;
-
-        $contact = $this->contact->add($input);
+        $contact = $this->contact->add($command->input);
 
         $this->dispatcher->dispatch($contact->releaseEvents());
+
+        return $contact;
     }
 
 } 
