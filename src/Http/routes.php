@@ -1,14 +1,19 @@
 <?php
 
-get('/', 'HomeController@home');
+// =====================================================================================
+// UI - front end routes n stuff
+// =====================================================================================
+
+Route::get('/', 'HomeController@home');
 
 Route::resource('contacts', 'ContactsController');
 Route::resource('fields',   'FieldsController');
 Route::resource('forms',    'FormsController');
 
-// -------------------------------------------------------------------------------------
-// API
-// -------------------------------------------------------------------------------------
+// =====================================================================================
+// API - ajax for the win
+// =====================================================================================
+
 Route::group(['prefix' => 'api', 'namespace' => 'Api'], function()
 {
     Route::resource('contacts', 'ContactsController', ['except' => ['create', 'edit']]);
