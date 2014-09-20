@@ -3,11 +3,11 @@
 @section('content')
     <section class="container">
 
-        <h1>Forms</h1>
+        <h1>Contacts</h1>
 
-        @if ($forms->count())
-            <div ng-controller="formsTableController">
-                <table class="forms-table table table-striped" tr-ng-grid items="forms"
+        @if ($contacts->count())
+            <div ng-controller="contactsTableController">
+                <table class="contacts-table table table-striped" tr-ng-grid items="contacts"
                     on-data-required="onServerSideItemsRequested(currentPage, pageItems, filterBy, filterByFields, orderBy, orderByReverse)"
                     filter-by="myFilter" page-items="pageItemsCount">
                     <thead>
@@ -19,7 +19,7 @@
                 </table>
             </div>
         @else
-            <h3>There are no forms.</h3>
+            <h3>There are no contacts.</h3>
         @endif
 
     </section>
@@ -31,7 +31,7 @@
 
         angular.
             module('Kraken', ['ui.bootstrap', 'trNgGrid']).
-            controller("formsTableController", function formsTableController($scope, $http) {
+            controller("contactsTableController", function contactsTableController($scope, $http) {
 
                 $scope.main = {
                     page: 1,
@@ -39,9 +39,9 @@
                 }
 
                 $scope.loadPage = function() {
-                     $http.get('/api/forms?limit=' + main.limit + '&page=' + main.page).success(function(forms) {
-                        $scope.forms = forms.data;
-                        $scope.pageItems = forms.per_page;
+                     $http.get('/api/contacts?limit=' + main.limit + '&page=' + main.page).success(function(contacts) {
+                        $scope.contacts = contacts.data;
+                        $scope.pageItems = contacts.per_page;
                         $scope.filterBy = $scope.search;
                      });
                 }

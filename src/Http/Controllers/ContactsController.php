@@ -1,21 +1,21 @@
 <?php namespace Kraken\Http\Controllers;
 
-use Kraken\Contracts\Form;
+use Kraken\Contracts\Contact;
 use Input, Redirect;
 
-class FormsController extends BaseController {
+class ContactsController extends BaseController {
 
     /**
-     * @var Form
+     * @var Contact
      */
-    protected $form;
+    protected $contact;
 
     /**
-     * @param Form $form
+     * @param Contact $contact
      */
-    function __construct(Form $form)
+    function __construct(Contact $contact)
     {
-        $this->form = $form;
+        $this->contact = $contact;
     }
 
 	/**
@@ -25,9 +25,9 @@ class FormsController extends BaseController {
 	 */
 	public function index()
 	{
-		$forms = $this->form->paginate(3);
+		$contacts = $this->contact->all();
 
-        return view('forms.index', compact('forms'));
+        return view('contacts.index', compact('contacts'));
 	}
 
 	/**
@@ -37,7 +37,7 @@ class FormsController extends BaseController {
 	 */
 	public function store()
 	{
-		return "Save form";
+		return "Save contact";
 	}
 
 	/**
@@ -48,14 +48,14 @@ class FormsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		return "Show form with id {$id}";
+		return "Show contact with id {$id}";
 	}
 
     public function edit($id)
     {
-        $form = $this->form->findById($id);
+        $contact = $this->contact->findById($id);
 
-        return view('forms.edit', compact('form'));
+        return view('contacts.edit', compact('contact'));
     }
 
 	/**
@@ -66,11 +66,11 @@ class FormsController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$form = $this->form->findById($id);
+		$contact = $this->contact->findById($id);
 
-        $form->update(Input::all());
+        $contact->update(Input::all());
 
-        return Redirect::route('forms.index');
+        return Redirect::route('contacts.index');
 	}
 
 	/**
@@ -81,7 +81,7 @@ class FormsController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		return view()
+		return view();
 	}
 
 }

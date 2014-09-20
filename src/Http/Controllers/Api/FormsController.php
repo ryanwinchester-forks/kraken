@@ -2,6 +2,7 @@
 
 use Kraken\Contracts\Form;
 use Kraken\Http\Controllers\BaseController;
+use Input;
 
 class FormsController extends BaseController {
 
@@ -25,7 +26,11 @@ class FormsController extends BaseController {
 	 */
 	public function index()
 	{
-		return $this->form->all();
+		$limit = Input::has('limit') ? Input::get('limit') : 20;
+
+        $forms = $this->form->paginate($limit);
+
+        return $forms;
 	}
 
 	/**

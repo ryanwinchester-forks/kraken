@@ -11,10 +11,11 @@
 
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/vendor/trNgGrid/trNgGrid.min.css" />
 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.1/angular.min.js"></script>
         <script src="/js/vendor/ui-bootstrap-tpls.min.js"></script>
-
+        <script src="/vendor/trNgGrid/trNgGrid.min.js"></script>
 
         @yield('styles')
 

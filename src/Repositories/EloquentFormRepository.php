@@ -71,4 +71,12 @@ class EloquentFormRepository extends BaseRepository implements FormInterface {
         return $input;
     }
 
+    public function paginate($limit = null)
+    {
+        if ( ! $limit || $limit > 20)
+            $limit = 20;
+
+        return $this->model->paginate($limit);
+    }
+
 }
