@@ -1,6 +1,6 @@
 <?php namespace Kraken\Commands;
 
-class AddContactCommand {
+class AddContactCommand extends BaseCommand {
 
     /**
      * @var array

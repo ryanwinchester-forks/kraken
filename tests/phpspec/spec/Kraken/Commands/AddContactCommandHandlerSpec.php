@@ -9,9 +9,9 @@ use Kraken\Repositories\EloquentContactRepository as Contact;
 
 class AddContactCommandHandlerSpec extends ObjectBehavior
 {
-    function let(Contact $contact, EventDispatcher $dispatcher)
+    function let(Contact $contact)
     {
-        $this->beConstructedWith($contact, $dispatcher);
+        $this->beConstructedWith($contact);
     }
 
     function it_is_initializable()
@@ -26,6 +26,8 @@ class AddContactCommandHandlerSpec extends ObjectBehavior
             'last_name' => "Name",
             'email' => "email@email.com"
         ])->shouldBeCalled()->willReturn($contactstub);
+
+        $this->setDispatcher($dispatcher);
 
         $contactstub->releaseEvents()->willReturn(array());
 

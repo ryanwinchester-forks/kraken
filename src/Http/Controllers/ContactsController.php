@@ -2,6 +2,7 @@
 
 use Kraken\Contracts\Contact;
 use Input, Redirect;
+use Kraken\Http\Requests\AddContactRequest;
 
 class ContactsController extends BaseController {
 
@@ -30,14 +31,24 @@ class ContactsController extends BaseController {
         return view('contacts.index', compact('contacts'));
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
+    /**
+     * Store a newly created contact in storage.
+     *
+     * @param  AddContactRequest $request
+     * @return Response
+     */
+	public function store(AddContactRequest $request)
 	{
-		return "Save contact";
+		try
+        {
+            $response = $this->execute($request->toCommand());
+
+            return Redirect::route('contacts.index')->with($response->status(), $response->message());
+        }
+        catch (CommandHandlerException $e)
+        {
+            return Redirect::back()->withErrors($e);
+        }
 	}
 
 	/**

@@ -2,9 +2,11 @@
 
 use Kraken\Contracts\Contact;
 use Laracasts\Commander\CommandHandler;
-use Laracasts\Commander\Events\EventDispatcher;
+use Laracasts\Commander\Events\DispatchableTrait;
 
-class AddContactCommandHandler implements CommandHandler {
+class AddContactCommandHandler extends BaseCommandHandler implements CommandHandler {
+
+    use DispatchableTrait;
 
     /**
      * @var ContactRepository
@@ -12,18 +14,17 @@ class AddContactCommandHandler implements CommandHandler {
     protected $contact;
 
     /**
-     * @var EventDispatcher
+     * @var CommandResponse
      */
-    protected $dispatcher;
+    private $response;
 
     /**
      * @param Contact $contact
-     * @param EventDispatcher   $dispatcher
      */
-    function __construct(Contact $contact, EventDispatcher $dispatcher)
+    function __construct(Contact $contact, CommandResponse $response)
     {
         $this->contact = $contact;
-        $this->dispatcher = $dispatcher;
+        $this->response = $response;
     }
 
     /**
@@ -34,9 +35,9 @@ class AddContactCommandHandler implements CommandHandler {
     {
         $contact = $this->contact->add($command->input);
 
-        $this->dispatcher->dispatch($contact->releaseEvents());
+        $this->dispatchEventsFor($contact);
 
-        return $contact;
+        return $this->response->success($contact->email .' added.');
     }
 
 } 
