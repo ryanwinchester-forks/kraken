@@ -19,17 +19,17 @@ class ContactsController extends BaseController {
         $this->contact = $contact;
     }
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$contacts = $this->contact->all();
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $contacts = $this->contact->all();
 
         return view('contacts.index', compact('contacts'));
-	}
+    }
 
     /**
      * Store a newly created contact in storage.
@@ -37,9 +37,9 @@ class ContactsController extends BaseController {
      * @param  AddContactRequest $request
      * @return Response
      */
-	public function store(AddContactRequest $request)
-	{
-		try
+    public function store(AddContactRequest $request)
+    {
+        try
         {
             $response = $this->execute($request->toCommand());
 
@@ -49,18 +49,18 @@ class ContactsController extends BaseController {
         {
             return Redirect::back()->withErrors($e);
         }
-	}
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		return "Show contact with id {$id}";
-	}
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        return "Show contact with id {$id}";
+    }
 
     public function edit($id)
     {
@@ -69,30 +69,30 @@ class ContactsController extends BaseController {
         return view('contacts.edit', compact('contact'));
     }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$contact = $this->contact->findById($id);
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        $contact = $this->contact->findById($id);
 
         $contact->update(Input::all());
 
         return Redirect::route('contacts.index');
-	}
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		return view();
-	}
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        return view();
+    }
 
 }
