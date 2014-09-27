@@ -4,6 +4,7 @@
 /resources/bower_components
 /tests/_output/*
 /vendor
+/workbench
 composer.phar
 .env.*
 .DS_Store

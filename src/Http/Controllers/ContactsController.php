@@ -39,16 +39,15 @@ class ContactsController extends BaseController {
      */
     public function store(AddContactRequest $request)
     {
-        try
-        {
-            $response = $this->execute($request->toCommand());
+        $response = $this->execute($request->toCommand());
 
+        if ($response->status() == "success")
+        {
             return Redirect::route('contacts.index')->with($response->status(), $response->message());
         }
-        catch (CommandHandlerException $e)
-        {
-            return Redirect::back()->withErrors($e);
-        }
+
+        return Redirect::back()->withInput()->with($response->status(), $response->message());
+
     }
 
     /**
