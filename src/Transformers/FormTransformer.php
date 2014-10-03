@@ -26,7 +26,7 @@ class FormTransformer extends TransformerAbstract {
     {
         return [
             'id'    => (int) $form->id,
-            'email' => $form->email
+            'name' => $form->name
         ];
     }
 
