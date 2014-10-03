@@ -8,6 +8,7 @@ class ApiServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		API::transform('Kraken\Models\Contact', 'Kraken\Transformers\ContactTransformer');
+		API::transform('Kraken\Models\Form', 'Kraken\Transformers\FormTransformer');
 	}
 
 	/**
