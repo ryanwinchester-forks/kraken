@@ -5,6 +5,11 @@ use API;
 
 class ApiServiceProvider extends ServiceProvider {
 
+	public function boot()
+	{
+		API::transform('Kraken\Models\Contact', 'Kraken\Transformers\ContactTransformer');
+	}
+
 	/**
 	 * Register the service provider.
 	 *
@@ -12,7 +17,7 @@ class ApiServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-        API::transform('Kraken\Models\Contact', 'Kraken\Transformers\ContactTransformer');
+        // NOTHIN
 	}
 
 }
