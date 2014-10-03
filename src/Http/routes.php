@@ -14,7 +14,7 @@ Route::resource('forms',    'FormsController');
 // API - ajax for the win
 // =====================================================================================
 
-Route::group(['prefix' => 'api', 'namespace' => 'Api'], function()
+Route::api(['version'=> 'v1', 'prefix' => 'api', 'namespace' => 'Api'], function()
 {
     Route::resource('contacts', 'ContactsController', ['except' => ['create', 'edit']]);
     Route::resource('fields',   'FieldsController',   ['except' => ['create', 'edit']]);

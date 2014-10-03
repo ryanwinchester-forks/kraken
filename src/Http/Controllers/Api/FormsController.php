@@ -26,11 +26,11 @@ class FormsController extends BaseController {
 	 */
 	public function index()
 	{
-		$limit = Input::has('limit') ? Input::get('limit') : 20;
+//		$limit = Input::has('limit') ? Input::get('limit') : 20;
+//
+//        $forms = $this->form->paginate($limit);
 
-        $forms = $this->form->paginate($limit);
-
-        return $forms;
+        return $this->form->all();
 	}
 
 	/**

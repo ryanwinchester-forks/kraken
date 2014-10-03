@@ -105,6 +105,7 @@ return [
 		'Kraken\Providers\LogServiceProvider',
 		'Kraken\Providers\RouteServiceProvider',
         'Kraken\Providers\RepositoryServiceProvider',
+		'Kraken\Providers\ApiServiceProvider',
 
 		/*
 		 * Laravel Framework Service Providers...
@@ -133,6 +134,7 @@ return [
         /*
 		 * Package Service Providers
 		 */
+        'Dingo\Api\Provider\ApiServiceProvider',
         'Laracasts\Commander\CommanderServiceProvider',
         'Way\Generators\GeneratorsServiceProvider',
 
@@ -199,6 +201,9 @@ return [
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
 
-	],
+        'API'               => 'Dingo\Api\Facade\API',
+
+
+    ],
 
 ];
