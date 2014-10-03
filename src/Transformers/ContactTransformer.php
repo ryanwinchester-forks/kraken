@@ -19,7 +19,7 @@ class ContactTransformer extends TransformerAbstract {
     }
 
     /**
-     * @param User $user
+     * @param Contact $contact
      * @return array
      */
     public function transform(Contact $contact)
