@@ -1,7 +1,7 @@
-<?php namespace App\Events;
+<?php namespace SevenShores\Kraken\Events;
 
-abstract class Event {
+abstract class Event
+{
 
-	//
-
+    //
 }
