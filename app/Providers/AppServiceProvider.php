@@ -1,8 +1,6 @@
 <?php namespace SevenShores\Kraken\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use SevenShores\Kraken\Contracts\Repository;
-use SevenShores\Kraken\Core\EloquentRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,7 +30,5 @@ class AppServiceProvider extends ServiceProvider
             'Illuminate\Contracts\Auth\Registrar',
             'SevenShores\Kraken\Services\Registrar'
         );
-
-        $this->app->bind(Repository::class, EloquentRepository::class);
     }
 }

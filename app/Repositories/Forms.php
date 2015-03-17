@@ -1,17 +1,10 @@
 <?php namespace SevenShores\Kraken\Repositories;
 
+use SevenShores\Kraken\Contracts\Repository;
 use SevenShores\Kraken\Core\EloquentRepository;
+use SevenShores\Kraken\Form;
 
-class Forms extends EloquentRepository
+class Forms extends EloquentRepository implements Repository
 {
-
-    public function getAll()
-    {
-        // TODO: Implement getAll() method.
-    }
-
-    public function getById($id)
-    {
-        // TODO: Implement getById() method.
-    }
+    protected $model = Form::class;
 }
