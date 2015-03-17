@@ -1,11 +1,3 @@
-/.idea
-/.sass-cache
-/node_modules
-/resources/bower_components
-/tests/_output/*
 /vendor
-/workbench
-composer.phar
-.env.*
-.DS_Store
-Thumbs.db
+/node_modules
+.env
