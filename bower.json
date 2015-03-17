@@ -1,8 +1,0 @@
-{
-  "name": "Kraken",
-  "devDependencies": {
-    "angular-bootstrap": "~0.11.0",
-    "bootstrap-sass": "~3.0.2",
-    "trNgGrid": "~3.0.3"
-  }
-}
