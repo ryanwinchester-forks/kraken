@@ -2,15 +2,15 @@
 
 use SevenShores\Kraken\Core\Model;
 
-class Property extends Model
+class Tag extends Model
 {
     public function contacts()
     {
-        return $this->belongsToMany(Contact::class);
+        return $this->morphedByMany(Contact::class, 'taggable');
     }
 
     public function forms()
     {
-        return $this->belongsToMany(Form::class);
+        return $this->morphedByMany(Form::class, 'taggable');
     }
 }

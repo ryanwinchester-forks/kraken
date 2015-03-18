@@ -1,10 +1,10 @@
 <?php namespace SevenShores\Kraken\Repositories;
 
-use SevenShores\Kraken\Contracts\Repository;
+use SevenShores\Kraken\Contracts\Repositories\PropertyRepository;
 use SevenShores\Kraken\Core\EloquentRepository;
 use SevenShores\Kraken\Property;
 
-class Properties extends EloquentRepository implements Repository
+class EloquentPropertyRepository extends EloquentRepository implements PropertyRepository
 {
     protected $model = Property::class;
 }

@@ -1,10 +1,10 @@
 <?php namespace SevenShores\Kraken\Repositories;
 
 use SevenShores\Kraken\Contact;
-use SevenShores\Kraken\Contracts\Repository;
+use SevenShores\Kraken\Contracts\Repositories\ContactRepository;
 use SevenShores\Kraken\Core\EloquentRepository;
 
-class Contacts extends EloquentRepository implements Repository
+class EloquentContactRepository extends EloquentRepository implements ContactRepository
 {
     protected $model = Contact::class;
 }

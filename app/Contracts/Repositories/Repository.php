@@ -1,4 +1,4 @@
-<?php namespace SevenShores\Kraken\Contracts;
+<?php namespace SevenShores\Kraken\Contracts\Repositories;
 
 interface Repository
 {

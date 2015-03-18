@@ -145,6 +145,11 @@ return [
         'SevenShores\Kraken\Providers\EventServiceProvider',
         'SevenShores\Kraken\Providers\RouteServiceProvider',
 
+        /*
+         * Custom Service Providers...
+         */
+        'SevenShores\Kraken\Providers\RepositoryServiceProvider',
+
     ],
 
     /*
