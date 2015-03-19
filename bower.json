@@ -1,0 +1,7 @@
+{
+  "name": "sevenshores/kraken",
+  "devDependencies": {
+    "jquery": "~2.1.3",
+    "bootswatch-sass": "~3.3.1"
+  }
+}

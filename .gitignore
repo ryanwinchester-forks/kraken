@@ -2,12 +2,12 @@
 # Directories
 # --------------------------
 /.idea
-/vendor
 /node_modules
+/resources/assets/bower
+/vendor
 
 # --------------------------
 # Files
 # --------------------------
 .DS_Store
 .env
-.env.*
