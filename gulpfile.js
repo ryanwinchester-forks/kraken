@@ -1,18 +1,25 @@
 var elixir = require('laravel-elixir');
 
+require('elixir-react-jsx');
+
 elixir(function(mix) {
 
-    mix.sass('app.scss');
+    mix.sass('app.scss')
 
-    mix.scripts([
-        '../assets/bower/jquery/dist/jquery.js',
-        '../assets/bower/bootstrap-sass-official/assets/javascripts/bootstrap.js',
-        '../assets/js/app.js'
-    ]);
+    .scripts([
+        'react/react-with-addons.min.js',
+        'jquery/dist/jquery.min.js',
+        'bootstrap-sass-official/assets/javascripts/bootstrap.js'
+    ], 'public/js/vendor.js', 'resources/assets/bower')
 
-    mix.version([
+    .scripts(['app.js'], 'public/js/app.js', 'resources/assets/js')
+
+    .jsx()
+
+    .version([
         'css/app.css',
-        'js/all.js'
+        'js/vendor.js',
+        'js/app.js'
     ]);
 
 });
