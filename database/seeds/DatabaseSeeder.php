@@ -1,11 +1,10 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use SevenShores\Kraken\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-
     /**
      * Run the database seeds.
      *
@@ -15,6 +14,11 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call('UserTableSeeder');
+        $this->call('TagsTableSeeder');
+        $this->call('PropertyTypesTableSeeder');
+        $this->call('PropertiesTableSeeder');
+        $this->call('FormsTableSeeder');
+        $this->call('ContactsTableSeeder');
+        $this->call('UsersTableSeeder');
     }
 }

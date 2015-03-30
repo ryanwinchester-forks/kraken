@@ -19,6 +19,7 @@ class CreateFormPropertyPivotTable extends Migration {
 			$table->integer('property_id')->unsigned()->index();
 			$table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');
 
+            $table->string('label')->nullable();     // Overrides property default
             $table->string('default')->nullable();   // Overrides property default
             $table->boolean('required')->nullable(); // Overrides property default
 

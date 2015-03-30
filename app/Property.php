@@ -4,12 +4,18 @@ use SevenShores\Kraken\Core\Model;
 
 class Property extends Model
 {
-        protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     protected $casts = [
-        'required' => 'boolean',
+        'required'           => 'boolean',
+        'property_type_id'   => 'integer',
+        'parent_property_id' => 'integer',
     ];
 
+    public function type()
+    {
+        return $this->belongsTo(PropertyType::class);
+    }
 
     public function contacts()
     {

@@ -14,10 +14,10 @@ class CreatePropertyTypesTable extends Migration {
 	{
         Schema::create('property_types', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->string('key');
             $table->string('name');
-
+            $table->string('element')->default('input');
+            $table->string('type')->nullable()->default('text');
+            $table->boolean('is_void')->default(true);
             $table->timestamps();
         });
 	}

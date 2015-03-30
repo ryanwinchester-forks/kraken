@@ -1,13 +1,16 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use Laracasts\TestDummy\Factory as TestDummy;
+use Laracasts\TestDummy\Factory;
+use SevenShores\Kraken\Database\Seeder;
+use SevenShores\Kraken\Tag;
 
 class TagsTableSeeder extends Seeder {
 
     public function run()
     {
-        TestDummy::times(20)->create('App\Post');
+        $this->truncateTable('tags');
+
+        Factory::times(20)->create(Tag::class);
     }
 
 }

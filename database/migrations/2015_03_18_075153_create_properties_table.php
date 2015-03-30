@@ -14,13 +14,13 @@ class CreatePropertiesTable extends Migration {
 	{
         Schema::create('properties', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('property_type_id')->unsigned()->index();
-
-            $table->string('key');
+            $table->integer('property_type_id')->unsigned();
             $table->string('name');
+            $table->string('key');
+            $table->string('label')->nullable();
             $table->string('default')->nullable();
             $table->boolean('required')->nullable();
-
+            $table->integer('parent_property_id')->unsigned()->nullable();
             $table->timestamps();
         });
 	}
