@@ -150,6 +150,11 @@ return [
          */
         'SevenShores\Kraken\Providers\RepositoryServiceProvider',
 
+        /*
+         * Vendor
+         */
+
+
     ],
 
     /*

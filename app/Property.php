@@ -4,6 +4,13 @@ use SevenShores\Kraken\Core\Model;
 
 class Property extends Model
 {
+        protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    protected $casts = [
+        'required' => 'boolean',
+    ];
+
+
     public function contacts()
     {
         return $this->belongsToMany(Contact::class);

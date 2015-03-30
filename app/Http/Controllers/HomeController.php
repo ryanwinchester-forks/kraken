@@ -1,9 +1,7 @@
 <?php namespace SevenShores\Kraken\Http\Controllers;
 
-use SevenShores\Kraken\Http\Requests;
-use SevenShores\Kraken\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
+use SevenShores\Kraken\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
