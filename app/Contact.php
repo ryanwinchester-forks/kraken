@@ -16,6 +16,6 @@ class Contact extends Model
 
     public function properties()
     {
-        return $this->belongsToMany(Property::class);
+        return $this->belongsToMany(Property::class)->withPivot('value')->withTimestamps();
     }
 }
