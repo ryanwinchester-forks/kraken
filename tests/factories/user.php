@@ -2,12 +2,11 @@
 
 use SevenShores\Kraken;
 
-
 // ------------------------------------------------------------------------
 // Normal user
 // ------------------------------------------------------------------------
 
-$factory(Kraken\User::class, function($faker) {
+$factory(Kraken\User::class, function ($faker) {
 
     $password = 'secret123';
 
@@ -25,7 +24,7 @@ $factory(Kraken\User::class, function($faker) {
 // Admin user
 // ------------------------------------------------------------------------
 
-$factory(Kraken\User::class, 'admin_user', function($faker) {
+$factory(Kraken\User::class, 'admin_user', function ($faker) {
 
     $password = 'secret123';
 
