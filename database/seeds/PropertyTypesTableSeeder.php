@@ -19,7 +19,5 @@ class PropertyTypesTableSeeder extends Seeder
                 'is_void' => $propertyType['is_void'],
             ]);
         }
-
     }
-
 }

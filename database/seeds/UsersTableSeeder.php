@@ -4,7 +4,8 @@ use Laracasts\TestDummy\Factory;
 use SevenShores\Kraken\Database\Seeder;
 use SevenShores\Kraken\User;
 
-class UsersTableSeeder extends Seeder {
+class UsersTableSeeder extends Seeder
+{
 
     public function run()
     {
@@ -14,5 +15,4 @@ class UsersTableSeeder extends Seeder {
 
         Factory::times(5)->create(User::class);
     }
-
 }

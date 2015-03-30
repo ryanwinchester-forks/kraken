@@ -4,7 +4,8 @@ use Laracasts\TestDummy\Factory;
 use SevenShores\Kraken\Database\Seeder;
 use SevenShores\Kraken\Tag;
 
-class TagsTableSeeder extends Seeder {
+class TagsTableSeeder extends Seeder
+{
 
     public function run()
     {
@@ -12,5 +13,4 @@ class TagsTableSeeder extends Seeder {
 
         Factory::times(20)->create(Tag::class);
     }
-
 }

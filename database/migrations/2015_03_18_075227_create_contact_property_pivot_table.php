@@ -3,7 +3,8 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateContactPropertyPivotTable extends Migration {
+class CreateContactPropertyPivotTable extends Migration
+{
 
     /**
      * Run the migrations.
@@ -12,8 +13,7 @@ class CreateContactPropertyPivotTable extends Migration {
      */
     public function up()
     {
-        Schema::create('contact_property', function(Blueprint $table)
-        {
+        Schema::create('contact_property', function (Blueprint $table) {
             $table->integer('contact_id')->unsigned()->index();
             $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('cascade');
             $table->integer('property_id')->unsigned()->index();
@@ -34,5 +34,4 @@ class CreateContactPropertyPivotTable extends Migration {
     {
         Schema::drop('contact_property');
     }
-
 }

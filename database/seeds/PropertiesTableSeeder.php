@@ -12,5 +12,4 @@ class PropertiesTableSeeder extends Seeder
         
         Factory::times(20)->create(Property::class);
     }
-
 }

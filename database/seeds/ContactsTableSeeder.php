@@ -12,5 +12,4 @@ class ContactsTableSeeder extends Seeder
         
         Factory::times(20)->create(Contact::class);
     }
-
 }

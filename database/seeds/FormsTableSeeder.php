@@ -12,5 +12,4 @@ class FormsTableSeeder extends Seeder
         
         Factory::times(5)->create(Form::class);
     }
-
 }

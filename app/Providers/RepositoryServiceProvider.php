@@ -12,30 +12,30 @@ use SevenShores\Kraken\Repositories\EloquentPropertyRepository;
 use SevenShores\Kraken\Repositories\EloquentTagRepository;
 use SevenShores\Kraken\Repositories\EloquentUserRepository;
 
-class RepositoryServiceProvider extends ServiceProvider {
+class RepositoryServiceProvider extends ServiceProvider
+{
 
-	/**
-	 * Bootstrap the application services.
-	 *
-	 * @return void
-	 */
-	public function boot()
-	{
-		//
-	}
+    /**
+     * Bootstrap the application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        //
+    }
 
-	/**
-	 * Register the application services.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{
-		$this->app->bind(ContactRepository::class, EloquentContactRepository::class);
+    /**
+     * Register the application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->bind(ContactRepository::class, EloquentContactRepository::class);
         $this->app->bind(FormRepository::class, EloquentFormRepository::class);
         $this->app->bind(PropertyRepository::class, EloquentPropertyRepository::class);
         $this->app->bind(TagRepository::class, EloquentTagRepository::class);
         $this->app->bind(UserRepository::class, EloquentUserRepository::class);
-	}
-
+    }
 }
