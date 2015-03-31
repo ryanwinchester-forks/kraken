@@ -1,10 +1,9 @@
 <?php
 
 use Laracasts\TestDummy\Factory;
-use SevenShores\Kraken\Database\Seeder;
 use SevenShores\Kraken\Property;
 
-class PropertiesTableSeeder extends Seeder
+class PropertiesTableSeeder extends BaseSeeder
 {
     public function run()
     {

@@ -2,11 +2,10 @@
 
 use Faker\Factory as Faker;
 use Laracasts\TestDummy\Factory;
-use SevenShores\Kraken\Database\Seeder;
 use SevenShores\Kraken\Contact;
 use SevenShores\Kraken\Property;
 
-class ContactPropertyTableSeeder extends Seeder
+class ContactPropertyTableSeeder extends BaseSeeder
 {
     public function run()
     {

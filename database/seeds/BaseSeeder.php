@@ -1,8 +1,8 @@
-<?php namespace SevenShores\Kraken\Database;
+<?php
 
-use Illuminate\Database\Seeder as BaseSeeder;
+use Illuminate\Database\Seeder;
 
-class Seeder extends BaseSeeder
+class BaseSeeder extends Seeder
 {
     protected $now;
 

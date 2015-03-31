@@ -1,10 +1,9 @@
 <?php
 
 use Laracasts\TestDummy\Factory;
-use SevenShores\Kraken\Database\Seeder;
 use SevenShores\Kraken\Tag;
 
-class TagsTableSeeder extends Seeder
+class TagsTableSeeder extends BaseSeeder
 {
 
     public function run()

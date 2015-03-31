@@ -1,9 +1,8 @@
 <?php
 
-use SevenShores\Kraken\Database\Seeder;
 use SevenShores\Kraken\PropertyType;
 
-class PropertyTypesTableSeeder extends Seeder
+class PropertyTypesTableSeeder extends BaseSeeder
 {
     public function run()
     {

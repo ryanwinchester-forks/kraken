@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Database\Eloquent\Model;
-use SevenShores\Kraken\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class DatabaseSeeder extends BaseSeeder
 {
     /**
      * Run the database seeds.
