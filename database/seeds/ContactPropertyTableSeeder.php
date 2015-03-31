@@ -21,6 +21,8 @@ class ContactPropertyTableSeeder extends Seeder
                 'contact_id'  => $faker->randomElement($contactIds),
                 'property_id' => $faker->randomElement($propertyIds),
                 'value'       => $faker->word,
+                'created_at' => $this->now,
+                'updated_at' => $this->now,
             ]);
         }
     }
