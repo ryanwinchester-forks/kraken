@@ -1,4 +1,4 @@
-<?php namespace SevenShores\Kraken\Core;
+<?php namespace SevenShores\Kraken\Repositories;
 
 abstract class EloquentRepository
 {

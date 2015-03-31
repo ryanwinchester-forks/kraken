@@ -13,14 +13,16 @@ class DatabaseSeeder extends BaseSeeder
     {
         Model::unguard();
 
+        // Models
         $this->call('TagsTableSeeder');
         $this->call('PropertyTypesTableSeeder');
         $this->call('PropertiesTableSeeder');
         $this->call('FormsTableSeeder');
         $this->call('ContactsTableSeeder');
+        $this->call('UsersTableSeeder');
+        // Pivot tables
         $this->call('ContactPropertyTableSeeder');
         $this->call('FormPropertyTableSeeder');
         $this->call('ContactFormTableSeeder');
-        $this->call('UsersTableSeeder');
     }
 }

@@ -4,6 +4,8 @@ use SevenShores\Kraken\Core\Model;
 
 class Contact extends Model
 {
+    protected $fillable = ['email'];
+
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'taggable');

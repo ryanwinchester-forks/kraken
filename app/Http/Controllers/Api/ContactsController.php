@@ -4,19 +4,26 @@ use Illuminate\Http\Request;
 use SevenShores\Kraken\Contact;
 use SevenShores\Kraken\Http\Controllers\Controller;
 use SevenShores\Kraken\Http\Requests\CreateContactRequest;
+use SevenShores\Kraken\Transformers\ContactTransformer;
+use SevenShores\Kraken\Transformers\Factory as Transformer;
 
 class ContactsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $contacts = Contact::all();
 
-        return response()->json($contacts->toJson());
+        $transformer = Transformer::make(ContactTransformer::class, $contacts);
+
+        $data = $transformer->toJson($request->get('include'));
+
+        return $this->jsonResponse($data);
     }
 
     /**

@@ -6,6 +6,15 @@ use SevenShores\Kraken\Property;
 class PropertyTransformer extends Fractal\TransformerAbstract
 {
     /**
+     * List of resources to automatically include
+     *
+     * @var array
+     */
+    protected $defaultIncludes = [
+        'type',
+    ];
+
+    /**
      * Transform this item object into a generic array.
      *
      * @param Property $property
@@ -15,11 +24,23 @@ class PropertyTransformer extends Fractal\TransformerAbstract
     {
         return [
             'id'    => $property->id,
-            'type'  => $property->type->name,
             'name'  => $property->title,
             'key'   => $property->name,
             'label' => $property->label,
         ];
+    }
+
+    /**
+     * Include property type.
+     *
+     * @param Property $property
+     * @return Fractal\Resource\Item
+     */
+    public function includeType(Property $property)
+    {
+        $type = $property->type;
+
+        return $this->item($type, new PropertyTypeTransformer());
     }
 
     /**
