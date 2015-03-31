@@ -7,6 +7,6 @@ var MessageBox = React.createClass({
 });
 
 React.render(
-<MessageBox />,
+    <MessageBox />,
     document.getElementById('message')
 );

@@ -7,8 +7,8 @@ elixir(function(mix) {
     mix.sass('app.scss')
 
     .scripts([
-        'react/react-with-addons.min.js',
-        'jquery/dist/jquery.min.js',
+        'jquery/dist/jquery.js',
+        'react/react-with-addons.js',
         'bootstrap-sass-official/assets/javascripts/bootstrap.js'
     ], 'public/js/vendor.js', 'resources/assets/bower')
 
@@ -18,8 +18,8 @@ elixir(function(mix) {
 
     .version([
         'css/app.css',
-        'js/vendor.js',
-        'js/app.js'
+        'js/app.js',
+        'js/vendor.js'
     ]);
 
 });

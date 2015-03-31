@@ -15,12 +15,6 @@
 
     @yield('styles')
 
-    <script src="{{ elixir('js/vendor.js') }}"></script>
-
-    @if (app()->environment() == 'local')
-        <script src="//fb.me/JSXTransformer-0.13.1.js"></script>
-    @endif
-
 </head>
 <body>
 
@@ -30,6 +24,7 @@
 
 @include('partials.footer')
 
+<script src="{{ elixir('js/vendor.js') }}"></script>
 <script src="{{ elixir('js/app.js') }}"></script>
 
 @yield('scripts')

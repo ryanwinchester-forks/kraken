@@ -9,5 +9,5 @@
 @stop
 
 @section('scripts')
-    <script src="/js/app-react.js"></script>
+    <script src="/js/dashboard.js"></script>
 @stop
