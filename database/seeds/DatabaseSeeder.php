@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call('FormsTableSeeder');
         $this->call('ContactsTableSeeder');
         $this->call('ContactPropertyTableSeeder');
+        $this->call('FormPropertyTableSeeder');
+        $this->call('ContactFormTableSeeder');
         $this->call('UsersTableSeeder');
     }
 }
