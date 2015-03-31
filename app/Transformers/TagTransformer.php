@@ -6,6 +6,11 @@ use SevenShores\Kraken\Tag;
 class TagTransformer extends Fractal\TransformerAbstract
 {
     /**
+     * @var string
+     */
+    private $key = 'tag';
+
+    /**
      * Transform this item object into a generic array.
      *
      * @param Tag $tag
@@ -22,6 +27,14 @@ class TagTransformer extends Fractal\TransformerAbstract
     }
 
     /**
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+    /**
      * Include Contacts.
      *
      * @param Tag $tag
@@ -31,6 +44,8 @@ class TagTransformer extends Fractal\TransformerAbstract
     {
         $contacts = $tag->contacts;
 
-        return $this->collection($contacts, new ContactTransformer());
+        $transformer = new ContactTransformer();
+
+        return $this->collection($contacts, $transformer, str_plural($transformer->getKey()));
     }
 }

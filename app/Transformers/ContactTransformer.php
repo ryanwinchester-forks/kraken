@@ -15,6 +15,11 @@ class ContactTransformer extends Fractal\TransformerAbstract
     ];
 
     /**
+     * @var string
+     */
+    private $key = 'contact';
+
+    /**
      * Transform this item object into a generic array.
      *
      * @param Contact $contact
@@ -29,6 +34,14 @@ class ContactTransformer extends Fractal\TransformerAbstract
     }
 
     /**
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+    /**
      * Include Properties.
      *
      * @param Contact $contact
@@ -38,7 +51,9 @@ class ContactTransformer extends Fractal\TransformerAbstract
     {
         $properties = $contact->properties;
 
-        return $this->collection($properties, new PropertyTransformer());
+        $transformer = new PropertyTransformer();
+
+        return $this->collection($properties, $transformer, str_plural($transformer));
     }
 
     /**
@@ -51,7 +66,9 @@ class ContactTransformer extends Fractal\TransformerAbstract
     {
         $tags = $contact->tags;
 
-        return $this->collection($tags, new TagTransformer());
+        $transformer = new TagTransformer();
+
+        return $this->collection($tags, $transformer, str_plural($transformer->getKey()));
     }
 
     /**
@@ -64,6 +81,8 @@ class ContactTransformer extends Fractal\TransformerAbstract
     {
         $forms = $contact->forms;
 
-        return $this->collection($forms, new FormTransformer());
+        $transformer = new FormTransformer();
+
+        return $this->collection($forms, $transformer, str_plural($transformer->getKey()));
     }
 }

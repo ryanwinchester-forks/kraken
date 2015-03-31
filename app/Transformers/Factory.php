@@ -3,6 +3,7 @@
 use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
+use League\Fractal\Serializer\JsonApiSerializer;
 use League\Fractal\TransformerAbstract;
 
 class Factory
@@ -31,12 +32,7 @@ class Factory
     {
         $this->fractal = $fractal;
         $this->transformer = $transformer;
-
-        if ($resource instanceof \Illuminate\Support\Collection) {
-            $this->resource = new Collection($resource, $this->transformer);
-        } else {
-            $this->resource = new Item($resource, $this->transformer);
-        }
+        $this->resource = $resource;
     }
 
     /**
@@ -60,6 +56,19 @@ class Factory
      */
     public function toJson($includes = null)
     {
+        // Don't really want side-loaded data
+        // But I like having custom keys instead of "data"...
+        // TODO: Make a custom serializer?
+        // $this->fractal->setSerializer(new JsonApiSerializer());
+
+        $key = $this->transformer->getKey();
+
+        if ($this->resource instanceof \Illuminate\Support\Collection) {
+            $this->resource = new Collection($this->resource, $this->transformer, str_plural($key));
+        } else {
+            $this->resource = new Item($this->resource, $this->transformer, $key);
+        }
+
         if (! is_null($includes)) {
             $this->fractal->parseIncludes($includes);
         }

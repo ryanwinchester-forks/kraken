@@ -6,6 +6,11 @@ use SevenShores\Kraken\Property;
 class PropertyTransformer extends Fractal\TransformerAbstract
 {
     /**
+     * @var string
+     */
+    private $key = 'property';
+
+    /**
      * List of resources to automatically include
      *
      * @var array
@@ -31,6 +36,14 @@ class PropertyTransformer extends Fractal\TransformerAbstract
     }
 
     /**
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+    /**
      * Include property type.
      *
      * @param Property $property
@@ -40,7 +53,9 @@ class PropertyTransformer extends Fractal\TransformerAbstract
     {
         $type = $property->type;
 
-        return $this->item($type, new PropertyTypeTransformer());
+        $transformer = new PropertyTypeTransformer();
+
+        return $this->item($type, $transformer, $transformer->getKey());
     }
 
     /**
@@ -53,6 +68,8 @@ class PropertyTransformer extends Fractal\TransformerAbstract
     {
         $forms = $property->forms;
 
-        return $this->collection($forms, new FormTransformer());
+        $transformer = new FormTransformer();
+
+        return $this->collection($forms, $transformer, str_plural($transformer->getKey()));
     }
 }

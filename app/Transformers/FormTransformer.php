@@ -6,6 +6,11 @@ use SevenShores\Kraken\Form;
 class FormTransformer extends Fractal\TransformerAbstract
 {
     /**
+     * @var string
+     */
+    private $key = 'form';
+
+    /**
      * Transform this item object into a generic array.
      *
      * @param Form $form
@@ -23,6 +28,14 @@ class FormTransformer extends Fractal\TransformerAbstract
     }
 
     /**
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+    /**
      * Include Properties.
      *
      * @param Form $form
@@ -32,6 +45,8 @@ class FormTransformer extends Fractal\TransformerAbstract
     {
         $properties = $form->properties;
 
-        return $this->collection($properties, new PropertyTransformer());
+        $transformer = new PropertyTransformer();
+
+        return $this->collection($properties, $transformer, str_plural($transformer->getKey()));
     }
 }
