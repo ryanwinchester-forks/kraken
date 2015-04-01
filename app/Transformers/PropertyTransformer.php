@@ -29,8 +29,8 @@ class PropertyTransformer extends Transformer
     {
         return [
             'id'    => $property->id,
-            'name'  => $property->title,
-            'key'   => $property->name,
+            'name'  => $property->name,
+            'key'   => $property->key,
             'label' => $property->label,
         ];
     }
