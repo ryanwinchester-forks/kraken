@@ -13,7 +13,7 @@ class Contact extends Model
 
     public function forms()
     {
-        return $this->belongsToMany(Form::class, 'form_id');
+        return $this->belongsToMany(Form::class);
     }
 
     public function properties()

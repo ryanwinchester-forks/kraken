@@ -3,12 +3,12 @@
 use League\Fractal;
 use SevenShores\Kraken\Property;
 
-class PropertyTransformer extends Fractal\TransformerAbstract
+class PropertyTransformer extends Transformer
 {
     /**
      * @var string
      */
-    private $key = 'property';
+    protected $key = 'property';
 
     /**
      * List of resources to automatically include

@@ -3,12 +3,12 @@
 use League\Fractal;
 use SevenShores\Kraken\PropertyType;
 
-class PropertyTypeTransformer extends Fractal\TransformerAbstract
+class PropertyTypeTransformer extends Transformer
 {
     /**
      * @var string
      */
-    private $key = 'type';
+    protected $key = 'type';
 
     /**
      * Transform this item object into a generic array.

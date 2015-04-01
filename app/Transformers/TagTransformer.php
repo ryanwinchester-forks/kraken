@@ -3,12 +3,12 @@
 use League\Fractal;
 use SevenShores\Kraken\Tag;
 
-class TagTransformer extends Fractal\TransformerAbstract
+class TagTransformer extends Transformer
 {
     /**
      * @var string
      */
-    private $key = 'tag';
+    protected $key = 'tag';
 
     /**
      * Transform this item object into a generic array.

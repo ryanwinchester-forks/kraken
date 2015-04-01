@@ -1,14 +1,13 @@
 <?php namespace SevenShores\Kraken\Transformers;
 
-use League\Fractal;
 use SevenShores\Kraken\Form;
 
-class FormTransformer extends Fractal\TransformerAbstract
+class FormTransformer extends Transformer
 {
     /**
      * @var string
      */
-    private $key = 'form';
+    protected $key = 'form';
 
     /**
      * Transform this item object into a generic array.
@@ -19,20 +18,10 @@ class FormTransformer extends Fractal\TransformerAbstract
     public function transform(Form $form)
     {
         return [
-            'id'    => $form->id,
-            'type'  => $form->type->name,
-            'name'  => $form->title,
-            'key'   => $form->name,
-            'label' => $form->label,
+            'id'   => $form->id,
+            'name' => $form->name,
+            'slug' => $form->slug,
         ];
-    }
-
-    /**
-     * @return string
-     */
-    public function getKey()
-    {
-        return $this->key;
     }
 
     /**
@@ -45,8 +34,6 @@ class FormTransformer extends Fractal\TransformerAbstract
     {
         $properties = $form->properties;
 
-        $transformer = new PropertyTransformer();
-
-        return $this->collection($properties, $transformer, str_plural($transformer->getKey()));
+        return $this->makeCollection($properties, new PropertyTransformer());
     }
 }

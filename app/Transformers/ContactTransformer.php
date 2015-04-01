@@ -1,9 +1,8 @@
 <?php namespace SevenShores\Kraken\Transformers;
 
-use League\Fractal;
 use SevenShores\Kraken\Contact;
 
-class ContactTransformer extends Fractal\TransformerAbstract
+class ContactTransformer extends Transformer
 {
     /**
      * List of optional resources to include.
@@ -12,12 +11,14 @@ class ContactTransformer extends Fractal\TransformerAbstract
      */
     protected $availableIncludes = [
         'properties',
+        'forms',
+        'tags',
     ];
 
     /**
      * @var string
      */
-    private $key = 'contact';
+    protected $key = 'contact';
 
     /**
      * Transform this item object into a generic array.
@@ -34,14 +35,6 @@ class ContactTransformer extends Fractal\TransformerAbstract
     }
 
     /**
-     * @return string
-     */
-    public function getKey()
-    {
-        return $this->key;
-    }
-
-    /**
      * Include Properties.
      *
      * @param Contact $contact
@@ -53,22 +46,20 @@ class ContactTransformer extends Fractal\TransformerAbstract
 
         $transformer = new PropertyTransformer();
 
-        return $this->collection($properties, $transformer, str_plural($transformer));
+        return $this->makecollection($properties, $transformer, str_plural($transformer->getKey()));
     }
 
     /**
      * Include Tags.
      *
      * @param Contact $contact
-     * @return Fractal\Resource\Collection
+     * @return \League\Fractal\Resource\Collection
      */
     public function includeTags(Contact $contact)
     {
         $tags = $contact->tags;
 
-        $transformer = new TagTransformer();
-
-        return $this->collection($tags, $transformer, str_plural($transformer->getKey()));
+        return $this->makeCollection($tags, new TagTransformer());
     }
 
     /**
@@ -81,8 +72,6 @@ class ContactTransformer extends Fractal\TransformerAbstract
     {
         $forms = $contact->forms;
 
-        $transformer = new FormTransformer();
-
-        return $this->collection($forms, $transformer, str_plural($transformer->getKey()));
+        return $this->makeCollection($forms, new FormTransformer());
     }
 }
