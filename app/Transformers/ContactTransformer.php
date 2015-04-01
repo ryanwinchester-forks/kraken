@@ -44,7 +44,7 @@ class ContactTransformer extends Transformer
     {
         $properties = $contact->properties;
 
-        $transformer = new PropertyTransformer();
+        $transformer = new ContactPropertyTransformer();
 
         return $this->makecollection($properties, $transformer, str_plural($transformer->getKey()));
     }
