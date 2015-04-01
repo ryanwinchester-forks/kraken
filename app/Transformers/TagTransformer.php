@@ -20,9 +20,8 @@ class TagTransformer extends Transformer
     {
         return [
             'id'    => $tag->id,
-            'title' => $tag->title,
-            'slug'  => $tag->slug,
             'name'  => $tag->name,
+            'slug'  => $tag->slug,
         ];
     }
 
