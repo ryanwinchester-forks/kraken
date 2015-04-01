@@ -6,6 +6,10 @@ class Contact extends Model
 {
     protected $fillable = ['email'];
 
+    protected $casts = [
+        'id' => 'integer',
+    ];
+
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'taggable');

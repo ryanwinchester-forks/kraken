@@ -18,7 +18,7 @@ class FormTransformer extends Transformer
     public function transform(Form $form)
     {
         return [
-            'id'   => $form->id,
+            'id'   => (int) $form->id,
             'name' => $form->name,
             'slug' => $form->slug,
         ];

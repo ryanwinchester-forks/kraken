@@ -29,7 +29,7 @@ class ContactTransformer extends Transformer
     public function transform(Contact $contact)
     {
         return [
-            'id'    => $contact->id,
+            'id'    => (int) $contact->id,
             'email' => $contact->email,
         ];
     }

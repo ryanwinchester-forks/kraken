@@ -4,6 +4,10 @@ use SevenShores\Kraken\Core\Model;
 
 class Tag extends Model
 {
+    protected $casts = [
+        'id' => 'integer',
+    ];
+
     public function contacts()
     {
         return $this->morphedByMany(Contact::class, 'taggable');

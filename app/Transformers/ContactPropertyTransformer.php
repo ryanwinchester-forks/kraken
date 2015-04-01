@@ -28,7 +28,7 @@ class ContactPropertyTransformer extends Transformer
     public function transform(Property $property)
     {
         return [
-            'id'    => $property->id,
+            'id'    => (int) $property->id,
             'name'  => $property->name,
             'key'   => $property->key,
             'label' => $property->label,

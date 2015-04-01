@@ -7,6 +7,7 @@ class PropertyType extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     protected $casts = [
+        'id'      => 'integer',
         'is_void' => 'boolean',
     ];
 

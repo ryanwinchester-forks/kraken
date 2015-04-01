@@ -7,6 +7,7 @@ class Property extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     protected $casts = [
+        'id'                 => 'integer',
         'required'           => 'boolean',
         'property_type_id'   => 'integer',
         'parent_property_id' => 'integer',
