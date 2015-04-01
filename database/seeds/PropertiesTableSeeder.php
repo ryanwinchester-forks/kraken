@@ -93,6 +93,14 @@ class PropertiesTableSeeder extends BaseSeeder
         ]);
 
         Property::create([
+            'name'     => 'Gender',
+            'key'      => 'gender',
+            'label'    => 'Gender',
+            'required' => false,
+            'property_type_id' => 6,
+        ]);
+
+        Property::create([
             'name'     => 'Married',
             'key'      => 'is_married',
             'label'    => 'Married',

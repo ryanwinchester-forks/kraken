@@ -1,17 +1,18 @@
 <?php namespace SevenShores\Kraken\Transformers;
 
-use League\Fractal\Manager;
+use Illuminate\Contracts\Pagination\Paginator;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\Serializer\JsonApiSerializer;
 use League\Fractal\TransformerAbstract;
+use SevenShores\Kraken\Contracts\TransformerManager;
 
 class Factory
 {
     /**
-     * @var Manager
+     * @var TransformerManager
      */
-    private $fractal;
+    private $manager;
 
     /**
      * @var TransformerAbstract
@@ -24,13 +25,13 @@ class Factory
     private $resource;
 
     /**
-     * @param Manager $fractal
+     * @param TransformerManager $manager
      * @param TransformerAbstract $transformer
      * @param mixed $resource
      */
-    public function __construct(Manager $fractal, TransformerAbstract $transformer, $resource)
+    public function __construct(TransformerManager $manager, TransformerAbstract $transformer, $resource)
     {
-        $this->fractal = $fractal;
+        $this->manager = $manager;
         $this->transformer = $transformer;
         $this->resource = $resource;
     }
@@ -42,7 +43,7 @@ class Factory
      */
     public static function make($transformer, $resource)
     {
-        $manager = app(Manager::class);
+        $manager = app(TransformerManager::class);
         $transformer = app($transformer);
 
         return app(static::class, [$manager, $transformer, $resource]);
@@ -59,20 +60,16 @@ class Factory
         // Don't really want side-loaded data
         // But I like having custom keys instead of "data"...
         // TODO: Make a custom serializer?
-        // $this->fractal->setSerializer(new JsonApiSerializer());
+        // $this->manager->setSerializer(new JsonApiSerializer());
 
         $key = $this->transformer->getKey();
 
         if ($this->resource instanceof \Illuminate\Support\Collection) {
-            $this->resource = new Collection($this->resource, $this->transformer, str_plural($key));
-        } else {
-            $this->resource = new Item($this->resource, $this->transformer, $key);
+            return $this->manager->collection($this->resource, $this->transformer, str_plural($key));
+        } elseif ($this->resource instanceof Paginator) {
+            return $this->manager->paginatedCollection($this->resource, $this->transformer, str_plural($key));
         }
 
-        if (! is_null($includes)) {
-            $this->fractal->parseIncludes($includes);
-        }
-
-        return $this->fractal->createData($this->resource)->toJson();
+        return $this->manager->item($this->resource, $this->transformer, $key);
     }
 }

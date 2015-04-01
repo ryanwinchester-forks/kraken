@@ -72,5 +72,7 @@ class ContactPropertyTransformer extends Transformer
         $transformer = new FormTransformer();
 
         return $this->collection($forms, $transformer, str_plural($transformer->getKey()));
+
+        return $this->paginatedCollection();
     }
 }

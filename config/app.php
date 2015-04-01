@@ -149,6 +149,7 @@ return [
          * Custom Service Providers...
          */
         'SevenShores\Kraken\Providers\RepositoryServiceProvider',
+        'SevenShores\Kraken\Providers\TransformerServiceProvider',
 
         /*
          * Vendor
