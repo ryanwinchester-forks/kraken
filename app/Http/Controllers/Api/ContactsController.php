@@ -29,7 +29,20 @@ class ContactsController extends Controller
     public function index(Request $request)
     {
         $transformer = new ContactTransformer();
-        $contacts = Contact::paginate($request->get('limit'));
+
+        if ($request->has('order')) {
+            $order = $request->get('order');
+            if (str_contains($order, "|")) {
+                list($orderColumn, $orderDirection) = explode('|', $order);
+            } else {
+                $orderColumn = $order;
+                $orderDirection = null;
+            }
+            $contacts = Contact::orderBy($orderColumn, $orderDirection)->paginate($request->get('limit'));
+            $contacts->appends(['order' => $request->get('order')]);
+        } else {
+            $contacts = Contact::paginate($request->get('limit'));
+        }
 
         $data = $this->manager->paginatedCollection($contacts, $transformer);
 
