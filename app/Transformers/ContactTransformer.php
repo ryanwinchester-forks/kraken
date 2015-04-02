@@ -1,8 +1,9 @@
 <?php namespace SevenShores\Kraken\Transformers;
 
+use League\Fractal\TransformerAbstract;
 use SevenShores\Kraken\Contact;
 
-class ContactTransformer extends Transformer
+class ContactTransformer extends TransformerAbstract
 {
     /**
      * List of optional resources to include.
@@ -14,11 +15,6 @@ class ContactTransformer extends Transformer
         'forms',
         'tags',
     ];
-
-    /**
-     * @var string
-     */
-    protected $key = 'contact';
 
     /**
      * Transform this item object into a generic array.
@@ -46,7 +42,7 @@ class ContactTransformer extends Transformer
 
         $transformer = new ContactPropertyTransformer();
 
-        return $this->makecollection($properties, $transformer, str_plural($transformer->getKey()));
+        return $this->collection($properties, $transformer);
     }
 
     /**
@@ -59,7 +55,7 @@ class ContactTransformer extends Transformer
     {
         $tags = $contact->tags;
 
-        return $this->makeCollection($tags, new TagTransformer());
+        return $this->collection($tags, new TagTransformer());
     }
 
     /**
@@ -72,6 +68,6 @@ class ContactTransformer extends Transformer
     {
         $forms = $contact->forms;
 
-        return $this->makeCollection($forms, new FormTransformer());
+        return $this->collection($forms, new FormTransformer());
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\ServiceProvider;
 use League\Fractal\Serializer\ArraySerializer;
 use League\Fractal\Serializer\SerializerAbstract;
 use SevenShores\Kraken\Contracts\TransformerManager;
-use SevenShores\Kraken\Transformers\Manager;
+use SevenShores\Kraken\Services\FractalTransformerManager;
 
 class TransformerServiceProvider extends ServiceProvider {
 
@@ -26,7 +26,7 @@ class TransformerServiceProvider extends ServiceProvider {
 	public function register()
 	{
         $this->app->bind(SerializerAbstract::class, ArraySerializer::class);
-        $this->app->bind(TransformerManager::class, Manager::class);
+        $this->app->bind(TransformerManager::class, FractalTransformerManager::class);
     }
 
 }

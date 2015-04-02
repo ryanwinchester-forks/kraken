@@ -1,4 +1,4 @@
-<?php namespace SevenShores\Kraken\Transformers;
+<?php namespace SevenShores\Kraken\Transformers\Adapters;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;

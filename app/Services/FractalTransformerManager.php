@@ -1,4 +1,4 @@
-<?php  namespace SevenShores\Kraken\Transformers;
+<?php  namespace SevenShores\Kraken\Services;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Support\Arrayable;
@@ -11,7 +11,7 @@ use League\Fractal\Serializer\SerializerAbstract;
 use League\Fractal\TransformerAbstract;
 use SevenShores\Kraken\Contracts\TransformerManager;
 
-class Manager implements TransformerManager
+class FractalTransformerManager implements TransformerManager
 {
     /**
      * @var \League\Fractal\Manager
@@ -110,10 +110,10 @@ class Manager implements TransformerManager
     {
         $paginatorAdapter = new IlluminatePaginatorAdapter($paginator);
 
-        $queryParams = array_diff_key($_GET, array_flip(['page']));
-        foreach ($queryParams as $key => $value) {
-            $paginatorAdapter->addQuery($key, $value);
-        }
+//        $queryParams = array_diff_key($_GET, array_flip(['page']));
+//        foreach ($queryParams as $key => $value) {
+//            $paginatorAdapter->addQuery($key, $value);
+//        }
 
         return $paginatorAdapter;
     }

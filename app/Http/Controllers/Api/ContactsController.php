@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use SevenShores\Kraken\Contact;
+use SevenShores\Kraken\Contracts\TransformerManager;
 use SevenShores\Kraken\Http\Controllers\Controller;
 use SevenShores\Kraken\Http\Requests\CreateContactRequest;
 use SevenShores\Kraken\Transformers\ContactTransformer;
@@ -10,15 +11,27 @@ use SevenShores\Kraken\Transformers\Factory as Transformer;
 class ContactsController extends Controller
 {
     /**
+     * @var TransformerManager
+     */
+    private $manager;
+
+    public function __construct(TransformerManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
+    /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $transformer = Transformer::contactPaginator();
-        $contacts = Contact::paginate();
-        $data = $transformer->toJson($contacts);
+        $transformer = new ContactTransformer();
+        $contacts = Contact::paginate($request->get('limit'));
+
+        $data = $this->manager->paginatedCollection($contacts, $transformer);
 
         return $this->jsonResponse($data);
     }
