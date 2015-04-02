@@ -12,16 +12,13 @@ class ContactsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $contacts = Contact::all();
-
-        $transformer = Transformer::make(ContactTransformer::class, $contacts);
-
-        $data = $transformer->toJson($request->get('include'));
+        $transformer = Transformer::contactPaginator();
+        $contacts = Contact::paginate();
+        $data = $transformer->toJson($contacts);
 
         return $this->jsonResponse($data);
     }
