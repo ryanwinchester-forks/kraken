@@ -5,6 +5,8 @@ use SevenShores\Kraken\Contact;
 
 class ContactTransformer extends TransformerAbstract
 {
+    const DEFAULT_CURSOR = 'MA==';
+
     /**
      * List of optional resources to include.
      *

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use SevenShores\Kraken\Contact;
+use SevenShores\Kraken\Contracts\Repositories\ContactRepository;
 use SevenShores\Kraken\Contracts\TransformerManager;
 use SevenShores\Kraken\Http\Requests\CreateContactRequest;
 use SevenShores\Kraken\Transformers\ContactTransformer;
@@ -14,9 +15,19 @@ class ContactsController extends ApiController
      */
     private $manager;
 
-    public function __construct(TransformerManager $manager)
+    /**
+     * @var ContactRepository
+     */
+    private $contacts;
+
+    /**
+     * @param TransformerManager $manager
+     * @param ContactRepository $contacts
+     */
+    public function __construct(TransformerManager $manager, ContactRepository $contacts)
     {
         $this->manager = $manager;
+        $this->contacts = $contacts;
     }
 
     /**
@@ -27,23 +38,15 @@ class ContactsController extends ApiController
      */
     public function index(Request $request)
     {
-        $transformer = new ContactTransformer();
+        $params = $this->getParamsFromRequest($request);
 
-        if ($request->has('order')) {
-            $order = $request->get('order');
-            if (str_contains($order, "|")) {
-                list($orderColumn, $orderDirection) = explode('|', $order);
-            } else {
-                $orderColumn = $order;
-                $orderDirection = null;
-            }
-            $contacts = Contact::orderBy($orderColumn, $orderDirection)->paginate($request->get('limit'));
-            $contacts->appends(['order' => $request->get('order')]);
-        } else {
-            $contacts = Contact::paginate($request->get('limit'));
-        }
+        $contacts = $this->contacts->cursor($request->get('cursor'), $params);
 
-        $data = $this->manager->paginatedCollection($contacts, $transformer);
+        $cursor = [
+            'current' => $request->get('cursor'),
+        ];
+
+        $data = $this->manager->cursorCollection($contacts, new ContactTransformer(), $cursor);
 
         return $this->jsonResponse($data);
     }

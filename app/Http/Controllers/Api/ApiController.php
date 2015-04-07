@@ -1,5 +1,6 @@
 <?php namespace SevenShores\Kraken\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
 use League\Fractal\Manager;
 use SevenShores\Kraken\Http\Controllers\Controller;
 use Symfony\Component\DependencyInjection\Dumper\YamlDumper;
@@ -209,5 +210,42 @@ class ApiController extends Controller
     public function errorWrongArgs($message = 'Wrong Arguments')
     {
         return $this->setStatusCode(400)->respondWithError($message, self::CODE_WRONG_ARGS);
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    protected function getParamsFromRequest(Request $request)
+    {
+        $params = [];
+        $params['count'] = $request->get('count');
+
+        if ($request->has('order')) {
+            $params['order'] = $this->getOrder($request->get('order'));
+        }
+
+        return $params;
+    }
+
+    /**
+     * @param string $orderString
+     * @return array
+     */
+    private function getOrder($orderString)
+    {
+        $order = [];
+
+        if (str_contains($orderString, "|")) {
+            list($order['column'], $order['direction']) = explode('|', $orderString);
+            if (! str_is('desc', $order['direction']) && ! str_is('asc', $order['direction'])) {
+                throw new \InvalidArgumentException('Order direction must be either "asc" or "desc".');
+            }
+        } else {
+            $order['column'] = $orderString;
+            $order['direction'] = 'asc';
+        }
+
+        return $order;
     }
 }

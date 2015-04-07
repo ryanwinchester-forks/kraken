@@ -4,6 +4,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use League\Fractal\Manager as Fractal;
+use League\Fractal\Pagination\Cursor;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
@@ -89,6 +90,24 @@ class FractalTransformerManager implements TransformerManager
     }
 
     /**
+     * @param $data
+     * @param \League\Fractal\TransformerAbstract $transformer
+     * @param null $cursor
+     * @param string $resourceKey
+     * @return array
+     */
+    public function cursorCollection($data, $transformer = null, $cursor = null, $resourceKey = null)
+    {
+        $transformer = $this->getTransformer($transformer);
+
+        $resource = new Collection($data, $transformer, $resourceKey);
+
+        $resource->setCursor($this->getCursorFromData($cursor, $data));
+
+        return $this->manager->createData($resource)->toJson();
+    }
+
+    /**
      * @param TransformerAbstract $transformer
      * @return TransformerAbstract|callback
      */
@@ -116,5 +135,25 @@ class FractalTransformerManager implements TransformerManager
 //        }
 
         return $paginatorAdapter;
+    }
+
+    /**
+     * @param $cursor
+     * @param $data
+     * @return Cursor
+     */
+    protected function getCursorFromData($cursor, $data)
+    {
+        if ($cursor instanceof Cursor) {
+            return $cursor;
+        } elseif (is_array($cursor)) {
+            $current = isset($cursor['current']) ? $cursor['current'] : base64_encode($data->first()->id);
+            $prev = isset($cursor['prev']) ? $cursor['prev'] : null;
+            $next = isset($cursor['next']) ? $cursor['next'] : base64_encode($data->last()->id);
+            $count = isset($cursor['count']) ? $cursor['count'] : $data->count();
+            return new Cursor($current, $prev, $next, $count);
+        }
+
+        return new Cursor();
     }
 }

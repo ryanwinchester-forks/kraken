@@ -4,7 +4,7 @@ use SevenShores\Kraken;
 
 $factory(Kraken\Contact::class, function ($faker) {
 
-    $email = $faker->email;
+    $email = mt_rand(1, 1000000) . $faker->email;
 
     return [
         'email' => $email,
