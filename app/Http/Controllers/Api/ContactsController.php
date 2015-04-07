@@ -3,12 +3,11 @@
 use Illuminate\Http\Request;
 use SevenShores\Kraken\Contact;
 use SevenShores\Kraken\Contracts\TransformerManager;
-use SevenShores\Kraken\Http\Controllers\Controller;
 use SevenShores\Kraken\Http\Requests\CreateContactRequest;
 use SevenShores\Kraken\Transformers\ContactTransformer;
 use SevenShores\Kraken\Transformers\Factory as Transformer;
 
-class ContactsController extends Controller
+class ContactsController extends ApiController
 {
     /**
      * @var TransformerManager
