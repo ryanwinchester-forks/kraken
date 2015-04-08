@@ -56,7 +56,7 @@ class FractalTransformerManager implements TransformerManager
     {
         $resource = new Item($data, $this->getTransformer($transformer), $resourceKey);
 
-        return $this->manager->createData($resource)->toJson();
+        return $this->manager->createData($resource);
     }
 
     /**
@@ -69,7 +69,7 @@ class FractalTransformerManager implements TransformerManager
     {
         $resource = new Collection($data, $this->getTransformer($transformer), $resourceKey);
 
-        return $this->manager->createData($resource)->toJson();
+        return $this->manager->createData($resource);
     }
 
     /**
@@ -87,7 +87,7 @@ class FractalTransformerManager implements TransformerManager
 
         $resource->setCursor($this->makeCursor($cursor, $data));
 
-        return $this->manager->createData($resource)->toJson();
+        return $this->manager->createData($resource);
     }
 
     /**
@@ -115,9 +115,9 @@ class FractalTransformerManager implements TransformerManager
             return $cursor;
         } elseif (is_array($cursor) && ! $data->isEmpty()) {
             $current = (int) ($data->first()->id - 1);
-            $prev = ! empty($cursor['prev']) ? (int) $cursor['prev'] : null;
-            $next = (int) $data->last()->id;
-            $count = (int) $data->count();
+            $next    = (int)  $data->last()->id;
+            $count   = (int)  $data->count();
+            $prev    = ! empty($cursor['prev']) ? (int) $cursor['prev'] : null;
 
             return new Cursor($current, $prev, $next, $count);
         }

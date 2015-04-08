@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use SevenShores\Kraken\Contracts\TransformerManager;
 use SevenShores\Kraken\Http\Controllers\Controller;
+use Symfony\Component\Yaml\Yaml;
 
 class ApiController extends Controller
 {
@@ -126,18 +127,21 @@ class ApiController extends Controller
     {
         switch ($this->contentType) {
             case 'application/json':
-                return $this->jsonResponse($resource);
+                $content = $resource->toJson();
                 break;
             case 'application/x-yaml':
-                return $this->yamlResponse($resource);
+                $content = Yaml::dump($resource->toArray(), 2);
                 break;
             default:
                 $message = sprintf('Content of type %s is not supported.', $this->contentType);
-
                 return $this->setStatusCode(415)
                     ->setContentType('application/json')
                     ->respondWithError($message, static::CODE_INVALID_MIME_TYPE);
         }
+
+        return response($content, $this->getStatusCode(), [
+            'Content-Type' => $this->contentType,
+        ]);
     }
 
     /**
