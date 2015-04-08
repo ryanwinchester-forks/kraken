@@ -7,15 +7,29 @@ use Symfony\Component\Yaml\Yaml;
 
 class ApiController extends Controller
 {
-    protected $statusCode = 200;
-    protected $contentType = 'application/json';
-
     const CODE_WRONG_ARGS = 'GEN-INVALID-ARGS';
     const CODE_NOT_FOUND = 'GEN-NOTHING-HERE';
     const CODE_INTERNAL_ERROR = 'GEN-SERVER-ERROR';
     const CODE_UNAUTHORIZED = 'GEN-UNAUTHORIZED';
     const CODE_FORBIDDEN = 'GEN-FORBIDDEN';
-    const CODE_INVALID_MIME_TYPE = 'GEN-INVALID-MIME';
+
+    /**
+     * @var int
+     */
+    protected $statusCode = 200;
+
+    /**
+     * @var string
+     */
+    protected $contentType;
+
+    /**
+     * @var array
+     */
+    protected $supportedTypes = [
+        'JSON' => 'application/json',
+        'YAML' => 'application/x-yaml',
+    ];
 
     /**
      * @var TransformerManager
@@ -28,7 +42,6 @@ class ApiController extends Controller
     public function __construct(TransformerManager $manager)
     {
         $this->manager = $manager;
-        $this->setContentType($this->getMimeType());
     }
 
     /**
@@ -50,16 +63,6 @@ class ApiController extends Controller
     }
 
     /**
-     * @param $contentType
-     * @return $this
-     */
-    protected function setContentType($contentType)
-    {
-        $this->contentType = $contentType;
-        return $this;
-    }
-
-    /**
      * @param $item
      * @param $transformer
      * @return mixed
@@ -68,7 +71,7 @@ class ApiController extends Controller
     {
         $resource = $this->manager->item($item, $transformer);
 
-        return $this->makeResponse($resource);
+        return $this->respondWithResource($resource);
     }
 
     /**
@@ -80,7 +83,7 @@ class ApiController extends Controller
     {
         $resource = $this->manager->collection($data, $transformer);
 
-        return $this->makeResponse($resource);
+        return $this->respondWithResource($resource);
     }
 
     /**
@@ -93,7 +96,20 @@ class ApiController extends Controller
     {
         $resource = $this->manager->cursorCollection($data, $transformer, $cursor);
 
-        return $this->makeResponse($resource);
+        return $this->respondWithResource($resource);
+    }
+
+    /**
+     * @param $resource
+     * @return mixed
+     */
+    protected function respondWithResource($resource)
+    {
+        $content = $this->formatResourceForContentType($resource);
+
+        return response($content, $this->getStatusCode(), [
+            'Content-Type' => $this->getContentType(),
+        ]);
     }
 
     /**
@@ -110,37 +126,12 @@ class ApiController extends Controller
             );
         }
 
-        return $this->makeResponse([
+        return response()->json([
             'error' => [
-                'code' => $errorCode,
-                'http_code' => $this->statusCode,
-                'message' => $message,
+                'code'      => $errorCode,
+                'http_code' => $this->getStatusCode(),
+                'message'   => $message,
             ]
-        ]);
-    }
-
-    /**
-     * @param $resource
-     * @return mixed
-     */
-    protected function makeResponse($resource)
-    {
-        switch ($this->contentType) {
-            case 'application/json':
-                $content = $resource->toJson();
-                break;
-            case 'application/x-yaml':
-                $content = Yaml::dump($resource->toArray(), 2);
-                break;
-            default:
-                $message = sprintf('Content of type %s is not supported.', $this->contentType);
-                return $this->setStatusCode(415)
-                    ->setContentType('application/json')
-                    ->respondWithError($message, static::CODE_INVALID_MIME_TYPE);
-        }
-
-        return response($content, $this->getStatusCode(), [
-            'Content-Type' => $this->contentType,
         ]);
     }
 
@@ -201,18 +192,45 @@ class ApiController extends Controller
 
     /**
      * Get the mime-type from the accept header.
+     * Defaults to JSON if unsupported type requested.
      *
      * @return string
      */
-    protected function getMimeType()
+    protected function getContentType()
     {
-        $mimeTypeRaw = \Request::server('HTTP_ACCEPT', '*/*');
-
-        if ($mimeTypeRaw === '*/*') {
-            return 'application/json';
+        if (isset($this->contentType)) {
+            return $this->contentType;
         }
 
+        $mimeTypeRaw = \Request::server('HTTP_ACCEPT', 'application/json');
+
         $mimeParts = (array) explode(';', $mimeTypeRaw);
-        return strtolower($mimeParts[0]);
+        $mimeType =  strtolower($mimeParts[0]);
+
+        if (in_array($mimeType, $this->supportedTypes)) {
+            $this->contentType = $mimeType;
+        } else {
+            $this->contentType = $this->supportedTypes['JSON'];
+        }
+
+        return $this->contentType;
+    }
+
+    /**
+     * Formats the resource for the requested content type.
+     * Default to JSON.
+     *
+     * @param $resource
+     * @return string
+     */
+    protected function formatResourceForContentType($resource)
+    {
+        switch ($this->getContentType()) {
+            case 'application/x-yaml':
+                return Yaml::dump($resource->toArray(), 2);
+                break;
+            default:
+                return $resource->toJson();
+        }
     }
 }
