@@ -5,7 +5,6 @@ use SevenShores\Kraken\Contracts\Repositories\ContactRepository;
 use SevenShores\Kraken\Contracts\TransformerManager;
 use SevenShores\Kraken\Http\Requests\CreateContactRequest;
 use SevenShores\Kraken\Transformers\ContactTransformer;
-use SevenShores\Kraken\Transformers\Factory as Transformer;
 
 class ContactsController extends ApiController
 {
@@ -51,7 +50,7 @@ class ContactsController extends ApiController
      */
     public function store(CreateContactRequest $request)
     {
-        return response()->json(['store contact in db']);
+        return response()->json(['store a new contact in db']);
     }
 
     /**
@@ -75,7 +74,7 @@ class ContactsController extends ApiController
      */
     public function update($id)
     {
-        //
+        return response()->json(['update a contact in db']);
     }
 
     /**
@@ -86,6 +85,9 @@ class ContactsController extends ApiController
      */
     public function destroy($id)
     {
-        //
+        $contact = $this->contacts->getById($id);
+        $contact->delete();
+
+        return $this->respondWithItem($contact, new ContactTransformer());
     }
 }
