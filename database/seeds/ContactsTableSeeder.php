@@ -9,6 +9,6 @@ class ContactsTableSeeder extends BaseSeeder
     {
         //$this->truncateTable('contacts');
         
-        Factory::times(100000)->create(Contact::class);
+        Factory::times(1000)->create(Contact::class);
     }
 }
