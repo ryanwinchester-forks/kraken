@@ -20,22 +20,15 @@ class FractalTransformerManager implements TransformerManager
     protected $manager;
 
     /**
-     * @var Request
-     */
-    private $request;
-    
-    /**
      * @param Fractal $manager
      * @param SerializerAbstract $serializer
-     * @param Request $request
      */
-    public function __construct(Fractal $manager, SerializerAbstract $serializer, Request $request)
+    public function __construct(Fractal $manager, SerializerAbstract $serializer)
     {
         $this->manager = $manager;
-        $this->request = $request;
 
         $this->manager->setSerializer($serializer);
-        $this->manager->parseIncludes($request->query());
+        $this->manager->parseIncludes(\Request::get('include'));
     }
 
     /**
