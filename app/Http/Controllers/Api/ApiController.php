@@ -1,15 +1,13 @@
 <?php namespace SevenShores\Kraken\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use League\Fractal\Manager;
-use League\Fractal\Resource\Collection;
 use SevenShores\Kraken\Contracts\TransformerManager;
 use SevenShores\Kraken\Http\Controllers\Controller;
-use Symfony\Component\DependencyInjection\Dumper\YamlDumper;
 
 class ApiController extends Controller
 {
     protected $statusCode = 200;
+    protected $contentType = 'application/json';
 
     const CODE_WRONG_ARGS = 'GEN-INVALID-ARGS';
     const CODE_NOT_FOUND = 'GEN-NOTHING-HERE';
@@ -29,28 +27,34 @@ class ApiController extends Controller
     public function __construct(TransformerManager $manager)
     {
         $this->manager = $manager;
+        $this->setContentType($this->getMimeType());
     }
 
     /**
-     * Getter for statusCode
-     *
-     * @return mixed
+     * @return int
      */
-    public function getStatusCode()
+    protected function getStatusCode()
     {
         return $this->statusCode;
     }
 
     /**
-     * Setter for statusCode
-     *
      * @param int $statusCode Value to set
-     *
-     * @return self
+     * @return $this
      */
-    public function setStatusCode($statusCode)
+    protected function setStatusCode($statusCode)
     {
         $this->statusCode = $statusCode;
+        return $this;
+    }
+
+    /**
+     * @param $contentType
+     * @return $this
+     */
+    protected function setContentType($contentType)
+    {
+        $this->contentType = $contentType;
         return $this;
     }
 
@@ -63,7 +67,7 @@ class ApiController extends Controller
     {
         $resource = $this->manager->item($item, $transformer);
 
-        return $this->jsonResponse($resource);
+        return $this->makeResponse($resource);
     }
 
     /**
@@ -75,7 +79,7 @@ class ApiController extends Controller
     {
         $resource = $this->manager->collection($data, $transformer);
 
-        return $this->jsonResponse($resource);
+        return $this->makeResponse($resource);
     }
 
     /**
@@ -88,52 +92,7 @@ class ApiController extends Controller
     {
         $resource = $this->manager->cursorCollection($data, $transformer, $cursor);
 
-        return $this->jsonResponse($resource);
-    }
-
-    /**
-     * @param array $array
-     * @param array $headers
-     * @return mixed
-     */
-    protected function respondWithArray(array $array, array $headers = [])
-    {
-        $mimeTypeRaw = \Request::server('HTTP_ACCEPT', '*/*');
-        // If its empty or has */* then default to JSON
-        if ($mimeTypeRaw === '*/*') {
-            $mimeType = 'application/json';
-        } else {
-            // You will probably want to do something intelligent with charset if provided.
-            // This chapter just assumes UTF8 everything everywhere.
-            $mimeParts = (array) explode(';', $mimeTypeRaw);
-            $mimeType = strtolower($mimeParts[0]);
-        }
-
-        switch ($mimeType) {
-            case 'application/json':
-                $contentType = 'application/json';
-                $content = json_encode($array);
-                break;
-            case 'application/x-yaml':
-                $contentType = 'application/x-yaml';
-                $dumper = app(YamlDumper::class);
-                $content = $dumper->dump($array, 2);
-                break;
-            default:
-                $contentType = 'application/json';
-                $content = json_encode([
-                    'error' => [
-                        'code' => static::CODE_INVALID_MIME_TYPE,
-                        'http_code' => 415,
-                        'message' => sprintf('Content of type %s is not supported.', $mimeType),
-                    ]
-                ]);
-        }
-
-        $response = response($content, $this->statusCode, $headers);
-        $response->header('Content-Type', $contentType);
-
-        return $response;
+        return $this->makeResponse($resource);
     }
 
     /**
@@ -150,13 +109,35 @@ class ApiController extends Controller
             );
         }
 
-        return $this->respondWithArray([
+        return $this->makeResponse([
             'error' => [
                 'code' => $errorCode,
                 'http_code' => $this->statusCode,
                 'message' => $message,
             ]
         ]);
+    }
+
+    /**
+     * @param $resource
+     * @return mixed
+     */
+    protected function makeResponse($resource)
+    {
+        switch ($this->contentType) {
+            case 'application/json':
+                return $this->jsonResponse($resource);
+                break;
+            case 'application/x-yaml':
+                return $this->yamlResponse($resource);
+                break;
+            default:
+                $message = sprintf('Content of type %s is not supported.', $this->contentType);
+
+                return $this->setStatusCode(415)
+                    ->setContentType('application/json')
+                    ->respondWithError($message, static::CODE_INVALID_MIME_TYPE);
+        }
     }
 
     /**
@@ -215,23 +196,19 @@ class ApiController extends Controller
     }
 
     /**
-     * @param string $orderString
-     * @return array
+     * Get the mime-type from the accept header.
+     *
+     * @return string
      */
-    protected function getOrder($orderString)
+    protected function getMimeType()
     {
-        $order = [];
+        $mimeTypeRaw = \Request::server('HTTP_ACCEPT', '*/*');
 
-        if (str_contains($orderString, "|")) {
-            list($order['column'], $order['direction']) = explode('|', $orderString);
-            if (! str_is('desc', $order['direction']) && ! str_is('asc', $order['direction'])) {
-                throw new \InvalidArgumentException('Order direction must be either "asc" or "desc".');
-            }
-        } else {
-            $order['column'] = $orderString;
-            $order['direction'] = 'asc';
+        if ($mimeTypeRaw === '*/*') {
+            return 'application/json';
         }
 
-        return $order;
+        $mimeParts = (array) explode(';', $mimeTypeRaw);
+        return strtolower($mimeParts[0]);
     }
 }
