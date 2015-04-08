@@ -1,7 +1,6 @@
 <?php namespace SevenShores\Kraken\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use SevenShores\Kraken\Contact;
 use SevenShores\Kraken\Contracts\Repositories\ContactRepository;
 use SevenShores\Kraken\Contracts\TransformerManager;
 use SevenShores\Kraken\Http\Requests\CreateContactRequest;
@@ -10,11 +9,6 @@ use SevenShores\Kraken\Transformers\Factory as Transformer;
 
 class ContactsController extends ApiController
 {
-    /**
-     * @var TransformerManager
-     */
-    private $manager;
-
     /**
      * @var ContactRepository
      */
@@ -26,7 +20,7 @@ class ContactsController extends ApiController
      */
     public function __construct(TransformerManager $manager, ContactRepository $contacts)
     {
-        $this->manager = $manager;
+        parent::__construct($manager);
         $this->contacts = $contacts;
     }
 
@@ -38,17 +32,15 @@ class ContactsController extends ApiController
      */
     public function index(Request $request)
     {
-        $params = $this->getParamsFromRequest($request);
-
-        $contacts = $this->contacts->cursor($request->get('cursor'), $params);
-
-        $cursor = [
+        $options = [
             'current' => $request->get('cursor'),
+            'count'   => $request->get('count'),
+            'prev'    => $request->get('prev'),
         ];
 
-        $data = $this->manager->cursorCollection($contacts, new ContactTransformer(), $cursor);
+        $contacts = $this->contacts->cursor($request->get('cursor'), $options);
 
-        return $this->jsonResponse($data);
+        return $this->respondWithCursor($contacts, new ContactTransformer(), $options);
     }
 
     /**
@@ -65,12 +57,14 @@ class ContactsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
     {
-        //
+        $contact = $this->contacts->getById($id);
+
+        return $this->respondWithItem($contact, new ContactTransformer());
     }
 
     /**

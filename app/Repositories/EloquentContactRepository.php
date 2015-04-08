@@ -12,40 +12,23 @@ class EloquentContactRepository extends EloquentRepository implements ContactRep
     protected $model = Contact::class;
 
     /**
-     * @param string $cursor
+     * @param int $cursor
      * @param array $options
      * @return mixed
      */
-    public function cursor($cursor = ContactTransformer::DEFAULT_CURSOR, $options = [])
+    public function cursor($cursor = 0, $options = [])
     {
-        $options['count'] = isset($options['count']) ? $options['count'] : 20;
+        $options['count'] = isset($options['count']) ? (int) $options['count'] : 20;
 
-        $query = $this->make()
-            ->where('id', '>', base64_decode($cursor))
-            ->take($options['count']);
-
-        if (isset($options['order'])) {
-            $query = $this->addOrderToQuery($options['order'], $query);
+        if ($options['count'] > 100) {
+            $options['count'] = 100;
         }
+
+        return $this->make()
+            ->where('id', '>', (int) $cursor)
+            ->take($options['count'])
+            ->get();
 
         return $query->get();
-    }
-
-    /**
-     * @param array|string $order
-     * @param $query
-     * @return mixed
-     */
-    private function addOrderToQuery($order, $query)
-    {
-        if (! is_array($order)) {
-            return $query->orderBy($order);
-        }
-
-        if (isset($order['direction'])) {
-            return $query->orderBy($order['column'], $order['direction']);
-        }
-
-        return $query->orderBy($order['column']);
     }
 }

@@ -5,8 +5,6 @@ use SevenShores\Kraken\Contact;
 
 class ContactTransformer extends TransformerAbstract
 {
-    const DEFAULT_CURSOR = 'MA==';
-
     /**
      * List of optional resources to include.
      *
@@ -42,9 +40,7 @@ class ContactTransformer extends TransformerAbstract
     {
         $properties = $contact->properties;
 
-        $transformer = new ContactPropertyTransformer();
-
-        return $this->collection($properties, $transformer);
+        return $this->collection($properties, new ContactPropertyTransformer());
     }
 
     /**

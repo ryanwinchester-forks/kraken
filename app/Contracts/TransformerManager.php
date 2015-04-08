@@ -26,10 +26,11 @@ interface TransformerManager
     public function item($data, $transformer = null, $resourceKey = null);
 
     /**
-     * @param LengthAwarePaginator $paginator
+     * @param $data
      * @param \League\Fractal\TransformerAbstract $transformer
+     * @param int $cursor
      * @param string $resourceKey
      * @return array
      */
-    public function paginatedCollection(LengthAwarePaginator $paginator, $transformer = null, $resourceKey = null);
+    public function cursorCollection($data, $transformer = null, $cursor = null, $resourceKey = null);
 }

@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use League\Fractal\Manager;
+use League\Fractal\Resource\Collection;
+use SevenShores\Kraken\Contracts\TransformerManager;
 use SevenShores\Kraken\Http\Controllers\Controller;
 use Symfony\Component\DependencyInjection\Dumper\YamlDumper;
 
@@ -17,11 +19,16 @@ class ApiController extends Controller
     const CODE_INVALID_MIME_TYPE = 'GEN-INVALID-MIME';
 
     /**
-     * @param Manager $fractal
+     * @var TransformerManager
      */
-    public function __construct(Manager $fractal)
+    protected $manager;
+
+    /**
+     * @param TransformerManager $manager
+     */
+    public function __construct(TransformerManager $manager)
     {
-        $this->fractal = $fractal;
+        $this->manager = $manager;
     }
 
     /**
@@ -49,44 +56,39 @@ class ApiController extends Controller
 
     /**
      * @param $item
-     * @param $callback
+     * @param $transformer
      * @return mixed
      */
-    protected function respondWithItem($item, $callback)
+    protected function respondWithItem($item, $transformer)
     {
-        $resource = new Item($item, $callback);
+        $resource = $this->manager->item($item, $transformer);
 
-        $rootScope = $this->fractal->createData($resource);
-
-        return $this->respondWithArray($rootScope->toArray());
+        return $this->jsonResponse($resource);
     }
 
     /**
-     * @param $collection
-     * @param $callback
+     * @param $data
+     * @param $transformer
      * @return mixed
      */
-    protected function respondWithCollection($collection, $callback)
+    protected function respondWithCollection($data, $transformer)
     {
-        $resource = new Collection($collection, $callback);
+        $resource = $this->manager->collection($data, $transformer);
 
-        $rootScope = $this->fractal->createData($resource);
-
-        return $this->respondWithArray($rootScope->toArray());
+        return $this->jsonResponse($resource);
     }
 
     /**
-     * @param $paginator
-     * @param $callback
+     * @param $data
+     * @param $transformer
+     * @param $cursor
      * @return mixed
      */
-    protected function respondWithPaginator($paginator, $callback)
+    protected function respondWithCursor($data, $transformer, $cursor = null)
     {
-        $resource = new Collection($paginator, $callback);
+        $resource = $this->manager->cursorCollection($data, $transformer, $cursor);
 
-        $rootScope = $this->fractal->createData($resource);
-
-        return $this->respondWithArray($rootScope->toArray());
+        return $this->jsonResponse($resource);
     }
 
     /**
@@ -213,26 +215,10 @@ class ApiController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return array
-     */
-    protected function getParamsFromRequest(Request $request)
-    {
-        $params = [];
-        $params['count'] = $request->get('count');
-
-        if ($request->has('order')) {
-            $params['order'] = $this->getOrder($request->get('order'));
-        }
-
-        return $params;
-    }
-
-    /**
      * @param string $orderString
      * @return array
      */
-    private function getOrder($orderString)
+    protected function getOrder($orderString)
     {
         $order = [];
 
