@@ -13,10 +13,12 @@ class BaseSeeder extends Seeder
 
     protected function truncateTable($table)
     {
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
-        \DB::table($table)->truncate();
-
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        if (app()->environment() === 'testing') {
+            \DB::table($table)->truncate();
+        } else {
+            \DB::statement('SET FOREIGN_KEY_CHECKS=0');
+            \DB::table($table)->truncate();
+            \DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        }
     }
 }
