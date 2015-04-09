@@ -13,15 +13,15 @@ interface TransformerManager
      * @param string $resourceKey
      * @return \League\Fractal\Scope
      */
-    public function collection($data, $transformer = null, $resourceKey = null);
+    public function item($data, $transformer = null, $resourceKey = null);
 
     /**
      * @param $data
      * @param \League\Fractal\TransformerAbstract $transformer
      * @param string $resourceKey
-     * @return array
+     * @return \League\Fractal\Scope
      */
-    public function item($data, $transformer = null, $resourceKey = null);
+    public function collection($data, $transformer = null, $resourceKey = null);
 
     /**
      * @param $data
