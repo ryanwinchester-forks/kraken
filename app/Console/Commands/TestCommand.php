@@ -4,38 +4,39 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class TestCommand extends Command {
+class TestCommand extends Command
+{
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'test:run';
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'test:run';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Run tests';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Run tests';
 
-	/**
-	 * Create a new command instance.
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
+    /**
+     * Create a new command instance.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-	{
-		$result = array();
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function fire()
+    {
+        $result = array();
 
         // DATABASE
         $this->info('Setting up database');
@@ -57,30 +58,29 @@ class TestCommand extends Command {
         // ACCEPTANCE TESTS
         $this->info('Running acceptance tests with behat:');
         system('vendor/bin/behat');
-	}
+    }
 
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return [
-			['unit', InputArgument::OPTIONAL, 'An example argument.'],
-		];
-	}
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return [
+            ['unit', InputArgument::OPTIONAL, 'An example argument.'],
+        ];
+    }
 
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return [
-			['example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null],
-		];
-	}
-
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
+            ['example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null],
+        ];
+    }
 }
