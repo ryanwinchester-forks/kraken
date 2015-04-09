@@ -2,7 +2,7 @@
 
 use SevenShores\Kraken\Http\Requests\Request;
 
-class CreateContactRequest extends Request
+class StoreContactRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.

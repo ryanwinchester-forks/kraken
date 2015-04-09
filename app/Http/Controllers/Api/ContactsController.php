@@ -3,7 +3,8 @@
 use Illuminate\Http\Request;
 use SevenShores\Kraken\Contracts\Repositories\ContactRepository;
 use SevenShores\Kraken\Contracts\TransformerManager;
-use SevenShores\Kraken\Http\Requests\CreateContactRequest;
+use SevenShores\Kraken\Http\Requests\StoreContactRequest;
+use SevenShores\Kraken\Http\Requests\UpdateContactRequest;
 use SevenShores\Kraken\Transformers\ContactTransformer;
 
 class ContactsController extends ApiController
@@ -45,10 +46,10 @@ class ContactsController extends ApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateContactRequest $request
+     * @param StoreContactRequest $request
      * @return Response
      */
-    public function store(CreateContactRequest $request)
+    public function store(StoreContactRequest $request)
     {
         return response()->json(['store a new contact in db']);
     }
@@ -69,10 +70,11 @@ class ContactsController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param UpdateContactRequest $request
+     * @param int $id
      * @return Response
      */
-    public function update($id)
+    public function update(UpdateContactRequest $request, $id)
     {
         return response()->json(['update a contact in db']);
     }
@@ -80,7 +82,7 @@ class ContactsController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)
