@@ -4,7 +4,6 @@ use SevenShores\Kraken\Http\Requests\Request;
 
 class CreateContactRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -12,7 +11,8 @@ class CreateContactRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        // TODO: Authenticate...
+        return true;
     }
 
     /**
@@ -23,7 +23,7 @@ class CreateContactRequest extends Request
     public function rules()
     {
         return [
-            //
+            'email' => 'required|email|unique:contacts'
         ];
     }
 }
