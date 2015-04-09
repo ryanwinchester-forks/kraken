@@ -37,21 +37,26 @@ class TestCommand extends Command {
 	{
 		$result = array();
 
-        $result['create_db'] = system('touch storage/testing.sqlite');
+        // DATABASE
+        $this->info('Setting up database');
+        system('touch storage/testing.sqlite');
+        echo PHP_EOL;
+        system('php artisan migrate --seed --database=test --env=testing');
+        echo PHP_EOL;
 
-        $result['migration'] = \Artisan::call('migrate', ['--seed', '--database' => 'test']);;
+        // UNIT TESTS
+        $this->info('Running unit tests with phpspec:');
+        system('vendor/bin/phpspec run');
+        echo PHP_EOL;
 
-        $result['unit'] = system('vendor/bin/phpspec run');
+        // INTEGRATION TESTS
+        $this->info('Running integration tests with phpunit:');
+        system('vendor/bin/phpunit');
+        echo PHP_EOL;
 
-        $result['integration'] = system('vendor/bin/phpunit');
-
-        $result['acceptance'] = system('vendor/bin/behat');
-
-        $result['delete_db'] = system('rm storage/testing.sqlite');
-
-        foreach ($result as $name => $output) {
-            echo $output;
-        }
+        // ACCEPTANCE TESTS
+        $this->info('Running acceptance tests with behat:');
+        system('vendor/bin/behat');
 	}
 
 	/**
