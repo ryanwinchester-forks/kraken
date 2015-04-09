@@ -2,6 +2,18 @@
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+        \DB::beginTransaction();
+    }
+
+    public function tearDown()
+    {
+        \DB::rollback();
+        parent::tearDown();
+    }
+
     /**
      * Creates the application.
      *

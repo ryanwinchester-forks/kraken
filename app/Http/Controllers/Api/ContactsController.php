@@ -1,6 +1,7 @@
 <?php namespace SevenShores\Kraken\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use SevenShores\Kraken\Contact;
 use SevenShores\Kraken\Contracts\Repositories\ContactRepository;
 use SevenShores\Kraken\Contracts\TransformerManager;
 use SevenShores\Kraken\Http\Requests\StoreContactRequest;
@@ -51,7 +52,11 @@ class ContactsController extends ApiController
      */
     public function store(StoreContactRequest $request)
     {
-        return response()->json(['store a new contact in db']);
+        $contact = Contact::create([
+            'email' => $request->json('email'),
+        ]);
+
+        return $this->respondWithItem($contact, new ContactTransformer());
     }
 
     /**
@@ -76,7 +81,13 @@ class ContactsController extends ApiController
      */
     public function update(UpdateContactRequest $request, $id)
     {
-        return response()->json(['update a contact in db']);
+        $contact = Contact::findOrFail($id);
+
+        $contact->update([
+            'email' => $request->json('email'),
+        ]);
+
+        return $this->respondWithItem($contact, new ContactTransformer());
     }
 
     /**
