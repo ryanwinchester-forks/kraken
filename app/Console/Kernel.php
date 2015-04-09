@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'SevenShores\Kraken\Console\Commands\Inspire',
+        'SevenShores\Kraken\Console\Commands\TestCommand',
     ];
 
     /**

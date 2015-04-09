@@ -13,3 +13,4 @@
 .env
 .env.behat
 storage/database.sqlite
+storage/testing.sqlite
