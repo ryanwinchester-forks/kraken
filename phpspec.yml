@@ -3,6 +3,7 @@ suites:
         namespace: SevenShores\Kraken
         psr4_prefix: SevenShores\Kraken
         src_path: app
+        spec_path: ./tests
 
 extensions:
     - PhpSpec\Laravel\Extension\LaravelExtension

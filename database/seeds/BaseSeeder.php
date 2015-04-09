@@ -13,12 +13,17 @@ class BaseSeeder extends Seeder
 
     protected function truncateTable($table)
     {
-        if (app()->environment() === 'testing') {
+        if ($this->isSqlite()) {
             \DB::table($table)->truncate();
         } else {
             \DB::statement('SET FOREIGN_KEY_CHECKS=0');
             \DB::table($table)->truncate();
             \DB::statement('SET FOREIGN_KEY_CHECKS=1');
         }
+    }
+
+    private function isSqlite()
+    {
+        return config('database.default') === 'sqlite' || app()->environment() === 'testing';
     }
 }

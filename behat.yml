@@ -1,4 +1,8 @@
 default:
+    suites:
+        default:
+            paths:    [ %paths.base%/tests/features ]
+            contexts: [ FeatureContext ]
     extensions:
         Laracasts\Behat: ~
         Behat\MinkExtension:
