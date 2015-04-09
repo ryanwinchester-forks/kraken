@@ -11,7 +11,7 @@ before_script:
     - travis_retry composer self-update
     - travis_retry composer install --prefer-source --no-interaction
     - chmod -R 777 storage
-    - php artisan migrate --seed --no-interaction --env=testing -vvv
+    - php artisan migrate --seed --no-interaction --env=testing --database=sqlite -vvv
 
 script:
     - vendor/bin/phpspec run
