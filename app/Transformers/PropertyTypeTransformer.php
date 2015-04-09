@@ -6,11 +6,6 @@ use SevenShores\Kraken\PropertyType;
 class PropertyTypeTransformer extends Transformer
 {
     /**
-     * @var string
-     */
-    protected $key = 'type';
-
-    /**
      * Transform this item object into a generic array.
      *
      * @param PropertyType $type
@@ -25,13 +20,5 @@ class PropertyTypeTransformer extends Transformer
             'type'    => $type->type,
             'is_void' => $type->is_void,
         ];
-    }
-
-    /**
-     * @return string
-     */
-    public function getKey()
-    {
-        return $this->key;
     }
 }

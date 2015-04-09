@@ -6,11 +6,6 @@ use SevenShores\Kraken\Property;
 class PropertyTransformer extends Transformer
 {
     /**
-     * @var string
-     */
-    protected $key = 'property';
-
-    /**
      * List of resources to automatically include
      *
      * @var array
@@ -55,7 +50,7 @@ class PropertyTransformer extends Transformer
 
         $transformer = new PropertyTypeTransformer();
 
-        return $this->item($type, $transformer, $transformer->getKey());
+        return $this->item($type, $transformer);
     }
 
     /**
@@ -70,6 +65,6 @@ class PropertyTransformer extends Transformer
 
         $transformer = new FormTransformer();
 
-        return $this->collection($forms, $transformer, str_plural($transformer->getKey()));
+        return $this->collection($forms, $transformer);
     }
 }
