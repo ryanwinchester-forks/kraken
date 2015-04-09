@@ -16,7 +16,8 @@ class Kernel extends HttpKernel
         'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
         'Illuminate\Session\Middleware\StartSession',
         'Illuminate\View\Middleware\ShareErrorsFromSession',
-        'SevenShores\Kraken\Http\Middleware\VerifyCsrfToken',
+        // TODO: re-enable this for production
+        // 'SevenShores\Kraken\Http\Middleware\VerifyCsrfToken',
     ];
 
     /**
@@ -25,8 +26,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => 'SevenShores\Kraken\Http\Middleware\Authenticate',
+        'auth'       => 'SevenShores\Kraken\Http\Middleware\Authenticate',
         'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-        'guest' => 'SevenShores\Kraken\Http\Middleware\RedirectIfAuthenticated',
+        'guest'      => 'SevenShores\Kraken\Http\Middleware\RedirectIfAuthenticated',
     ];
 }

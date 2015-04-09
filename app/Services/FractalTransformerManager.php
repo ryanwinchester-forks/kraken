@@ -28,7 +28,7 @@ class FractalTransformerManager implements TransformerManager
         $this->manager = $manager;
 
         $this->manager->setSerializer($serializer);
-        $this->manager->parseIncludes(\Request::get('include'));
+        $this->manager->parseIncludes(\Request::get('include', ''));
     }
 
     /**
