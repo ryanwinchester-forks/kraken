@@ -7,11 +7,11 @@ php:
 
 before_script:
     - mv .env.behat.example .env
+    - touch storage/testing.sqlite
     - travis_retry composer self-update
     - travis_retry composer install --prefer-source --no-interaction
     - chmod -R 777 storage
-    - php artisan test:run
-    #- php artisan migrate --seed --no-interaction --env=testing --database=testing -vvv
+    - php artisan migrate --seed --no-interaction --env=testing --database=test -vvv
 
 script:
     - vendor/bin/phpspec run
