@@ -5,7 +5,6 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
-
     /**
      * A list of the exception types that should not be reported.
      *
@@ -37,12 +36,8 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if (config('app.debug')) {
+        if (config('app.debug') && $this->isHttpException($e)) {
             return $this->renderExceptionWithWhoops($request, $e);
-        }
-
-        if ($this->isHttpException($e)) {
-            return $this->renderHttpException($e);
         }
 
         return parent::render($request, $e);
@@ -51,13 +46,19 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception using Whoops.
      *
+     * @param  $request
      * @param  \Exception $e
      * @return \Illuminate\Http\Response
      */
     protected function renderExceptionWithWhoops($request, Exception $e)
     {
         $whoops = new \Whoops\Run;
-        $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
+
+        if ($request->ajax()) {
+            $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler());
+        } else {
+            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
+        }
 
         return new \Illuminate\Http\Response(
             $whoops->handleException($e),
