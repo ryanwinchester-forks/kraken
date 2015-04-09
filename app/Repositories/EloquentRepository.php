@@ -3,11 +3,16 @@
 abstract class EloquentRepository
 {
     /**
+     * @var string
+     */
+    protected $model;
+
+    /**
      * @return mixed
      */
     protected function make()
     {
-        return app()->make($this->model);
+        return app($this->model);
     }
 
     /**

@@ -28,7 +28,5 @@ class EloquentContactRepository extends EloquentRepository implements ContactRep
             ->where('id', '>', (int) $cursor)
             ->take($options['count'])
             ->get();
-
-        return $query->get();
     }
 }

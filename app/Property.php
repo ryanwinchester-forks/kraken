@@ -15,6 +15,7 @@ use SevenShores\Kraken\Core\Model;
  * @property \Illuminate\Database\Eloquent\Model $type
  * @property \Illuminate\Database\Eloquent\Collection $contacts
  * @property \Illuminate\Database\Eloquent\Collection $forms
+ * @property \Illuminate\Database\Eloquent\Relations\Pivot $pivot
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  */

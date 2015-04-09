@@ -36,8 +36,6 @@ class TestCommand extends Command
      */
     public function fire()
     {
-        $result = array();
-
         // DATABASE
         $this->info('Setting up database');
         system('touch storage/testing.sqlite');

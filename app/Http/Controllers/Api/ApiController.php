@@ -228,7 +228,6 @@ class ApiController extends Controller
         switch ($this->getContentType()) {
             case 'application/x-yaml':
                 return Yaml::dump($resource->toArray(), 2);
-                break;
             default:
                 return $resource->toJson();
         }
