@@ -205,7 +205,7 @@ class ApiController extends Controller
         $mimeTypeRaw = \Request::server('HTTP_ACCEPT', 'application/json');
 
         $mimeParts = (array) explode(';', $mimeTypeRaw);
-        $mimeType =  strtolower($mimeParts[0]);
+        $mimeType = strtolower($mimeParts[0]);
 
         if (in_array($mimeType, $this->supportedTypes)) {
             $this->contentType = $mimeType;
