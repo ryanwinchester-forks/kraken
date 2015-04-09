@@ -41,9 +41,9 @@ class FractalTransformerManager implements TransformerManager
 
     /**
      * @param $data
-     * @param \League\Fractal\TransformerAbstract $transformer
-     * @param string $resourceKey
-     * @return array
+     * @param null $transformer
+     * @param null $resourceKey
+     * @return \League\Fractal\Scope
      */
     public function item($data, $transformer = null, $resourceKey = null)
     {
@@ -54,9 +54,9 @@ class FractalTransformerManager implements TransformerManager
 
     /**
      * @param $data
-     * @param \League\Fractal\TransformerAbstract $transformer
-     * @param string $resourceKey
-     * @return array
+     * @param null $transformer
+     * @param null $resourceKey
+     * @return \League\Fractal\Scope
      */
     public function collection($data, $transformer = null, $resourceKey = null)
     {
@@ -70,7 +70,7 @@ class FractalTransformerManager implements TransformerManager
      * @param \League\Fractal\TransformerAbstract $transformer
      * @param \League\Fractal\Pagination\Cursor|int $cursor
      * @param string $resourceKey
-     * @return array
+     * @return \League\Fractal\Scope
      */
     public function cursorCollection($data, $transformer = null, $cursor = null, $resourceKey = null)
     {

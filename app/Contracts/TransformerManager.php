@@ -1,7 +1,5 @@
 <?php namespace SevenShores\Kraken\Contracts;
 
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-
 interface TransformerManager
 {
     /**
@@ -13,7 +11,7 @@ interface TransformerManager
      * @param $data
      * @param \League\Fractal\TransformerAbstract $transformer
      * @param string $resourceKey
-     * @return array
+     * @return \League\Fractal\Scope
      */
     public function collection($data, $transformer = null, $resourceKey = null);
 
@@ -30,7 +28,7 @@ interface TransformerManager
      * @param \League\Fractal\TransformerAbstract $transformer
      * @param int $cursor
      * @param string $resourceKey
-     * @return array
+     * @return \League\Fractal\Scope
      */
     public function cursorCollection($data, $transformer = null, $cursor = null, $resourceKey = null);
 }
