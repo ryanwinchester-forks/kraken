@@ -1,6 +1,7 @@
 <?php namespace SevenShores\Kraken\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use SevenShores\Kraken\Commands\CreateContact;
 use SevenShores\Kraken\Contact;
 use SevenShores\Kraken\Contracts\Repositories\ContactRepository;
 use SevenShores\Kraken\Contracts\TransformerManager;
@@ -29,7 +30,7 @@ class ContactsController extends ApiController
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
@@ -48,13 +49,17 @@ class ContactsController extends ApiController
      * Store a newly created resource in storage.
      *
      * @param StoreContactRequest $request
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function store(StoreContactRequest $request)
     {
-        $contact = Contact::create([
-            'email' => $request->json('email'),
-        ]);
+        $commandResponse = $this->dispatchFrom('SevenShores\Kraken\Commands\CreateContact', $request);
+
+        if ($commandResponse->error()) {
+            return $this->respondWithError($commandResponse->getMessage(), 'SOME-ERROR-CODE');
+        }
+
+        $contact = $commandResponse->getModel();
 
         return $this->respondWithItem($contact, new ContactTransformer());
     }
@@ -63,7 +68,7 @@ class ContactsController extends ApiController
      * Display the specified resource.
      *
      * @param int $id
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -77,7 +82,7 @@ class ContactsController extends ApiController
      *
      * @param UpdateContactRequest $request
      * @param int $id
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function update(UpdateContactRequest $request, $id)
     {
@@ -94,7 +99,7 @@ class ContactsController extends ApiController
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
