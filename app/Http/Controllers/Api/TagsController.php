@@ -13,16 +13,16 @@ class TagsController extends ApiController
     /**
      * @var TagRepository
      */
-    private $properties;
+    private $tags;
 
     /**
      * @param TransformerManager $manager
-     * @param TagRepository $properties
+     * @param TagRepository $tags
      */
-    public function __construct(TransformerManager $manager, TagRepository $properties)
+    public function __construct(TransformerManager $manager, TagRepository $tags)
     {
         parent::__construct($manager);
-        $this->properties = $properties;
+        $this->tags = $tags;
     }
 
     /**
@@ -39,9 +39,9 @@ class TagsController extends ApiController
             'prev'    => $request->get('prev'),
         ];
 
-        $properties = $this->properties->cursor($request->get('cursor'), $options);
+        $tags = $this->tags->cursor($request->get('cursor'), $options);
 
-        return $this->respondWithCursor($properties, new TagTransformer(), $options);
+        return $this->respondWithCursor($tags, new TagTransformer(), $options);
     }
 
     /**
@@ -79,7 +79,7 @@ class TagsController extends ApiController
      */
     public function show($id)
     {
-        $tag = $this->properties->getById($id);
+        $tag = $this->tags->getById($id);
 
         return $this->respondWithItem($tag, new TagTransformer());
     }
@@ -120,7 +120,7 @@ class TagsController extends ApiController
      */
     public function destroy($id)
     {
-        $tag = $this->properties->getById($id);
+        $tag = $this->tags->getById($id);
         $tag->delete();
 
         return $this->respondWithItem($tag, new TagTransformer());

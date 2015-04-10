@@ -13,7 +13,7 @@ class PropertiesTest extends TestCase
     }
 
     /** @test */
-    public function it_can_limit_return_amount()
+    public function it_limits_return_amount()
     {
         $response = $this->call('GET', 'api/properties?count=5');
         $content = json_decode($response->getContent());
@@ -23,7 +23,7 @@ class PropertiesTest extends TestCase
     }
 
     /** @test */
-    public function it_can_include_forms()
+    public function it_includes_forms()
     {
         $response = $this->call('GET', 'api/properties?count=5&include=forms');
         $content = json_decode($response->getContent());
@@ -33,7 +33,7 @@ class PropertiesTest extends TestCase
     }
 
     /** @test */
-    public function it_can_include_forms_and_contacts()
+    public function it_includes_forms_and_contacts()
     {
         $response = $this->call('GET', 'api/properties?count=5&include=contacts,forms');
         $content = json_decode($response->getContent());
@@ -44,7 +44,7 @@ class PropertiesTest extends TestCase
     }
 
     /** @test */
-    public function it_can_show_a_property()
+    public function it_shows_a_property()
     {
         $response = $this->call('GET', 'api/properties/1');
         $content = json_decode($response->getContent());
@@ -55,7 +55,7 @@ class PropertiesTest extends TestCase
     }
 
     /** @test */
-    public function it_can_show_a_property_with_forms_and_contacts()
+    public function it_shows_a_property_with_forms_and_contacts()
     {
         $response = $this->call('GET', 'api/properties/1?include=forms,contacts');
         $content = json_decode($response->getContent());
@@ -68,7 +68,7 @@ class PropertiesTest extends TestCase
     }
 
     /** @test */
-    public function it_can_delete_a_property()
+    public function it_deletes_a_property()
     {
         $response = $this->call('DELETE', 'api/properties/1');
         $content = json_decode($response->getContent());
@@ -81,7 +81,7 @@ class PropertiesTest extends TestCase
     }
 
     /** @test */
-    public function it_can_add_a_property()
+    public function it_adds_a_property()
     {
         $data = [
             'name'     => 'Test property',
@@ -103,7 +103,7 @@ class PropertiesTest extends TestCase
     }
 
     /** @test */
-    public function it_can_update_a_property()
+    public function it_updates_a_property()
     {
         $data = [
             'key'      => 'test_property2',
