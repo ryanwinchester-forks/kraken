@@ -16,8 +16,8 @@ class ContactManager
         ]);
 
         if (! empty($relations)) {
-            foreach ($relations['attach'] as $relation => $ids) {
-                $contact->$relation()->sync($ids);
+            foreach ($relations as $relation => $ids) {
+                $contact->attach($relation, $ids);
             }
         }
 
@@ -74,19 +74,19 @@ class ContactManager
 
         if (isset($relations['attach'])) {
             foreach ($relations['attach'] as $relation => $ids) {
-                $contact->$relation()->sync($ids, false);
+                $contact->attach($relation, $ids);
             }
         }
 
         if (isset($relations['detach'])) {
             foreach ($relations['detach'] as $relation => $ids) {
-                $contact->$relation()->detach($ids);
+                $contact->detach($relation, $ids);
             }
         }
 
         if (isset($relations['sync'])) {
             foreach ($relations['sync'] as $relation => $ids) {
-                $contact->$relation()->sync($ids);
+                $contact->sync($relation, $ids);
             }
         }
 
