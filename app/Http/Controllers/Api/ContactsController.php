@@ -7,6 +7,7 @@ use SevenShores\Kraken\Contracts\Repositories\ContactRepository;
 use SevenShores\Kraken\Contracts\TransformerManager;
 use SevenShores\Kraken\Http\Requests\StoreContactRequest;
 use SevenShores\Kraken\Http\Requests\UpdateContactRequest;
+use SevenShores\Kraken\Services\ContactCreator;
 use SevenShores\Kraken\Transformers\ContactTransformer;
 
 class ContactsController extends ApiController
@@ -49,17 +50,19 @@ class ContactsController extends ApiController
      * Store a newly created resource in storage.
      *
      * @param StoreContactRequest $request
+     * @param ContactCreator $contactCreator
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreContactRequest $request)
+    public function store(StoreContactRequest $request, ContactCreator $contactCreator)
     {
-        $commandResponse = $this->dispatchFrom('SevenShores\Kraken\Commands\CreateContact', $request);
-
-        if ($commandResponse->error()) {
-            return $this->respondWithError($commandResponse->getMessage(), 'SOME-ERROR-CODE');
-        }
-
-        $contact = $commandResponse->getModel();
+        $contact = $contactCreator->create(
+            $request->json('email'),
+            [
+                'attach' => $request->json('attach'),
+                'detach' => $request->json('detach'),
+                'sync'   => $request->json('sync'),
+            ]
+        );
 
         return $this->respondWithItem($contact, new ContactTransformer());
     }
