@@ -25,19 +25,19 @@ class ContactCreator
             'email' => $this->email,
         ]);
 
-        if (isset($relation['attach'])) {
+        if (isset($relations['attach'])) {
             foreach ($relations['attach'] as $relation => $ids) {
                 $contact->$relation()->sync($ids, false);
             }
         }
 
-        if (isset($relation['detach'])) {
+        if (isset($relations['detach'])) {
             foreach ($relations['detach'] as $relation => $ids) {
                 $contact->$relation()->detach($ids);
             }
         }
 
-        if (isset($relation['sync'])) {
+        if (isset($relations['sync'])) {
             foreach ($relations['sync'] as $relation => $ids) {
                 $contact->$relation()->sync($ids);
             }
