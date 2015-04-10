@@ -58,20 +58,6 @@ class ContactManager
      */
     private function handleRelations(Contact $contact, array $relations)
     {
-        // // Example relations array
-        // $relations = [
-        //     'sync' => [
-        //         'tags' => [1, 4, 5],
-        //         'forms' => [3, 4],
-        //     ],
-        //     'detach' => [
-        //         'forms' => [2]
-        //     ],
-        //     'attach' => [
-        //         'properties' => [1,3,4,5,8]
-        //     ]
-        // ];
-
         if (isset($relations['attach'])) {
             foreach ($relations['attach'] as $relation => $ids) {
                 $contact->attach($relation, $ids);
