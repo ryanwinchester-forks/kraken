@@ -36,7 +36,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if (config('app.debug') && $this->isHttpException($e)) {
+        if (config('app.debug') && app()->environment() !== 'testing') {
             return $this->renderExceptionWithWhoops($request, $e);
         }
 

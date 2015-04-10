@@ -10,6 +10,12 @@ class TagsTableSeeder extends BaseSeeder
     {
         $this->truncateTable('tags');
 
+        Tag::create([
+            'name'        => 'Sports',
+            'slug'        => 'sports',
+            'description' => 'Related to sports or athletics.',
+        ]);
+
         Factory::times(20)->create(Tag::class);
     }
 }

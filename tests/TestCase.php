@@ -2,12 +2,28 @@
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
+    /**
+     * Headers used in api test requests.
+     *
+     * @var array
+     */
+    protected $headers = [
+        'CONTENT_TYPE' => 'application/json',
+        'HTTP_ACCEPT'  => 'application/json',
+    ];
+
+    /**
+     * Set up the tests.
+     */
     public function setUp()
     {
         parent::setUp();
         \DB::beginTransaction();
     }
 
+    /**
+     * Clean up afterwards.
+     */
     public function tearDown()
     {
         \DB::rollback();

@@ -20,7 +20,7 @@ class CreatePropertiesTable extends Migration
             $table->string('key');
             $table->string('label')->nullable();
             $table->string('default')->nullable();
-            $table->boolean('required')->nullable();
+            $table->boolean('required')->default(false);
             $table->integer('parent_property_id')->unsigned()->nullable();
             $table->timestamps();
         });

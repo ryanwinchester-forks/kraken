@@ -2,7 +2,7 @@
 
 use SevenShores\Kraken\Http\Requests\Request;
 
-class UpdateContactRequest extends Request
+class StoreTagRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,8 @@ class UpdateContactRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'email|unique:contacts'
+            'name' => 'required',
+            'slug' => 'required|alpha_dash',
         ];
     }
 }

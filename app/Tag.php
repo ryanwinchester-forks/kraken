@@ -9,6 +9,7 @@ use SevenShores\Kraken\Core\Model;
  * @property int $id
  * @property string $name
  * @property string $slug
+ * @property string $description
  * @property \Illuminate\Database\Eloquent\Collection $contacts
  * @property \Illuminate\Database\Eloquent\Collection $forms
  * @property \Carbon\Carbon $created_at

@@ -15,6 +15,16 @@ class PropertyTransformer extends Transformer
     ];
 
     /**
+     * List of optional resources to include.
+     *
+     * @var array
+     */
+    protected $availableIncludes = [
+        'contacts',
+        'forms',
+    ];
+
+    /**
      * Transform this item object into a generic array.
      *
      * @param Property $property
@@ -23,19 +33,13 @@ class PropertyTransformer extends Transformer
     public function transform(Property $property)
     {
         return [
-            'id'    => (int) $property->id,
-            'name'  => $property->name,
-            'key'   => $property->key,
-            'label' => $property->label,
+            'id'       => (int) $property->id,
+            'name'     => $property->name,
+            'key'      => $property->key,
+            'label'    => $property->label,
+            'default'  => $property->default,
+            'required' => (bool) $property->required,
         ];
-    }
-
-    /**
-     * @return string
-     */
-    public function getKey()
-    {
-        return $this->key;
     }
 
     /**
@@ -66,5 +70,20 @@ class PropertyTransformer extends Transformer
         $transformer = new FormTransformer();
 
         return $this->collection($forms, $transformer);
+    }
+
+    /**
+     * Include Contacts.
+     *
+     * @param Property $property
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeContacts(Property $property)
+    {
+        $contacts = $property->contacts;
+
+        $transformer = new ContactTransformer();
+
+        return $this->collection($contacts, $transformer);
     }
 }

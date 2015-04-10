@@ -108,6 +108,6 @@ class PropertiesTableSeeder extends BaseSeeder
             'property_type_id' => 6,
         ]);
         
-//        Factory::times(20)->create(Property::class);
+        Factory::times(10)->create(Property::class);
     }
 }
