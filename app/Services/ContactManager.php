@@ -1,0 +1,95 @@
+<?php namespace SevenShores\Kraken\Services;
+
+use SevenShores\Kraken\Contact;
+
+class ContactManager
+{
+    /**
+     * @param string $email
+     * @param array $relations
+     * @return mixed
+     */
+    public function create($email, array $relations = [])
+    {
+        $contact = Contact::create([
+            'email' => $email,
+        ]);
+
+        if (! empty($relations)) {
+            foreach ($relations['attach'] as $relation => $ids) {
+                $contact->$relation()->sync($ids);
+            }
+        }
+
+        $contact->save();
+
+        return $contact;
+    }
+
+    /**
+     * @param int $contact_id
+     * @param null $email
+     * @param array $relations
+     * @return mixed
+     */
+    public function update($contact_id, $email = null, array $relations = [])
+    {
+        $contact = Contact::findOrFail($contact_id);
+
+        if (! is_null($email)) {
+            $contact->update([
+                'email' => $email,
+            ]);
+        }
+
+        if (! empty($relations)) {
+            $contact = $this->handleRelations($contact, $relations);
+        }
+
+        $contact->save();
+
+        return $contact;
+    }
+
+    /**
+     * @param Contact $contact
+     * @param array $relations
+     * @return mixed
+     */
+    private function handleRelations(Contact $contact, array $relations)
+    {
+        // // Example relations array
+        // $relations = [
+        //     'sync' => [
+        //         'tags' => [1, 4, 5],
+        //         'forms' => [3, 4],
+        //     ],
+        //     'detach' => [
+        //         'forms' => [2]
+        //     ],
+        //     'attach' => [
+        //         'properties' => [1,3,4,5,8]
+        //     ]
+        // ];
+
+        if (isset($relations['attach'])) {
+            foreach ($relations['attach'] as $relation => $ids) {
+                $contact->$relation()->sync($ids, false);
+            }
+        }
+
+        if (isset($relations['detach'])) {
+            foreach ($relations['detach'] as $relation => $ids) {
+                $contact->$relation()->detach($ids);
+            }
+        }
+
+        if (isset($relations['sync'])) {
+            foreach ($relations['sync'] as $relation => $ids) {
+                $contact->$relation()->sync($ids);
+            }
+        }
+
+        return $contact;
+    }
+}
