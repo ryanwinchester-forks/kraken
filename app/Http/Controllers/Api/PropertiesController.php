@@ -29,7 +29,7 @@ class PropertiesController extends ApiController
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(Request $request)
     {
@@ -48,7 +48,7 @@ class PropertiesController extends ApiController
      * Store a newly created resource in storage.
      *
      * @param StorePropertyRequest $request
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function store(StorePropertyRequest $request)
     {
@@ -78,7 +78,7 @@ class PropertiesController extends ApiController
      * Display the specified resource.
      *
      * @param int $id
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function show($id)
     {
@@ -92,7 +92,7 @@ class PropertiesController extends ApiController
      *
      * @param UpdatePropertyRequest $request
      * @param int $id
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function update(UpdatePropertyRequest $request, $id)
     {
@@ -122,7 +122,7 @@ class PropertiesController extends ApiController
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function destroy($id)
     {

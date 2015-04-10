@@ -29,7 +29,7 @@ class TagsController extends ApiController
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(Request $request)
     {
@@ -48,7 +48,7 @@ class TagsController extends ApiController
      * Store a newly created resource in storage.
      *
      * @param StoreTagRequest $request
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function store(StoreTagRequest $request)
     {
@@ -75,7 +75,7 @@ class TagsController extends ApiController
      * Display the specified resource.
      *
      * @param int $id
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function show($id)
     {
@@ -89,7 +89,7 @@ class TagsController extends ApiController
      *
      * @param UpdateTagRequest $request
      * @param int $id
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function update(UpdateTagRequest $request, $id)
     {
@@ -116,7 +116,7 @@ class TagsController extends ApiController
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function destroy($id)
     {
