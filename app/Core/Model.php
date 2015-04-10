@@ -11,11 +11,9 @@ abstract class Model extends Eloquent
      */
     public function attach($relation, array $ids)
     {
-        if (method_exists($this, $relation)) {
-            return $this->$relation()->sync($ids, false);
-        }
+        $this->verifyRelationshipExists($relation);
 
-        throw new \InvalidArgumentException("There is no relationship for {$relation} defined.");
+        return $this->$relation()->sync($ids, false);
     }
 
     /**
@@ -25,11 +23,9 @@ abstract class Model extends Eloquent
      */
     public function detach($relation, array $ids)
     {
-        if (method_exists($this, $relation)) {
-            return $this->$relation()->detach($ids);
-        }
+        $this->verifyRelationshipExists($relation);
 
-        throw new \InvalidArgumentException("There is no relationship for {$relation} defined.");
+        return $this->$relation()->detach($ids);
     }
 
     /**
@@ -39,10 +35,19 @@ abstract class Model extends Eloquent
      */
     public function sync($relation, array $ids)
     {
-        if (method_exists($this, $relation)) {
-            return $this->$relation()->sync($ids);
-        }
+        $this->verifyRelationshipExists($relation);
 
-        throw new \InvalidArgumentException("There is no relationship for {$relation} defined.");
+        return $this->$relation()->sync($ids);
+    }
+
+    /**
+     * @param string $relation
+     */
+    protected function verifyRelationshipExists($relation)
+    {
+        if (! method_exists($this, $relation)) {
+            $className = get_class($this);
+            throw new \InvalidArgumentException("There is no relationship defined for {$className}::{$relation}()");
+        }
     }
 }
