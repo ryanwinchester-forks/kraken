@@ -1,7 +1,6 @@
 <?php namespace SevenShores\Kraken\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use SevenShores\Kraken\Contact;
 use SevenShores\Kraken\Contracts\Repositories\ContactRepository;
 use SevenShores\Kraken\Contracts\TransformerManager;
 use SevenShores\Kraken\Http\Requests\StoreContactRequest;

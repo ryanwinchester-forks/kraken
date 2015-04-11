@@ -83,24 +83,45 @@ class ContactsTest extends TestCase
     /** @test */
     public function it_adds_a_contact()
     {
-        $content = '{"email": "testmeister2@example.com"}';
-        $response = $this->call('POST', 'api/contacts', [], [], [], $this->headers, $content);
+        $data = [
+            'email'  => 'testmeister10@example.com',
+            'attach' => [
+                'tags'  => [1, 2, 3],
+                'forms' => [2],
+            ],
+        ];
+        $response = $this->call('POST', 'api/contacts', [], [], [], $this->headers, json_encode($data));
         $content = json_decode($response->getContent());
+        $addedContact = SevenShores\Kraken\Contact::where('email', $data['email'])->first();
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals('testmeister2@example.com', $content->email);
+        $this->assertEquals($data['email'], $content->email);
+        $this->assertEquals(3, $addedContact->tags->count());
+        $this->assertEquals(2, $addedContact->forms->first()->id);
     }
 
     /** @test */
     public function it_updates_a_contact()
     {
-        $content = '{"email": "testmeister2@example.com"}';
-        $response = $this->call('PUT', 'api/contacts/1', [], [], [], $this->headers, $content);
+        $data = [
+            'email'     => 'testmeister20@example.com',
+            'relations' => [
+                'sync' => [
+                    'tags' => [4, 5, 6]
+                ],
+                'attach' => [
+                    'forms' => [2],
+                ],
+            ]
+        ];
+        $response = $this->call('PUT', 'api/contacts/1', [], [], [], $this->headers, json_encode($data));
         $content = json_decode($response->getContent());
         $updatedContact = \SevenShores\Kraken\Contact::find(1);
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals('testmeister2@example.com', $content->email);
-        $this->assertEquals('testmeister2@example.com', $updatedContact->email);
+        $this->assertEquals($data['email'], $content->email);
+        $this->assertEquals($data['email'], $updatedContact->email);
+        $this->assertEquals(3, $updatedContact->tags->count());
+        $this->assertEquals(2, $updatedContact->forms->first()->id);
     }
 }

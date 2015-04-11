@@ -45,7 +45,7 @@ class Contact extends Model
      */
     public function forms()
     {
-        return $this->belongsToMany(Form::class);
+        return $this->belongsToMany(Form::class)->withTimestamps();
     }
 
     /**
