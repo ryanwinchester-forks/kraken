@@ -5,9 +5,15 @@ use SevenShores\Kraken\Form;
 class FormTransformer extends Transformer
 {
     /**
-     * @var string
+     * List of optional resources to include.
+     *
+     * @var array
      */
-    protected $key = 'form';
+    protected $availableIncludes = [
+        'properties',
+        'forms',
+        'tags',
+    ];
 
     /**
      * Transform this item object into a generic array.
@@ -35,5 +41,18 @@ class FormTransformer extends Transformer
         $properties = $form->properties;
 
         return $this->makeCollection($properties, new PropertyTransformer());
+    }
+
+    /**
+     * Include Tags.
+     *
+     * @param Form $form
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeTags(Form $form)
+    {
+        $tags = $form->tags;
+
+        return $this->makeCollection($tags, new TagTransformer());
     }
 }

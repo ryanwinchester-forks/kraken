@@ -114,6 +114,8 @@ class ContactsTest extends TestCase
                 ],
             ]
         ];
+        $contactToUpdate = \SevenShores\Kraken\Contact::find(1);
+        $contactToUpdate->detach('forms', [2]);
         $response = $this->call('PUT', 'api/contacts/1', [], [], [], $this->headers, json_encode($data));
         $content = json_decode($response->getContent());
         $updatedContact = \SevenShores\Kraken\Contact::find(1);
@@ -122,6 +124,6 @@ class ContactsTest extends TestCase
         $this->assertEquals($data['email'], $content->email);
         $this->assertEquals($data['email'], $updatedContact->email);
         $this->assertEquals(3, $updatedContact->tags->count());
-        $this->assertEquals(2, $updatedContact->forms->first()->id);
+        $this->assertEquals(2, $updatedContact->forms->where('id', 2)->first()->id);
     }
 }

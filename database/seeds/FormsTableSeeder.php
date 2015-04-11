@@ -8,7 +8,12 @@ class FormsTableSeeder extends BaseSeeder
     public function run()
     {
         $this->truncateTable('forms');
+
+        Form::create([
+            'name' => 'My test form',
+            'slug' => 'my-test-form',
+        ]);
         
-        Factory::times(5)->create(Form::class);
+        Factory::times(20)->create(Form::class);
     }
 }
