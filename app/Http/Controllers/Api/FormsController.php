@@ -5,7 +5,7 @@ use SevenShores\Kraken\Contracts\Repositories\FormRepository;
 use SevenShores\Kraken\Contracts\TransformerManager;
 use SevenShores\Kraken\Http\Requests\StoreFormRequest;
 use SevenShores\Kraken\Http\Requests\UpdateFormRequest;
-use SevenShores\Kraken\Services\FormManager;
+use SevenShores\Kraken\Services\EntityManagers\FormManager;
 use SevenShores\Kraken\Transformers\FormTransformer;
 
 class FormsController extends ApiController

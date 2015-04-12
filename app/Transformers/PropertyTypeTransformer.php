@@ -14,11 +14,11 @@ class PropertyTypeTransformer extends Transformer
     public function transform(PropertyType $type)
     {
         return [
-            'id'      => $type->id,
+            'id'      => (int) $type->id,
             'name'    => $type->name,
             'element' => $type->element,
             'type'    => $type->type,
-            'is_void' => $type->is_void,
+            'is_void' => (bool) $type->is_void,
         ];
     }
 }

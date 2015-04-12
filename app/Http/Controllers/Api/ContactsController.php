@@ -5,7 +5,7 @@ use SevenShores\Kraken\Contracts\Repositories\ContactRepository;
 use SevenShores\Kraken\Contracts\TransformerManager;
 use SevenShores\Kraken\Http\Requests\StoreContactRequest;
 use SevenShores\Kraken\Http\Requests\UpdateContactRequest;
-use SevenShores\Kraken\Services\ContactManager;
+use SevenShores\Kraken\Services\EntityManagers\ContactManager;
 use SevenShores\Kraken\Transformers\ContactTransformer;
 
 class ContactsController extends ApiController

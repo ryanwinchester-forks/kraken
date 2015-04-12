@@ -1,4 +1,4 @@
-<?php namespace SevenShores\Kraken\Services;
+<?php namespace SevenShores\Kraken\Services\EntityManagers;
 
 use SevenShores\Kraken\Form;
 

@@ -1,5 +1,6 @@
 <?php
 
+use Laracasts\TestDummy\Factory;
 use SevenShores\Kraken\PropertyType;
 
 class PropertyTypesTableSeeder extends BaseSeeder
@@ -18,5 +19,7 @@ class PropertyTypesTableSeeder extends BaseSeeder
                 'is_void' => $propertyType['is_void'],
             ]);
         }
+
+        Factory::times(10)->create(PropertyType::class);
     }
 }
