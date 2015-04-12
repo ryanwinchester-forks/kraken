@@ -40,7 +40,7 @@ class FormTransformer extends Transformer
     {
         $properties = $form->properties;
 
-        return $this->makeCollection($properties, new PropertyTransformer());
+        return $this->collection($properties, new PropertyTransformer());
     }
 
     /**
@@ -53,6 +53,6 @@ class FormTransformer extends Transformer
     {
         $tags = $form->tags;
 
-        return $this->makeCollection($tags, new TagTransformer());
+        return $this->collection($tags, new TagTransformer());
     }
 }
