@@ -1,9 +1,8 @@
 <?php namespace SevenShores\Kraken\Transformers;
 
-use League\Fractal\TransformerAbstract;
 use SevenShores\Kraken\Contact;
 
-class ContactTransformer extends TransformerAbstract
+class ContactTransformer extends Transformer
 {
     /**
      * List of optional resources to include.

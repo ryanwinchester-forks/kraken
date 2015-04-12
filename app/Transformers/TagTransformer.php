@@ -1,6 +1,5 @@
 <?php namespace SevenShores\Kraken\Transformers;
 
-use League\Fractal;
 use SevenShores\Kraken\Tag;
 
 class TagTransformer extends Transformer

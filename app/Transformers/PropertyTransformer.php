@@ -1,6 +1,5 @@
 <?php namespace SevenShores\Kraken\Transformers;
 
-use League\Fractal;
 use SevenShores\Kraken\Property;
 
 class PropertyTransformer extends Transformer
@@ -46,7 +45,7 @@ class PropertyTransformer extends Transformer
      * Include property type.
      *
      * @param Property $property
-     * @return Fractal\Resource\Item
+     * @return \League\Fractal\Resource\Item
      */
     public function includeType(Property $property)
     {
