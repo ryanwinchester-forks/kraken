@@ -2,7 +2,7 @@
 
 use SevenShores\Kraken\PropertyType;
 
-class PropertyTypeManager
+class PropertyTypeManager extends EntityManager
 {
     /**
      * @param string $name
@@ -77,34 +77,6 @@ class PropertyTypeManager
         }
 
         $propertyType->save();
-
-        return $propertyType;
-    }
-
-    /**
-     * @param PropertyType $propertyType
-     * @param array $relations
-     * @return mixed
-     */
-    private function handleRelations(PropertyType $propertyType, array $relations)
-    {
-        if (isset($relations['attach'])) {
-            foreach ($relations['attach'] as $relation => $ids) {
-                $propertyType->attach($relation, $ids);
-            }
-        }
-
-        if (isset($relations['detach'])) {
-            foreach ($relations['detach'] as $relation => $ids) {
-                $propertyType->detach($relation, $ids);
-            }
-        }
-
-        if (isset($relations['sync'])) {
-            foreach ($relations['sync'] as $relation => $ids) {
-                $propertyType->sync($relation, $ids);
-            }
-        }
 
         return $propertyType;
     }

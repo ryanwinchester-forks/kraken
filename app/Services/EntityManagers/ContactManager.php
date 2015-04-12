@@ -2,7 +2,7 @@
 
 use SevenShores\Kraken\Contact;
 
-class ContactManager
+class ContactManager extends EntityManager
 {
     /**
      * @param string $email
@@ -47,34 +47,6 @@ class ContactManager
         }
 
         $contact->save();
-
-        return $contact;
-    }
-
-    /**
-     * @param Contact $contact
-     * @param array $relations
-     * @return mixed
-     */
-    private function handleRelations(Contact $contact, array $relations)
-    {
-        if (isset($relations['attach'])) {
-            foreach ($relations['attach'] as $relation => $ids) {
-                $contact->attach($relation, $ids);
-            }
-        }
-
-        if (isset($relations['detach'])) {
-            foreach ($relations['detach'] as $relation => $ids) {
-                $contact->detach($relation, $ids);
-            }
-        }
-
-        if (isset($relations['sync'])) {
-            foreach ($relations['sync'] as $relation => $ids) {
-                $contact->sync($relation, $ids);
-            }
-        }
 
         return $contact;
     }

@@ -2,7 +2,7 @@
 
 use SevenShores\Kraken\Form;
 
-class FormManager
+class FormManager extends EntityManager
 {
     /**
      * @param string $name
@@ -56,34 +56,6 @@ class FormManager
         }
 
         $form->save();
-
-        return $form;
-    }
-
-    /**
-     * @param Form $form
-     * @param array $relations
-     * @return mixed
-     */
-    private function handleRelations(Form $form, array $relations)
-    {
-        if (isset($relations['attach'])) {
-            foreach ($relations['attach'] as $relation => $ids) {
-                $form->attach($relation, $ids);
-            }
-        }
-
-        if (isset($relations['detach'])) {
-            foreach ($relations['detach'] as $relation => $ids) {
-                $form->detach($relation, $ids);
-            }
-        }
-
-        if (isset($relations['sync'])) {
-            foreach ($relations['sync'] as $relation => $ids) {
-                $form->sync($relation, $ids);
-            }
-        }
 
         return $form;
     }
