@@ -2,6 +2,8 @@
 
 Route::get('/', 'HomeController@index');
 
+Route::resource('forms', 'FormsController', ['only' => ['index', 'show', 'create' , 'edit']]);
+
 Route::group(['prefix' => 'api'], function () {
     Route::resource('contacts', 'Api\ContactsController', ['except' => ['create', 'edit']]);
     Route::resource('properties', 'Api\PropertiesController', ['except' => ['create', 'edit']]);

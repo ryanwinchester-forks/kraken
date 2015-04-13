@@ -14,7 +14,9 @@ elixir(function(mix) {
 
     .scripts(['app.js'], 'public/js/app.js', 'resources/assets/js')
 
-    .jsx()
+    .browserify('FormEdit.js', 'public/js/components/Forms/', 'resources/assets/jsx')
+
+    //.jsx('resources/jsx/**/*.jsx')
 
     .version([
         'css/app.css',
