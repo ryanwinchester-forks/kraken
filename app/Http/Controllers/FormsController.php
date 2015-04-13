@@ -25,7 +25,9 @@ class FormsController extends Controller
      */
     public function index()
     {
-        return;
+        $forms = $this->forms->getAll();
+
+        return view('forms.list', compact('forms'));
     }
 
     /**

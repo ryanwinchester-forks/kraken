@@ -10,7 +10,7 @@ var Edit = React.createClass({
             id: null,
             name: null,
             slug: null,
-            properties: null
+            properties: []
         }
     },
 
@@ -31,6 +31,10 @@ var Edit = React.createClass({
         });
     },
 
+    getProperty: function(property) {
+        return <a className="list-group-item">{property.type.name}: {property.name}</a>;
+    },
+
     render: function() {
         return (
             <div>
@@ -44,7 +48,12 @@ var Edit = React.createClass({
                         <label>Slug:</label>
                         <input type="text" name="slug" valueLink={this.linkState('slug')} className="form-control" />
                     </div>
-                    <Properties source={this.props.source} />
+                    <div className="form-group">
+                        <label>Properties:</label>
+                        <div className="list-group properties-list">
+                            {this.state.properties.map(this.getProperty)}
+                        </div>
+                    </div>
                 </form>
             </div>
         );

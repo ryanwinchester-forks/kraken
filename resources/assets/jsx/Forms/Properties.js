@@ -5,7 +5,6 @@ var Properties = React.createClass({
     mixins: [ React.addons.LinkedStateMixin ],
 
     getInitialState: function() {
-        console.log(this.props);
         return {
             formId: this.props.formId,
             properties: this.props.properties
@@ -17,12 +16,11 @@ var Properties = React.createClass({
     },
 
     render: function() {
-        console.log(this.state);
         return (
             <div className="form-group">
                 <label>Properties:</label>
                 <ul>
-                    {this.state.properties.map(getProperty)}
+                    {this.state.properties.map(this.getProperty)}
                 </ul>
             </div>
         );
