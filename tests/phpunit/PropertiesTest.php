@@ -89,7 +89,7 @@ class PropertiesTest extends TestCase
             'label'    => 'Test property',
             'default'  => 'this is a test',
             'required' => true,
-            'property_type_id' => 1,
+            'type_id' => 1,
         ];
         $response = $this->call('POST', 'api/properties', [], [], [], $this->headers, json_encode($data));
         $content = json_decode($response->getContent());

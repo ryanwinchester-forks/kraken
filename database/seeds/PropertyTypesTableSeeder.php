@@ -11,8 +11,9 @@ class PropertyTypesTableSeeder extends BaseSeeder
 
         $propertyTypes = config('setup.properties.types');
 
-        foreach ($propertyTypes as $propertyType) {
+        foreach ($propertyTypes as $id => $propertyType) {
             PropertyType::create([
+                'id'      => $propertyType['id'],
                 'name'    => $propertyType['name'],
                 'element' => $propertyType['element'],
                 'type'    => $propertyType['type'],

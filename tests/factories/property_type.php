@@ -3,8 +3,8 @@
 use SevenShores\Kraken;
 
 $factory(Kraken\PropertyType::class, [
-    'name' => $faker->word,
+    'name'    => $faker->word,
     'element' => $faker->word,
-    'type' => $faker->word,
+    'type'    => $faker->word,
     'is_void' => $faker->boolean(),
 ]);
