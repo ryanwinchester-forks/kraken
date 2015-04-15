@@ -1,5 +1,4 @@
 import React from 'react/addons';
-import Properties from './Properties.js';
 
 var Edit = React.createClass({
 
