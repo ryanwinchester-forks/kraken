@@ -1,26 +1,21 @@
 <?php namespace SevenShores\Kraken\Transformers;
 
 use SevenShores\Kraken\Property;
+use SevenShores\Kraken\PropertyType;
 
 class PropertyTransformer extends Transformer
 {
-    /**
-     * List of resources to automatically include
-     *
-     * @var array
-     */
-    protected $defaultIncludes = [
-        'type',
-    ];
-
     /**
      * List of optional resources to include.
      *
      * @var array
      */
     protected $availableIncludes = [
+        'children',
         'contacts',
         'forms',
+        'parent',
+        'type',
     ];
 
     /**
@@ -49,11 +44,41 @@ class PropertyTransformer extends Transformer
      */
     public function includeType(Property $property)
     {
-        $type = $property->type;
+        $type = $property->type ?: new PropertyType();
 
         $transformer = new PropertyTypeTransformer();
 
         return $this->item($type, $transformer);
+    }
+
+    /**
+     * Include property parent.
+     *
+     * @param Property $property
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeParent(Property $property)
+    {
+        $parent = $property->parent ?: new Property();
+
+        $transformer = new PropertyTransformer();
+
+        return $this->item($parent, $transformer);
+    }
+
+    /**
+     * Include property children.
+     *
+     * @param Property $property
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeChildren(Property $property)
+    {
+        $children = $property->children;
+
+        $transformer = new PropertyTransformer();
+
+        return $this->collection($children, $transformer);
     }
 
     /**

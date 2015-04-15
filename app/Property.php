@@ -13,6 +13,8 @@ use SevenShores\Kraken\Core\Model;
  * @property string $default
  * @property boolean $required
  * @property \Illuminate\Database\Eloquent\Model $type
+ * @property \Illuminate\Database\Eloquent\Model $parent
+ * @property \Illuminate\Database\Eloquent\Collection $children
  * @property \Illuminate\Database\Eloquent\Collection $contacts
  * @property \Illuminate\Database\Eloquent\Collection $forms
  * @property \Illuminate\Database\Eloquent\Relations\Pivot $pivot
@@ -43,9 +45,25 @@ class Property extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+    public function parent()
+    {
+        return $this->belongsTo(Property::class, 'parent_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function children()
+    {
+        return $this->hasMany(Property::class, 'parent_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function type()
     {
-        return $this->belongsTo(PropertyType::class, 'property_type_id');
+        return $this->belongsTo(PropertyType::class, 'type_id');
     }
 
     /**

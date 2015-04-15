@@ -31,11 +31,15 @@ var Edit = React.createClass({
         });
     },
 
-    getProperty: function(property) {
-        return <a className="list-group-item">{property.type.name}: {property.name}</a>;
-    },
-
     render: function() {
+        var propertyListItems = this.state.properties.map((property, i) => {
+            return (
+                <a className="list-group-item">
+                    {property.type.name}: {property.name}
+                </a>
+            );
+        });
+
         return (
             <div>
                 <h1>Form</h1>
@@ -45,13 +49,9 @@ var Edit = React.createClass({
                         <input type="text" name="name" valueLink={this.linkState('name')} className="form-control" />
                     </div>
                     <div className="form-group">
-                        <label>Slug:</label>
-                        <input type="text" name="slug" valueLink={this.linkState('slug')} className="form-control" />
-                    </div>
-                    <div className="form-group">
                         <label>Properties:</label>
                         <div className="list-group properties-list">
-                            {this.state.properties.map(this.getProperty)}
+                            {propertyListItems}
                         </div>
                     </div>
                 </form>

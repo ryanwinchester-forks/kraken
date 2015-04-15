@@ -15,7 +15,7 @@ $factory(Kraken\Property::class, function ($faker) {
     while (! $done) {
         // Currently, property_type 10 is "option" and 9 is "select"
         if ($propertyTypeId === 10) {
-            $selectProperties = Kraken\Property::where('property_type_id', 9)->lists('id');
+            $selectProperties = Kraken\Property::where('type_id', 9)->lists('id');
             if (empty($selectProperties)) {
                 $propertyTypeId = $faker->randomElement($propertyTypeIds);
             } else {
@@ -28,11 +28,11 @@ $factory(Kraken\Property::class, function ($faker) {
     }
 
     return [
-        'name'     => $name,
-        'key'      => $key,
-        'label'    => $faker->sentence(2),
-        'required' => $faker->boolean(25),
-        'property_type_id'   => $propertyTypeId,
-        'parent_property_id' => $parentId,
+        'name'      => $name,
+        'key'       => $key,
+        'label'     => $faker->sentence(2),
+        'required'  => $faker->boolean(25),
+        'type_id'   => $propertyTypeId,
+        'parent_id' => $parentId,
     ];
 });

@@ -1,8 +1,7 @@
-import React from 'react/addons';
+import React from 'react';
+import Property from './Property.js';
 
 var Properties = React.createClass({
-
-    mixins: [ React.addons.LinkedStateMixin ],
 
     getInitialState: function() {
         return {
@@ -12,16 +11,16 @@ var Properties = React.createClass({
     },
 
     getProperty: function(property) {
-        return <li>{property.name}</li>;
+        return <Property id={property.id} name={property.name} />;
     },
 
     render: function() {
         return (
             <div className="form-group">
                 <label>Properties:</label>
-                <ul>
+                <div className="list-group">
                     {this.state.properties.map(this.getProperty)}
-                </ul>
+                </div>
             </div>
         );
     }
