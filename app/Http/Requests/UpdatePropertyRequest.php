@@ -23,10 +23,10 @@ class UpdatePropertyRequest extends Request
     public function rules()
     {
         return [
-            'key'      => 'alpha_dash',
-            'required' => 'boolean',
-            'property_type_id'  => 'integer',
-            'parent_property_id' => 'integer',
+            'key'       => 'alpha_dash',
+            'required'  => 'boolean',
+            'type_id'   => 'integer',
+            'parent_id' => 'integer',
         ];
     }
 }

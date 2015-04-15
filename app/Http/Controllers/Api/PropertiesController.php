@@ -60,7 +60,7 @@ class PropertiesController extends ApiController
             'label'    => $request->json('label'),
             'default'  => $request->json('default'),
             'required' => $request->json('required'),
-            'property_type_id' => $request->json('property_type_id'),
+            'type_id'  => $request->json('type_id'),
         ];
 
         foreach ($data as $name => $value) {
@@ -104,7 +104,7 @@ class PropertiesController extends ApiController
             'label'    => $request->json('label'),
             'default'  => $request->json('default'),
             'required' => $request->json('required'),
-            'property_type_id' => $request->json('property_type_id'),
+            'type_id'  => $request->json('type_id'),
         ];
 
         foreach ($data as $name => $value) {

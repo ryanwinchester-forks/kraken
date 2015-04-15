@@ -33,7 +33,7 @@ class PropertyTypeManager extends EntityManager
     }
 
     /**
-     * @param int $propertyType_id
+     * @param int $propertyTypeId
      * @param string $name
      * @param null $element
      * @param null $type
@@ -42,7 +42,7 @@ class PropertyTypeManager extends EntityManager
      * @return mixed
      */
     public function update(
-        $propertyType_id,
+        $propertyTypeId,
         $name = null,
         $element = null,
         $type = null,
@@ -50,7 +50,7 @@ class PropertyTypeManager extends EntityManager
         array $relations = []
     )
     {
-        $propertyType = PropertyType::findOrFail($propertyType_id);
+        $propertyType = PropertyType::findOrFail($propertyTypeId);
 
         $data = [];
 

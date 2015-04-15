@@ -23,11 +23,11 @@ class StorePropertyRequest extends Request
     public function rules()
     {
         return [
-            'name'     => 'required',
-            'key'      => 'required|alpha_dash',
-            'required' => 'boolean',
-            'property_type_id'   => 'required|integer',
-            'parent_property_id' => 'integer',
+            'name'      => 'required',
+            'key'       => 'required|alpha_dash',
+            'required'  => 'boolean',
+            'type_id'   => 'required|integer',
+            'parent_id' => 'integer',
         ];
     }
 }
