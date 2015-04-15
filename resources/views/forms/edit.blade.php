@@ -13,5 +13,5 @@
 @stop
 
 @section('scripts')
-    <script src="/js/components/Forms/bundle.js"></script>
+    <script src="/js/components/bundle.js"></script>
 @stop

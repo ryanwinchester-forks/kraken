@@ -154,7 +154,7 @@ return [
         /*
          * Vendor
          */
-        'McCool\LaravelAutoPresenter\LaravelAutoPresenterServiceProvider',
+
 
     ],
 

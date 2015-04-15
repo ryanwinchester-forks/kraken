@@ -1,8 +1,13 @@
 import React from 'react/addons';
 
-var Edit = React.createClass({
+var { DragDropMixin } = require('react-dnd');
+var ItemTypes = {
+    PROPERTY: 'property'
+};
 
-    mixins: [ React.addons.LinkedStateMixin ],
+var FormEdit = React.createClass({
+
+    mixins: [ React.addons.LinkedStateMixin, DragDropMixin ],
 
     getInitialState: function() {
         return {
@@ -33,7 +38,7 @@ var Edit = React.createClass({
     render: function() {
         var propertyListItems = this.state.properties.map((property, i) => {
             return (
-                <a className="list-group-item">
+                <a {...this.dragSourceFor(ItemTypes.PROPERTY)} className="list-group-item">
                     {property.type.name}: {property.name}
                 </a>
             );
@@ -49,14 +54,35 @@ var Edit = React.createClass({
                     </div>
                     <div className="form-group">
                         <label>Properties:</label>
-                        <div className="list-group properties-list">
+                        <div {...this.dropTargetFor(ItemTypes.IMAGE)} className="list-group properties-list">
                             {propertyListItems}
                         </div>
                     </div>
                 </form>
             </div>
         );
+    },
+
+    statics: {
+        configureDragDrop(register) {
+            register(ItemTypes.PROPERTY, {
+                dragSource: {
+                    beginDrag(component) {
+                        return {
+                            item: {
+                                property: component.props.property
+                            }
+                        };
+                    }
+                },
+                dropTarget: {
+                    acceptDrop(component, proeprty) {
+                        DocumentActionCreators.setImage(component.props.blockId, property);
+                    }
+                }
+            });
+        }
     }
 });
 
-export default Edit;
+export default FormEdit;
