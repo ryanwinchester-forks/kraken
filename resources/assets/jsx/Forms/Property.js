@@ -45,11 +45,11 @@ var Property = React.createClass({
         const opacity = isDragging ? 0 : 1;
 
         return (
-            <a  className="list-group-item"
+            <div  className="list-group-item"
                 {...this.dragSourceFor(ItemTypes.PROPERTY)}
                 {...this.dropTargetFor(ItemTypes.PROPERTY)}>
                 {type}: {name}
-            </a>
+            </div>
         );
     }
 });

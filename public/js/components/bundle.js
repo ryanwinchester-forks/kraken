@@ -25292,7 +25292,7 @@ var Property = _React$PropTypes2['default'].createClass({
         var opacity = isDragging ? 0 : 1;
 
         return _React$PropTypes2['default'].createElement(
-            'a',
+            'div',
             _extends({ className: 'list-group-item'
             }, this.dragSourceFor(_ItemTypes2['default'].PROPERTY), this.dropTargetFor(_ItemTypes2['default'].PROPERTY)),
             type,
