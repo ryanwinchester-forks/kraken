@@ -18,7 +18,7 @@ const dropTarget = {
     }
 };
 
-var FormProperty = React.createClass({
+var Property = React.createClass({
 
     mixins: [ React.addons.LinkedStateMixin, DragDropMixin ],
 
@@ -47,12 +47,11 @@ var FormProperty = React.createClass({
         return (
             <a  className="list-group-item"
                 {...this.dragSourceFor(ItemTypes.PROPERTY)}
-                {...this.dropTargetFor(ItemTypes.PROPERTY)}
-                style={{...opacity}}>
+                {...this.dropTargetFor(ItemTypes.PROPERTY)}>
                 {type}: {name}
             </a>
         );
     }
 });
 
-export default FormProperty;
+export default Property;

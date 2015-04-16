@@ -1,8 +1,8 @@
 import React from 'react/addons';
 import update from 'react/lib/update';
-import FormProperty from './FormProperty.js';
+import Property from './Property.js';
 
-var FormEdit = React.createClass({
+var EditForm = React.createClass({
 
     mixins: [ React.addons.LinkedStateMixin ],
 
@@ -55,7 +55,7 @@ var FormEdit = React.createClass({
 
         var propertiesList = properties.map((property, i) => {
             return (
-                <FormProperty
+                <Property
                     key={i}
                     id={property.id}
                     type={property.type.name}
@@ -85,4 +85,4 @@ var FormEdit = React.createClass({
 
 });
 
-export default FormEdit;
+export default EditForm;
