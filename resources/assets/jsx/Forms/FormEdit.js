@@ -1,13 +1,10 @@
 import React from 'react/addons';
-
-var { DragDropMixin } = require('react-dnd');
-var ItemTypes = {
-    PROPERTY: 'property'
-};
+import update from 'react/lib/update';
+import FormProperty from './FormProperty.js';
 
 var FormEdit = React.createClass({
 
-    mixins: [ React.addons.LinkedStateMixin, DragDropMixin ],
+    mixins: [ React.addons.LinkedStateMixin ],
 
     getInitialState: function() {
         return {
@@ -35,12 +32,35 @@ var FormEdit = React.createClass({
         });
     },
 
+    moveProperty: function(id, afterId) {
+        const { properties } = this.state;
+
+        const property = properties.filter(p => p.id === id)[0];
+        const afterProperty = properties.filter(p => p.id === afterId)[0];
+        const propertyIndex = properties.indexOf(property);
+        const afterIndex = properties.indexOf(afterProperty);
+
+        this.setState(update(this.state, {
+            properties: {
+                $splice: [
+                    [propertyIndex, 1],
+                    [afterIndex, 0, property]
+                ]
+            }
+        }));
+    },
+
     render: function() {
-        var propertyListItems = this.state.properties.map((property, i) => {
+        const { properties } = this.state;
+
+        var propertiesList = properties.map((property, i) => {
             return (
-                <a {...this.dragSourceFor(ItemTypes.PROPERTY)} className="list-group-item">
-                    {property.type.name}: {property.name}
-                </a>
+                <FormProperty
+                    key={i}
+                    id={property.id}
+                    type={property.type.name}
+                    name={property.name}
+                    moveProperty={this.moveProperty} />
             );
         });
 
@@ -54,35 +74,15 @@ var FormEdit = React.createClass({
                     </div>
                     <div className="form-group">
                         <label>Properties:</label>
-                        <div {...this.dropTargetFor(ItemTypes.IMAGE)} className="list-group properties-list">
-                            {propertyListItems}
+                        <div className="list-group properties-list">
+                            {propertiesList}
                         </div>
                     </div>
                 </form>
             </div>
         );
-    },
-
-    statics: {
-        configureDragDrop(register) {
-            register(ItemTypes.PROPERTY, {
-                dragSource: {
-                    beginDrag(component) {
-                        return {
-                            item: {
-                                property: component.props.property
-                            }
-                        };
-                    }
-                },
-                dropTarget: {
-                    acceptDrop(component, proeprty) {
-                        DocumentActionCreators.setImage(component.props.blockId, property);
-                    }
-                }
-            });
-        }
     }
+
 });
 
 export default FormEdit;
