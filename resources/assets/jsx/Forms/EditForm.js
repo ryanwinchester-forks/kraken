@@ -56,7 +56,7 @@ var EditForm = React.createClass({
         var propertiesList = properties.map((property, i) => {
             return (
                 <Property
-                    key={i}
+                    key={property.id}
                     id={property.id}
                     type={property.type.name}
                     name={property.name}
