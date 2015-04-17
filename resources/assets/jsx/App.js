@@ -1,3 +1,4 @@
+import React from 'react/addons';
 import EditForm from './Forms/EditForm.js';
 
 // ---------------------------------------------------------------------
