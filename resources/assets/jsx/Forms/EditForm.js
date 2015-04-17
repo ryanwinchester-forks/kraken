@@ -74,9 +74,13 @@ var EditForm = React.createClass({
                     </div>
                     <div className="form-group">
                         <label>Properties:</label>
-                        <div className="list-group properties-list">
+                        <div className="panel-groupproperties-list" id="accordian" role="tablist" aria-multiselectable="true">
                             {propertiesList}
                         </div>
+                    </div>
+                    <div className="form-group">
+                        <button type="submit" className="btn btn-primary">Save</button>&nbsp;
+                        <a href="/forms" className="btn btn-default">Cancel</a>
                     </div>
                 </form>
             </div>

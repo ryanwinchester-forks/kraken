@@ -42,13 +42,43 @@ var Property = React.createClass({
         const { type } = this.props;
         const { name } = this.props;
         const { isDragging } = this.getDragState(ItemTypes.PROPERTY);
-        const opacity = isDragging ? 0 : 1;
+        const className = isDragging ?
+            'panel panel-default is-dragging' :
+            'panel panel-default';
+        const panel = this.props.id;
+        const panelAnchor = '#' + panel;
+
+        const { label } = this.props;
+        const { required } = this.props;
+        const defaultValue = this.props.default;
 
         return (
-            <div  className="list-group-item"
+            <div className={className}
                 {...this.dragSourceFor(ItemTypes.PROPERTY)}
                 {...this.dropTargetFor(ItemTypes.PROPERTY)}>
-                {type}: {name}
+                <div className="panel-heading" role="tab">
+                    <h4 className="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href={panelAnchor} aria-expanded="true" aria-controls={panel}>
+                            <strong>{type}</strong>: {name}
+                        </a>
+                    </h4>
+                </div>
+                <div id={panel} className="panel-collapse collapse" role="tabpanel">
+                    <div className="panel-body">
+                        <div className="form-group">
+                            <label className="control-label">Label</label>
+                            <input className="form-control" value={label} />
+                        </div>
+                        <div className="form-group">
+                            <label className="control-label">Required</label>
+                            <input className="form-control" value={required} />
+                        </div>
+                        <div className="form-group">
+                            <label className="control-label">Default value</label>
+                            <input className="form-control" value={defaultValue} />
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
