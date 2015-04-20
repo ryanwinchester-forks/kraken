@@ -1,5 +1,6 @@
 import React from 'react/addons';
 import update from 'react/lib/update';
+import Select from 'react-select';
 import Property from './Property.js';
 
 var EditForm = React.createClass({
@@ -11,22 +12,34 @@ var EditForm = React.createClass({
             id: null,
             name: null,
             slug: null,
-            properties: []
+            properties: [],
+            allProperties: []
         }
     },
 
     componentDidMount: function() {
-        this.getFormFromServer();
+        if (this.isMounted()) {
+            this.getFormFromServer();
+            this.getAllProperties();
+        }
     },
 
     getFormFromServer: function () {
         $.get(this.props.source, (result) => {
-            if (this.isMounted()) {
+            this.setState({
+                id: result.id,
+                name: result.name,
+                slug: result.slug,
+                properties: result.properties.data
+            });
+        });
+    },
+
+    getAllProperties: function() {
+        $.get('/api/properties?count=100', (result) => {
+            if (result.data.length) {
                 this.setState({
-                    id: result.id,
-                    name: result.name,
-                    slug: result.slug,
-                    properties: result.properties.data
+                    allProperties: result.data
                 });
             }
         });
@@ -50,8 +63,26 @@ var EditForm = React.createClass({
         }));
     },
 
+    handleAddProperty: function(id) {
+        $.get(`/api/properties/${id}?include=type`, (result) => {
+            this.setState({
+                properties: this.state.properties.concat(result)
+            });
+        });
+    },
+
     render: function() {
-        const { properties } = this.state;
+        var { properties } = this.state;
+        var { allProperties } = this.state;
+
+        var propertyExists = function(property) {
+            if (properties.length) {
+                return properties.some(function(element) {
+                    return element.id === property.id;
+                });
+            }
+            return false;
+        };
 
         var propertiesList = properties.map((property, i) => {
             return (
@@ -60,8 +91,16 @@ var EditForm = React.createClass({
                     id={property.id}
                     type={property.type.name}
                     name={property.name}
-                    moveProperty={this.moveProperty} />
+                    moveProperty={this.moveProperty}
+                />
             );
+        });
+
+        var propertyOptions = allProperties.map((property, i) => {
+            return {
+                value: property.id,
+                label: property.name
+            }
         });
 
         return (
@@ -76,6 +115,10 @@ var EditForm = React.createClass({
                         <label>Properties:</label>
                         <div className="panel-groupproperties-list" id="accordian" role="tablist" aria-multiselectable="true">
                             {propertiesList}
+                        </div>
+                        <div>
+                            <label>Add property</label>
+                            <Select placeholder="Add a property" options={propertyOptions} onChange={this.handleAddProperty} />
                         </div>
                     </div>
                     <div className="form-group">
