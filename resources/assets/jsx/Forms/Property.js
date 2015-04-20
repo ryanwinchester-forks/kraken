@@ -2,6 +2,10 @@ import React, { PropTypes } from 'react/addons';
 import { DragDropMixin } from 'react-dnd';
 import ItemTypes from './ItemTypes';
 
+import TextForm from './Types/TextForm.js';
+import TextareaForm from './Types/TextareaForm.js';
+import HiddenForm from './Types/HiddenForm.js';
+
 const dragSource = {
     beginDrag(component) {
         return {
@@ -38,19 +42,36 @@ var Property = React.createClass({
         }
     },
 
+    getPropertyForm: function() {
+        var { type } = this.props;
+        var { label } = this.props;
+        var { required } = this.props;
+        var defaultValue = this.props.default;
+
+        if (type === 'Hidden') {
+            return <HiddenForm defaultValue={defaultValue} required={required} />;
+        } else if (type === 'Checkbox') {
+            return 'select form';
+        } else if (type === 'Checkbox') {
+            return 'checkbox form';
+        } else if (type === 'Radio') {
+            return 'radio form';
+        } else if (type === 'Textarea') {
+            return <TextareaForm label={label} defaultValue={defaultValue} required={required} />;
+        } else {
+            return <TextForm label={label} defaultValue={defaultValue} required={required} />;
+        }
+    },
+
     render: function () {
-        const { type } = this.props;
-        const { name } = this.props;
-        const { isDragging } = this.getDragState(ItemTypes.PROPERTY);
-        const className = isDragging ?
+        var { type } = this.props;
+        var { name } = this.props;
+        var { isDragging } = this.getDragState(ItemTypes.PROPERTY);
+        var className = isDragging ?
             'panel panel-default is-dragging' :
             'panel panel-default';
-        const panel = this.props.id;
-        const panelAnchor = '#' + panel;
-
-        const { label } = this.props;
-        const { required } = this.props;
-        const defaultValue = this.props.default;
+        var panel = this.props.id;
+        var panelAnchor = '#' + panel;
 
         return (
             <div className={className}
@@ -65,18 +86,7 @@ var Property = React.createClass({
                 </div>
                 <div id={panel} className="panel-collapse collapse" role="tabpanel">
                     <div className="panel-body">
-                        <div className="form-group">
-                            <label className="control-label">Label</label>
-                            <input className="form-control" value={label} />
-                        </div>
-                        <div className="form-group">
-                            <label className="control-label">Required</label>
-                            <input className="form-control" value={required} />
-                        </div>
-                        <div className="form-group">
-                            <label className="control-label">Default value</label>
-                            <input className="form-control" value={defaultValue} />
-                        </div>
+                        {this.getPropertyForm()}
                     </div>
                 </div>
             </div>

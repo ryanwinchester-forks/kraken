@@ -7,19 +7,41 @@ var _React = require('react/addons');
 
 var _React2 = _interopRequireWildcard(_React);
 
+// Page specific imports
+
 var _EditForm = require('./Forms/EditForm.js');
 
 var _EditForm2 = _interopRequireWildcard(_EditForm);
 
-// ---------------------------------------------------------------------
-// Form Edit
-// ---------------------------------------------------------------------
-var id = $('#form').data('id');
-var source = '/api/forms/' + id + '?include=type,properties.type';
+var _EditProperty = require('./Properties/EditProperty.js');
 
-_React2['default'].render(_React2['default'].createElement(_EditForm2['default'], { source: source }), document.getElementById('form'));
+var _EditProperty2 = _interopRequireWildcard(_EditProperty);
 
-},{"./Forms/EditForm.js":248,"react/addons":76}],2:[function(require,module,exports){
+// Pages
+var $editForm = $('#form');
+var $editProperty = $('#property');
+
+// ---------------------------------------------------------------------
+// Forms
+// ---------------------------------------------------------------------
+if ($editForm.length) {
+    var id = $editForm.data('id');
+    var source = '/api/forms/' + id + '?include=properties.type';
+
+    _React2['default'].render(_React2['default'].createElement(_EditForm2['default'], { source: source }), document.getElementById('form'));
+}
+
+// ---------------------------------------------------------------------
+// Properties
+// ---------------------------------------------------------------------
+if ($editProperty.length) {
+    var id = $editProperty.data('id');
+    var source = '/api/properties/' + id + '?include=type';
+
+    _React2['default'].render(_React2['default'].createElement(_EditProperty2['default'], { source: source }), document.getElementById('property'));
+}
+
+},{"./Forms/EditForm.js":248,"./Properties/EditProperty.js":254,"react/addons":76}],2:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -25263,6 +25285,18 @@ var _ItemTypes = require('./ItemTypes');
 
 var _ItemTypes2 = _interopRequireWildcard(_ItemTypes);
 
+var _TextForm = require('./Types/TextForm.js');
+
+var _TextForm2 = _interopRequireWildcard(_TextForm);
+
+var _TextareaForm = require('./Types/TextareaForm.js');
+
+var _TextareaForm2 = _interopRequireWildcard(_TextareaForm);
+
+var _HiddenForm = require('./Types/HiddenForm.js');
+
+var _HiddenForm2 = _interopRequireWildcard(_HiddenForm);
+
 var dragSource = {
     beginDrag: function beginDrag(component) {
         return {
@@ -25300,6 +25334,28 @@ var Property = _React$PropTypes2['default'].createClass({
         }
     },
 
+    getPropertyForm: function getPropertyForm() {
+        var type = this.props.type;
+        var label = this.props.label;
+        var required = this.props.required;
+
+        var defaultValue = this.props['default'];
+
+        if (type === 'Hidden') {
+            return _React$PropTypes2['default'].createElement(_HiddenForm2['default'], { defaultValue: defaultValue, required: required });
+        } else if (type === 'Checkbox') {
+            return 'select form';
+        } else if (type === 'Checkbox') {
+            return 'checkbox form';
+        } else if (type === 'Radio') {
+            return 'radio form';
+        } else if (type === 'Textarea') {
+            return _React$PropTypes2['default'].createElement(_TextareaForm2['default'], { label: label, defaultValue: defaultValue, required: required });
+        } else {
+            return _React$PropTypes2['default'].createElement(_TextForm2['default'], { label: label, defaultValue: defaultValue, required: required });
+        }
+    },
+
     render: function render() {
         var type = this.props.type;
         var name = this.props.name;
@@ -25311,11 +25367,6 @@ var Property = _React$PropTypes2['default'].createClass({
         var className = isDragging ? 'panel panel-default is-dragging' : 'panel panel-default';
         var panel = this.props.id;
         var panelAnchor = '#' + panel;
-
-        var label = this.props.label;
-        var required = this.props.required;
-
-        var defaultValue = this.props['default'];
 
         return _React$PropTypes2['default'].createElement(
             'div',
@@ -25346,36 +25397,7 @@ var Property = _React$PropTypes2['default'].createClass({
                 _React$PropTypes2['default'].createElement(
                     'div',
                     { className: 'panel-body' },
-                    _React$PropTypes2['default'].createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _React$PropTypes2['default'].createElement(
-                            'label',
-                            { className: 'control-label' },
-                            'Label'
-                        ),
-                        _React$PropTypes2['default'].createElement('input', { className: 'form-control', value: label })
-                    ),
-                    _React$PropTypes2['default'].createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _React$PropTypes2['default'].createElement(
-                            'label',
-                            { className: 'control-label' },
-                            'Required'
-                        ),
-                        _React$PropTypes2['default'].createElement('input', { className: 'form-control', value: required })
-                    ),
-                    _React$PropTypes2['default'].createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _React$PropTypes2['default'].createElement(
-                            'label',
-                            { className: 'control-label' },
-                            'Default value'
-                        ),
-                        _React$PropTypes2['default'].createElement('input', { className: 'form-control', value: defaultValue })
-                    )
+                    this.getPropertyForm()
                 )
             )
         );
@@ -25385,4 +25407,286 @@ var Property = _React$PropTypes2['default'].createClass({
 exports['default'] = Property;
 module.exports = exports['default'];
 
-},{"./ItemTypes":249,"react-dnd":13,"react/addons":76}]},{},[1]);
+},{"./ItemTypes":249,"./Types/HiddenForm.js":251,"./Types/TextForm.js":252,"./Types/TextareaForm.js":253,"react-dnd":13,"react/addons":76}],251:[function(require,module,exports){
+"use strict";
+
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _React = require("react/addons");
+
+var _React2 = _interopRequireWildcard(_React);
+
+var HiddenForm = _React2["default"].createClass({
+    displayName: "HiddenForm",
+
+    render: function render() {
+        var defaultValue = this.props.defaultValue;
+        var required = this.props.required;
+
+        return _React2["default"].createElement(
+            "div",
+            null,
+            _React2["default"].createElement(
+                "div",
+                { className: "form-group" },
+                _React2["default"].createElement(
+                    "label",
+                    { className: "control-label" },
+                    "Required"
+                ),
+                _React2["default"].createElement("input", { className: "form-control", value: required })
+            ),
+            _React2["default"].createElement(
+                "div",
+                { className: "form-group" },
+                _React2["default"].createElement(
+                    "label",
+                    { className: "control-label" },
+                    "Default value"
+                ),
+                _React2["default"].createElement("input", { className: "form-control", value: defaultValue })
+            )
+        );
+    }
+
+});
+
+exports["default"] = HiddenForm;
+module.exports = exports["default"];
+
+},{"react/addons":76}],252:[function(require,module,exports){
+"use strict";
+
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _React = require("react/addons");
+
+var _React2 = _interopRequireWildcard(_React);
+
+var TextForm = _React2["default"].createClass({
+    displayName: "TextForm",
+
+    render: function render() {
+        var label = this.props.label;
+        var defaultValue = this.props.defaultValue;
+        var required = this.props.required;
+
+        return _React2["default"].createElement(
+            "div",
+            null,
+            _React2["default"].createElement(
+                "div",
+                { className: "form-group" },
+                _React2["default"].createElement(
+                    "label",
+                    { className: "control-label" },
+                    "Label"
+                ),
+                _React2["default"].createElement("input", { className: "form-control", value: label })
+            ),
+            _React2["default"].createElement(
+                "div",
+                { className: "form-group" },
+                _React2["default"].createElement(
+                    "label",
+                    { className: "control-label" },
+                    "Required"
+                ),
+                _React2["default"].createElement("input", { className: "form-control", value: required })
+            ),
+            _React2["default"].createElement(
+                "div",
+                { className: "form-group" },
+                _React2["default"].createElement(
+                    "label",
+                    { className: "control-label" },
+                    "Default value"
+                ),
+                _React2["default"].createElement("input", { type: "text", className: "form-control", value: defaultValue })
+            )
+        );
+    }
+
+});
+
+exports["default"] = TextForm;
+module.exports = exports["default"];
+
+},{"react/addons":76}],253:[function(require,module,exports){
+"use strict";
+
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _React = require("react/addons");
+
+var _React2 = _interopRequireWildcard(_React);
+
+var TextareaForm = _React2["default"].createClass({
+    displayName: "TextareaForm",
+
+    render: function render() {
+        var label = this.props.label;
+        var defaultValue = this.props.defaultValue;
+        var required = this.props.required;
+
+        return _React2["default"].createElement(
+            "div",
+            null,
+            _React2["default"].createElement(
+                "div",
+                { className: "form-group" },
+                _React2["default"].createElement(
+                    "label",
+                    { className: "control-label" },
+                    "Label"
+                ),
+                _React2["default"].createElement("input", { className: "form-control", value: label })
+            ),
+            _React2["default"].createElement(
+                "div",
+                { className: "form-group" },
+                _React2["default"].createElement(
+                    "label",
+                    { className: "control-label" },
+                    "Required"
+                ),
+                _React2["default"].createElement("input", { className: "form-control", value: required })
+            ),
+            _React2["default"].createElement(
+                "div",
+                { className: "form-group" },
+                _React2["default"].createElement(
+                    "label",
+                    { className: "control-label" },
+                    "Default value"
+                ),
+                _React2["default"].createElement("input", { type: "textarea", className: "form-control", value: defaultValue })
+            )
+        );
+    }
+
+});
+
+exports["default"] = TextareaForm;
+module.exports = exports["default"];
+
+},{"react/addons":76}],254:[function(require,module,exports){
+'use strict';
+
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _React = require('react/addons');
+
+var _React2 = _interopRequireWildcard(_React);
+
+var _update = require('react/lib/update');
+
+var _update2 = _interopRequireWildcard(_update);
+
+var _Property = require('./Property.js');
+
+var _Property2 = _interopRequireWildcard(_Property);
+
+var EditForm = _React2['default'].createClass({
+    displayName: 'EditForm',
+
+    mixins: [_React2['default'].addons.LinkedStateMixin],
+
+    getInitialState: function getInitialState() {
+        return {
+            id: null,
+            name: null,
+            slug: null,
+            type: []
+        };
+    },
+
+    componentDidMount: function componentDidMount() {
+        this.getFormFromServer();
+    },
+
+    getFormFromServer: function getFormFromServer() {
+        var _this = this;
+
+        $.get(this.props.source, function (result) {
+            if (_this.isMounted()) {
+                _this.setState({
+                    id: result.id,
+                    name: result.name,
+                    slug: result.slug,
+                    type: result.type
+                });
+            }
+        });
+    },
+
+    render: function render() {
+        var name = this.state.name;
+        var slug = this.state.slug;
+        var type = this.state.type;
+
+        return _React2['default'].createElement(
+            'div',
+            null,
+            _React2['default'].createElement(
+                'h1',
+                null,
+                'Property'
+            ),
+            _React2['default'].createElement(
+                'form',
+                null,
+                _React2['default'].createElement(
+                    'div',
+                    { className: 'form-group' },
+                    _React2['default'].createElement(
+                        'label',
+                        null,
+                        'Name:'
+                    ),
+                    _React2['default'].createElement('input', { type: 'text', name: 'name', valueLink: this.linkState('name'), className: 'form-control' })
+                ),
+                _React2['default'].createElement(
+                    'div',
+                    { className: 'form-group' },
+                    _React2['default'].createElement(
+                        'button',
+                        { type: 'submit', className: 'btn btn-primary' },
+                        'Save'
+                    ),
+                    ' ',
+                    _React2['default'].createElement(
+                        'a',
+                        { href: '/forms', className: 'btn btn-default' },
+                        'Cancel'
+                    )
+                )
+            )
+        );
+    }
+
+});
+
+exports['default'] = EditForm;
+module.exports = exports['default'];
+
+},{"./Property.js":255,"react/addons":76,"react/lib/update":246}],255:[function(require,module,exports){
+"use strict";
+
+},{}]},{},[1]);
