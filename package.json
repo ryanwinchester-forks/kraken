@@ -5,6 +5,7 @@
     "gulp": "^3.8.8",
     "laravel-elixir": "^0.18.7",
     "react": "^0.13.1",
-    "react-dnd": "^0.9.8"
+    "react-dnd": "^0.9.8",
+    "react-select": "^0.4.6"
   }
 }

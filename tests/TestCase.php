@@ -1,6 +1,9 @@
 <?php
 
-class TestCase extends Illuminate\Foundation\Testing\TestCase
+use Illuminate\Foundation\Testing\TestCase as OriginalTestCase;
+use Laracasts\Integrated\Extensions\Laravel as LaravelTestCase;
+
+class TestCase extends LaravelTestCase
 {
     /**
      * Headers used in api test requests.
