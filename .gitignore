@@ -4,6 +4,7 @@
 /.idea
 /node_modules
 /resources/assets/bower
+/tests/logs
 /vendor
 
 # --------------------------
