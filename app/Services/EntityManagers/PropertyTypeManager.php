@@ -48,8 +48,7 @@ class PropertyTypeManager extends EntityManager
         $type = null,
         $is_void = null,
         array $relations = []
-    )
-    {
+    ) {
         $propertyType = PropertyType::findOrFail($propertyTypeId);
 
         $data = [];

@@ -7,7 +7,7 @@ use Prophecy\Argument;
 
 class UserSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('SevenShores\Kraken\User');
     }

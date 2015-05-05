@@ -37,13 +37,13 @@ class FormPropertyTableSeeder extends BaseSeeder
         $ids = [];
         $unique = false;
 
-        while(! $unique) {
+        while (! $unique) {
             $formId = $this->faker->randomElement($formIds);
             $propertyId = $this->faker->randomElement($propertyIds);
 
             $form = Form::find($formId);
 
-            $property = $form->properties->filter(function($property) use ($propertyId) {
+            $property = $form->properties->filter(function ($property) use ($propertyId) {
                 return $property->id === $propertyId;
             });
 

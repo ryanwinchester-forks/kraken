@@ -9,7 +9,7 @@ Route::resource('forms', 'FormsController', [
     'only' => ['index', 'show', 'create', 'edit']
 ]);
 Route::resource('properties', 'PropertiesController', [
-    'only' => ['index', 'show', 'create' , 'edit']
+    'only' => ['index', 'show', 'create', 'edit']
 ]);
 
 // ----------------------------------------------------------------------------

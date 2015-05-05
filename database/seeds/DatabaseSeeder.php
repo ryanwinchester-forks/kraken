@@ -11,7 +11,7 @@ class DatabaseSeeder extends BaseSeeder
      */
     public function run()
     {
-//        if (app()->environment() === 'production') {
+        //        if (app()->environment() === 'production') {
 //            exit(PHP_EOL . "I am saving your bacon!" . PHP_EOL);
 //        }
 
