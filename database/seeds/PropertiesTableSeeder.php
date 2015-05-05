@@ -3,6 +3,7 @@
 use Laracasts\TestDummy\Factory;
 use SevenShores\Kraken\Property;
 use SevenShores\Kraken\PropertyType;
+use SevenShores\Kraken\PropertyOption;
 
 class PropertiesTableSeeder extends BaseSeeder
 {
@@ -91,31 +92,15 @@ class PropertiesTableSeeder extends BaseSeeder
             'required' => false,
             'type_id'  => $typeIds['Select'],
         ]);
-
-        $male = Property::create([
-            'name'      => 'Male',
-            'key'       => 'gender',
-            'label'     => 'Male',
-            'required'  => false,
-            'type_id'   => $typeIds['Option'],
-            'parent_id' => $gender->id
+        $gender_male = PropertyOption::create([
+            'value'       => 'male',
+            'label'       => 'Male',
+            'property_id' => $gender->id,
         ]);
-
-        $female = Property::create([
-            'name'      => 'Female',
-            'key'       => 'gender',
-            'label'     => 'Female',
-            'required'  => false,
-            'type_id'   => $typeIds['Option'],
-            'parent_id' => $gender->id
-        ]);
-
-        $is_married = Property::create([
-            'name'     => 'Married',
-            'key'      => 'is_married',
-            'label'    => 'Married',
-            'required' => false,
-            'type_id'  => $typeIds['Checkbox'],
+        $gender_female = PropertyOption::create([
+            'value'       => 'female',
+            'label'       => 'Female',
+            'property_id' => $gender->id,
         ]);
         
         Factory::times(10)->create(Property::class);

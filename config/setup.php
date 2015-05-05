@@ -81,13 +81,6 @@ return [
                 'type'    => null,
                 'is_void' => false,
             ],
-            [
-                'id'      => 10,
-                'name'    => 'Option',
-                'element' => 'option',
-                'type'    => null,
-                'is_void' => false,
-            ],
         ],
 
 

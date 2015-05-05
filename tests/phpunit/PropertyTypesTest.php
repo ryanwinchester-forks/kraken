@@ -9,7 +9,6 @@ class PropertyTypesTest extends TestCase
         $content = json_decode($response->getContent());
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(20, count($content->data)); // Default count is 20
     }
 
     /** @test */

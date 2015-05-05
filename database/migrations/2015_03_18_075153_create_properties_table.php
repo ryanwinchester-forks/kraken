@@ -5,7 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreatePropertiesTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -21,7 +20,6 @@ class CreatePropertiesTable extends Migration
             $table->string('label')->nullable();
             $table->string('default')->nullable();
             $table->boolean('required')->default(false);
-            $table->integer('parent_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }
