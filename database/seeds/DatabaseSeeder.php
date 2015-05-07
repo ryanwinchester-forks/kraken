@@ -20,13 +20,13 @@ class DatabaseSeeder extends BaseSeeder
         // Models
         $this->call('TagsTableSeeder');
         $this->call('PropertyTypesTableSeeder');
-        $this->call('PropertiesTableSeeder');
         $this->call('FormsTableSeeder');
         $this->call('ContactsTableSeeder');
         $this->call('UsersTableSeeder');
+        $this->call('FormPropertiesTableSeeder');
         // Pivot tables
         $this->call('ContactPropertyTableSeeder');
-        $this->call('FormPropertyTableSeeder');
+        //$this->call('FormPropertyTableSeeder');
         $this->call('ContactFormTableSeeder');
         $this->call('TaggablesTableSeeder');
     }

@@ -63,4 +63,11 @@ class FormsController extends Controller
     {
         return;
     }
+
+    public function render($id)
+    {
+        $form = $this->forms->getById($id);
+
+        return view('forms.render', compact('form'));
+    }
 }

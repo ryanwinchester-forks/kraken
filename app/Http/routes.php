@@ -5,6 +5,11 @@
 // ----------------------------------------------------------------------------
 Route::get('/', 'HomeController@index');
 
+Route::get('forms/{id}/render', [
+    'uses' => 'FormsController@render',
+    'as'   => 'forms.render',
+]);
+
 Route::resource('forms', 'FormsController', [
     'only' => ['index', 'show', 'create', 'edit']
 ]);

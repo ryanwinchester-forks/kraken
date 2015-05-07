@@ -1,108 +1,130 @@
 <?php
 
 use Laracasts\TestDummy\Factory;
+use SevenShores\Kraken\Form;
 use SevenShores\Kraken\Property;
 use SevenShores\Kraken\PropertyType;
 use SevenShores\Kraken\PropertyOption;
 
-class PropertiesTableSeeder extends BaseSeeder
+class FormPropertiesTableSeeder extends BaseSeeder
 {
+    private $typeIds;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->typeIds = collect(config('setup.properties.types'))->lists('id', 'name');
+    }
+
     public function run()
+    {
+        $properties = $this->seedProperties();
+
+        $form = Form::create([
+            'name' => 'Perfect form',
+            'slug' => 'perfect-form',
+        ]);
+
+        $form->properties()->saveMany($properties);
+    }
+
+    private function seedProperties()
     {
         $this->truncateTable('properties');
 
-        $typeIds = collect(config('setup.properties.types'))->lists('id', 'name');
+        $properties = [];
 
-        $first_name = Property::create([
+        $properties['first_name']= Property::create([
             'name'     => 'First name',
             'key'      => 'first_name',
             'label'    => 'First name',
             'required' => true,
-            'type_id'  => $typeIds['Text'],
+            'type_id'  => $this->typeIds['Text'],
         ]);
 
-        $last_name = Property::create([
+        $properties['last_name'] = Property::create([
             'name'     => 'Last name',
             'key'      => 'last_name',
             'label'    => 'Last name',
             'required' => true,
-            'type_id'  => $typeIds['Text'],
+            'type_id'  => $this->typeIds['Text'],
         ]);
 
-        $street = Property::create([
+        $properties['street']= Property::create([
             'name'     => 'Street',
             'key'      => 'street',
             'label'    => 'Street address',
             'required' => false,
-            'type_id'  => $typeIds['Text'],
+            'type_id'  => $this->typeIds['Text'],
         ]);
 
-        $province = Property::create([
+        $properties['province'] = Property::create([
             'name'     => 'Province',
             'key'      => 'province',
             'label'    => 'Province',
             'required' => false,
-            'type_id'  => $typeIds['Text'],
+            'type_id'  => $this->typeIds['Text'],
         ]);
 
-        $country = Property::create([
+        $properties['country']= Property::create([
             'name'     => 'Country',
             'key'      => 'country',
             'label'    => 'Country',
             'required' => false,
-            'type_id'  => $typeIds['Text'],
+            'type_id'  => $this->typeIds['Text'],
         ]);
 
-        $postal_code = Property::create([
+        $properties['postal_code'] = Property::create([
             'name'     => 'Postal code',
             'key'      => 'postal_code',
             'label'    => 'Postal code',
             'required' => false,
-            'type_id'  => $typeIds['Text'],
+            'type_id'  => $this->typeIds['Text'],
         ]);
 
-        $phone_mobile = Property::create([
+        $properties['phone_mobile']= Property::create([
             'name'     => 'Mobile phone',
             'key'      => 'phone_mobile',
             'label'    => 'Mobile phone',
             'required' => false,
-            'type_id'  => $typeIds['Text'],
+            'type_id'  => $this->typeIds['Text'],
         ]);
 
-        $phone_home = Property::create([
+        $properties['phone_home'] = Property::create([
             'name'     => 'Home phone',
             'key'      => 'phone_home',
             'label'    => 'Home phone',
             'required' => false,
-            'type_id'  => $typeIds['Text'],
+            'type_id'  => $this->typeIds['Text'],
         ]);
 
-        $age = Property::create([
+        $properties['age']= Property::create([
             'name'     => 'Age',
             'key'      => 'age',
             'label'    => 'Age',
             'required' => false,
-            'type_id'  => $typeIds['Text'],
+            'type_id'  => $this->typeIds['Text'],
         ]);
 
-        $gender = Property::create([
+        $properties['gender'] = Property::create([
             'name'     => 'Gender',
             'key'      => 'gender',
             'label'    => 'Gender',
             'required' => false,
-            'type_id'  => $typeIds['Select'],
+            'type_id'  => $this->typeIds['Select'],
         ]);
         $gender_male = PropertyOption::create([
             'value'       => 'male',
             'label'       => 'Male',
-            'property_id' => $gender->id,
+            'property_id' => $properties['gender']->id,
         ]);
         $gender_female = PropertyOption::create([
             'value'       => 'female',
             'label'       => 'Female',
-            'property_id' => $gender->id,
+            'property_id' => $properties['gender']->id,
         ]);
-        
-        Factory::times(10)->create(Property::class);
+
+        return $properties;
     }
 }
