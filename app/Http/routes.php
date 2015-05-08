@@ -31,6 +31,9 @@ Route::group(['prefix' => 'api'], function () {
     Route::resource('property-types', 'Api\PropertyTypesController', [
         'except' => ['create', 'edit']
     ]);
+    Route::resource('property-options', 'Api\PropertyOptionsController', [
+        'except' => ['create', 'edit']
+    ]);
     Route::resource('tags', 'Api\TagsController', [
         'except' => ['create', 'edit']
     ]);

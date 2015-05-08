@@ -11,11 +11,10 @@ class PropertyTransformer extends Transformer
      * @var array
      */
     protected $availableIncludes = [
-        'children',
         'contacts',
         'forms',
-        'parent',
         'type',
+        'options',
     ];
 
     /**
@@ -52,33 +51,18 @@ class PropertyTransformer extends Transformer
     }
 
     /**
-     * Include property parent.
-     *
-     * @param Property $property
-     * @return \League\Fractal\Resource\Item
-     */
-    public function includeParent(Property $property)
-    {
-        $parent = $property->parent ?: new Property();
-
-        $transformer = new PropertyTransformer();
-
-        return $this->item($parent, $transformer);
-    }
-
-    /**
      * Include property children.
      *
      * @param Property $property
      * @return \League\Fractal\Resource\Collection
      */
-    public function includeChildren(Property $property)
+    public function includeOptions(Property $property)
     {
-        $children = $property->children;
+        $options = $property->options;
 
-        $transformer = new PropertyTransformer();
+        $transformer = new PropertyOptionTransformer();
 
-        return $this->collection($children, $transformer);
+        return $this->collection($options, $transformer);
     }
 
     /**

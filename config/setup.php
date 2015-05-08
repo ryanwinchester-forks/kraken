@@ -12,12 +12,12 @@ return [
     ],
 
 
-    'properties' => [
+    'forms' => [
 
         /**
          * name, element, type, is_void
          */
-        'types' => [
+        'property-types' => [
             [
                 'id'      => 1,
                 'name'    => 'Text',
@@ -80,6 +80,19 @@ return [
                 'element' => 'select',
                 'type'    => null,
                 'is_void' => false,
+            ],
+        ],
+
+        'property-options' => [
+            [
+                'value' => 'male',
+                'label' => 'Male',
+                'property_id' => 22,
+            ],
+            [
+                'value' => 'female',
+                'label' => 'Female',
+                'property_id' => 22,
             ],
         ],
 

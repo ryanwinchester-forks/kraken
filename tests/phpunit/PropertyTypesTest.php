@@ -24,7 +24,7 @@ class PropertyTypesTest extends TestCase
     /** @test */
     public function it_shows_a_propertyType()
     {
-        $testType = config('setup.properties.types')[0];
+        $testType = config('setup.forms.property-types')[0];
         $response = $this->call('GET', 'api/property-types/1');
         $content = json_decode($response->getContent());
 
@@ -39,7 +39,7 @@ class PropertyTypesTest extends TestCase
     /** @test */
     public function it_deletes_a_propertyType()
     {
-        $testType = config('setup.properties.types')[0];
+        $testType = config('setup.forms.property-types')[0];
         $response = $this->call('DELETE', 'api/property-types/1');
         $content = json_decode($response->getContent());
         $removedPropertyType = \SevenShores\Kraken\PropertyType::find(1);
