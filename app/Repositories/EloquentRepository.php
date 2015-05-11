@@ -3,6 +3,16 @@
 abstract class EloquentRepository
 {
     /**
+     * The default count for paging.
+     */
+    const DEFAULT_COUNT = 20;
+
+    /**
+     * The maximum count for paging.
+     */
+    const MAX_COUNT = 100;
+
+    /**
      * @var string
      */
     protected $model;
@@ -30,15 +40,15 @@ abstract class EloquentRepository
      */
     public function cursor($cursor = 0, $options = [])
     {
-        $options['count'] = isset($options['count']) ? (int) $options['count'] : 20;
+        $count = isset($options['count']) ? (int) $options['count'] : static::DEFAULT_COUNT;
 
-        if ($options['count'] > 100) {
-            $options['count'] = 100;
+        if ($count > static::MAX_COUNT) {
+            $count = static::MAX_COUNT;
         }
 
         return $this->make()
             ->where('id', '>', (int) $cursor)
-            ->take($options['count'])
+            ->take($count)
             ->get();
     }
 

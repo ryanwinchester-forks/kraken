@@ -64,10 +64,10 @@ class FormsController extends Controller
         return;
     }
 
-    public function render($id)
+    public function preview($id)
     {
         $form = $this->forms->getById($id);
 
-        return view('forms.render', compact('form'));
+        return view('forms.bootstrap.preview', compact('form'));
     }
 }
