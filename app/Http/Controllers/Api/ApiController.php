@@ -1,6 +1,5 @@
 <?php namespace SevenShores\Kraken\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use SevenShores\Kraken\Contracts\TransformerManager;
 use SevenShores\Kraken\Http\Controllers\Controller;
 use Symfony\Component\Yaml\Yaml;

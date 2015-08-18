@@ -1,10 +1,11 @@
-<?php namespace SevenShores\Kraken\Providers;
+<?php
+
+namespace SevenShores\Kraken\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap any application services.
      *
@@ -18,19 +19,10 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      *
-     * This service provider is a great spot to register your various container
-     * bindings with the application. As you can see, we are registering our
-     * "Registrar" implementation here. You can add your own bindings too!
-     *
      * @return void
      */
     public function register()
     {
-        $this->app->bind(
-            'Illuminate\Contracts\Auth\Registrar',
-            'SevenShores\Kraken\Services\Registrar'
-        );
-
         if ($this->app->environment() == 'local') {
             $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
         }
