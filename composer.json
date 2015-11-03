@@ -2,7 +2,7 @@
     "name": "sevenshores/kraken",
     "description": "Kraken contact management",
     "keywords": [ "contact", "crm", "kraken" ],
-    "license": "Apache-2.0",
+    "license": "MIT",
     "type": "project",
     "require": {
         "laravel/framework": "5.1.*",
